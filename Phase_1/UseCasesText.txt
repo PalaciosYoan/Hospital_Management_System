@@ -1,0 +1,23 @@
+CSE 111
+10/17/2021
+
+Hospital Management System UML Use Cases
+
+Use Cases
+1.	Once login Super Admin can update the data of the following:
+a.	Nurse
+b.	Doctor
+c.	Hospital
+d.	Rooms
+e.	Workers (maintenance workers)
+f.	Patients
+g.	Medication
+
+2.	View reports on the following:
+
+a.	Number of patients per Hospital
+b.	Avg stay in Hospital
+i.	Can view per Hospital
+c.	Number of Nurses per Hospital
+d.	Number of Doctors per Hospital
+e.	Most used medication per Hospital
