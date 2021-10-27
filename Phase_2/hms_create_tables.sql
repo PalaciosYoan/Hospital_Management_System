@@ -17,7 +17,9 @@ CREATE TABLE Maintenance(
     maint_id CHAR(255) NOT NULL PRIMARY KEY,
     name CHAR(255) NOT NULL,
     started_working DATE NOT NULL,
-    duty CHAR(255) NOT NULL
+    duty CHAR(255) NOT NULL,
+    phone_number INT NULL
+
 );
 
 CREATE TABLE `Hospital-Maintenance Junction Table`(
