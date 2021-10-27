@@ -20,7 +20,7 @@ CREATE TABLE Maintenance(
     duty CHAR(255) NOT NULL
 );
 
-CREATE TABLE Hospital-Maintenance Junction Table(
+CREATE TABLE `Hospital-Maintenance Junction Table`(
     h_id INT UNSIGNED NOT NULL,
     maint_id INT UNSIGNED NOT NULL,
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id),
@@ -36,7 +36,6 @@ CREATE TABLE Medication(
     h_id INT NOT NULL,
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id)
 );
-
 CREATE TABLE Nurse(
     n_id INT UNSIGNED NOT NULL PRIMARY KEY,
     started_working DATE NOT NULL,
@@ -55,13 +54,13 @@ CREATE TABLE room(
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id)
 );
 
-CREATE TABLE Nurse-Room Junction Table(
+CREATE TABLE `Nurse-Room Junction Table`(
     r_id INT UNSIGNED NOT NULL,
     n_id INT UNSIGNED NOT NULL,
     FOREIGN KEY(r_id) REFERENCES room(r_id),
     FOREIGN KEY(n_id) REFERENCES Nurse(n_id)
-);
 
+);
 CREATE TABLE Patient(
     p_id INT UNSIGNED NOT NULL PRIMARY KEY,
     dob DATE NOT NULL,
@@ -77,7 +76,7 @@ CREATE TABLE Patient(
     FOREIGN KEY(d_id) REFERENCES Doctor(d_id)
 );
 
-CREATE TABLE Prescribed Med(
+CREATE TABLE `Prescribed Med`(
     pmed_id INT UNSIGNED NOT NULL PRIMARY KEY,
     assigned_date DATE NOT NULL,
     p_id INT NOT NULL,
