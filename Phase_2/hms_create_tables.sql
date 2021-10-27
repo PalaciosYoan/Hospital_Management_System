@@ -9,7 +9,7 @@ CREATE TABLE Doctor(
     name CHAR(255) NOT NULL,
     started_working DATE NOT NULL,
     phone_number CHAR(255) NOT NULL,
-    h_id INT NOT NULL,
+    h_id CHAR(255) NOT NULL,
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id)
 );
 
@@ -33,24 +33,24 @@ CREATE TABLE Medication(
     name CHAR(255) NOT NULL,
     type CHAR(255) NOT NULL,
     side_effect CHAR(255) NOT NULL,
-    h_id INT NOT NULL,
+    h_id CHAR(255) NOT NULL,
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id)
 );
 CREATE TABLE Nurse(
     n_id CHAR(255) NOT NULL PRIMARY KEY,
     started_working DATE NOT NULL,
     name CHAR(255) NOT NULL,
-    h_id INT NOT NULL,
+    h_id CHAR(255) NOT NULL,
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id)
 );
 
-CREATE TABLE room(
+CREATE TABLE Room(
     r_id CHAR(255) NOT NULL PRIMARY KEY,
     room_number INT NOT NULL,
     person_allowed INT NOT NULL,
     cost DECIMAL(8, 2) NOT NULL,
     type CHAR(255) NOT NULL,
-    h_id INT NOT NULL,
+    h_id CHAR(255) NOT NULL,
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id)
 );
 
@@ -70,8 +70,8 @@ CREATE TABLE Patient(
     address CHAR(255) NOT NULL,
     name CHAR(255) NOT NULL,
     phone_number CHAR(255) NOT NULL,
-    h_id INT NOT NULL,
-    d_id INT NOT NULL,
+    h_id CHAR(255) NOT NULL,
+    d_id CHAR(255) NOT NULL,
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id),
     FOREIGN KEY(d_id) REFERENCES Doctor(d_id)
 );
@@ -79,8 +79,8 @@ CREATE TABLE Patient(
 CREATE TABLE `Prescribed Med`(
     pmed_id CHAR(255) NOT NULL PRIMARY KEY,
     assigned_date DATE NOT NULL,
-    p_id INT NOT NULL,
-    m_id INT NOT NULL,
+    p_id CHAR(255) NOT NULL,
+    m_id CHAR(255) NOT NULL,
     FOREIGN KEY(p_id) REFERENCES Patient(p_id),
     FOREIGN KEY(m_id) REFERENCES Medication(m_id)
 );
