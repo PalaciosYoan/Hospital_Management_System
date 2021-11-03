@@ -1,10 +1,10 @@
-CREATE TABLE Hospital(
+CREATE TABLE IF NOT EXISTS Hospital(
     h_id CHAR(255) NOT NULL PRIMARY KEY,
     address CHAR(255) NOT NULL,
     name CHAR(255) NOT NULL
 );
 
-CREATE TABLE Doctor(
+CREATE TABLE IF NOT EXISTS Doctor(
     d_id CHAR(255) NOT NULL PRIMARY KEY,
     name CHAR(255) NOT NULL,
     started_working DATE NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE Doctor(
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id)
 );
 
-CREATE TABLE Maintenance(
+CREATE TABLE IF NOT EXISTS Maintenance(
     maint_id CHAR(255) NOT NULL PRIMARY KEY,
     name CHAR(255) NOT NULL,
     started_working DATE NOT NULL,
@@ -22,14 +22,14 @@ CREATE TABLE Maintenance(
 
 );
 
-CREATE TABLE `Hospital-Maintenance Junction Table`(
+CREATE TABLE IF NOT EXISTS `Hospital-Maintenance Junction Table`(
     h_id CHAR(255) NOT NULL,
     maint_id CHAR(255) NOT NULL,
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id),
     FOREIGN KEY(maint_id) REFERENCES Maintenance(maint_id)
 );
 
-CREATE TABLE Medication(
+CREATE TABLE IF NOT EXISTS Medication(
     m_id CHAR(255) NOT NULL PRIMARY KEY,
     cost DECIMAL(8, 2) NOT NULL,
     name CHAR(255) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE Medication(
     h_id CHAR(255) NOT NULL,
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id)
 );
-CREATE TABLE Nurse(
+CREATE TABLE IF NOT EXISTS Nurse(
     n_id CHAR(255) NOT NULL PRIMARY KEY,
     started_working DATE NOT NULL,
     name CHAR(255) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE Nurse(
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id)
 );
 
-CREATE TABLE Room(
+CREATE TABLE IF NOT EXISTS Room(
     r_id CHAR(255) NOT NULL PRIMARY KEY,
     room_number INT NOT NULL,
     person_allowed INT NOT NULL,
@@ -56,14 +56,14 @@ CREATE TABLE Room(
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id)
 );
 
-CREATE TABLE `Nurse-Room Junction Table`(
+CREATE TABLE IF NOT EXISTS `Nurse-Room Junction Table`(
     r_id CHAR(255) NOT NULL,
     n_id CHAR(255) NOT NULL,
     FOREIGN KEY(r_id) REFERENCES room(r_id),
     FOREIGN KEY(n_id) REFERENCES Nurse(n_id)
 
 );
-CREATE TABLE Patient(
+CREATE TABLE IF NOT EXISTS Patient(
     p_id CHAR(255) NOT NULL PRIMARY KEY,
     dob DATE NOT NULL,
     admit_date DATE NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE Patient(
     FOREIGN KEY(d_id) REFERENCES Doctor(d_id)
 );
 
-CREATE TABLE `Prescribed Med`(
+CREATE TABLE IF NOT EXISTS `Prescribed Med`(
     pmed_id CHAR(255) NOT NULL PRIMARY KEY,
     assigned_date DATE NOT NULL,
     p_id CHAR(255) NOT NULL,
