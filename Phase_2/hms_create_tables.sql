@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Maintenance(
 
 );
 
-CREATE TABLE IF NOT EXISTS `Hospital-Maintenance Junction Table`(
+CREATE TABLE IF NOT EXISTS Hospital_Maintenance_Junction_Table(
     h_id CHAR(255) NOT NULL,
     maint_id CHAR(255) NOT NULL,
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id),
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS Room(
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id)
 );
 
-CREATE TABLE IF NOT EXISTS `Nurse-Room Junction Table`(
+CREATE TABLE IF NOT EXISTS Nurse_Room_Junction_Table(
     r_id CHAR(255) NOT NULL,
     n_id CHAR(255) NOT NULL,
     FOREIGN KEY(r_id) REFERENCES room(r_id),
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS Patient(
     FOREIGN KEY(d_id) REFERENCES Doctor(d_id)
 );
 
-CREATE TABLE IF NOT EXISTS `Prescribed Med`(
+CREATE TABLE IF NOT EXISTS Prescribed_Med(
     pmed_id CHAR(255) NOT NULL PRIMARY KEY,
     assigned_date DATE NOT NULL,
     p_id CHAR(255) NOT NULL,
