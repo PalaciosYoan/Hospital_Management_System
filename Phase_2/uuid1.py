@@ -9,9 +9,9 @@ from random import *
 # myuuid = uuid4()
 # df = pd.read_csv('./Hospital General Information.csv', delimiter=',', encoding='cp1252')
 # df_new = df[['Hospital Name','Address']][:10]
-# l = []
-# for i in range(185):
-#     l.append(str(uuid4()))
+l = []
+for i in range(6):
+    l.append(str(uuid4()))
     # l.append(i+1)
 # names = []
 # with open('./names.txt', 'r') as f:
@@ -20,16 +20,16 @@ from random import *
 #         line = line.replace('\n', '')
 #         names.append(line)
 
-junction_table = pd.read_excel('./data/nurse_room_junction_table.xlsx')
-nurse = pd.read_excel('./data/nurse.xlsx')
-rooms = pd.read_excel('./data/rooms.xlsx')
-l = []
-n = []
-for index, row in nurse.iterrows():
-    curr_hos_id = row['hospital_id']
-    n.append(row['id'])
-    curr_room = rooms[rooms['hospital_id'] == curr_hos_id]
-    l.append(curr_room['room_id'].iloc[randint(0, 19)])
+# junction_table = pd.read_excel('./data/nurse_room_junction_table.xlsx')
+# nurse = pd.read_excel('./data/nurse.xlsx')
+# rooms = pd.read_excel('./data/rooms.xlsx')
+# l = []
+# n = []
+# for index, row in nurse.iterrows():
+#     curr_hos_id = row['hospital_id']
+#     n.append(row['id'])
+#     curr_room = rooms[rooms['hospital_id'] == curr_hos_id]
+#     l.append(curr_room['room_id'].iloc[randint(0, 19)])
     
 df = pd.DataFrame()
 # t = []
@@ -43,12 +43,12 @@ df = pd.DataFrame()
 #     x = randint(0,3)
 #     type1.append(type[x])
 df['r_id'] = l
-df['n_id'] = n
+# df['n_id'] = n
 # df['cost'] = t
 # df['type'] = type1
 # start = []
-# for i in range(20):
-#     start_date = datetime.date(2001, 1, 1)
+# for i in range(10):
+#     start_date = datetime.date(2020, 1, 1)
 #     end_date = datetime.date(2021, 2, 1)
 
 #     time_between_dates = end_date - start_date
@@ -56,9 +56,28 @@ df['n_id'] = n
 #     random_number_of_days = randrange(days_between_dates)
 #     random_date = start_date + datetime.timedelta(days=random_number_of_days)
 #     start.append(random_date)
+# df['admit'] = start
+# issues = ['labor', 'wounded', 'covid', 'diabetes']
+#     #labor delivery, wounded icu, covid recovery, 
+# problem = []
+# for i in range(10):
+#     x = randint(0,3)
+#     problem.append(issues[x])
+# df['problem'] = problem
 
+# dob = []
+# for i in range(10):
+#     start_date = datetime.date(2000, 1, 1)
+#     end_date = datetime.date(2020, 2, 1)
+
+#     time_between_dates = end_date - start_date
+#     days_between_dates = time_between_dates.days
+#     random_number_of_days = randrange(days_between_dates)
+#     random_date = start_date + datetime.timedelta(days=random_number_of_days)
+#     dob.append(random_date)
+# df['dob'] = dob
 # phone_number = []
-# for i in range(20):
+# for i in range(10):
 #     ph_no = []
 #     # the first number should be in the range of 6 to 9
 #     ph_no.append(randint(6, 9))
