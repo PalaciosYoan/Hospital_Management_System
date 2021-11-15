@@ -3,8 +3,16 @@ import pandas as pd
 import sqlite3
 from sqlite3 import Error
 
-conn = sqlite3.connect("hsm.db")
-# conn = conn.cursor()
+def connect(path):
+    conn = None
+    try:
+        conn = sqlite3.connect(path)
+        # conn = conn.cursor()
+    except Error as e:
+        print(e)
+        exit()
+    return conn
+
 
 doctor = pd.read_csv('./data/doctor.csv')
 hospital =pd.read_csv('./data/hospital.csv')
@@ -18,7 +26,7 @@ nurse = pd.read_excel('./data/nurse.xlsx')
 rooms = pd.read_excel('./data/rooms.xlsx') 
 
 
-def doctor1():
+def doctor1(conn):
     doctor_columns = ['d_id','name','started_working','phone_number','h_id']
     for index, row in doctor.iterrows():
         name = row['name']
@@ -32,19 +40,18 @@ def doctor1():
             """.format(d_id, name, start_date, phone_num, h_id)
         conn.execute(query)#, (d_id, name, start_date, phone_num, h_id))
 
-def hospital1():
+def hospital1(conn):
     hospital_columns = ['h_id',	'address',	'name']
     for index, row in hospital.iterrows():
         name = row['name']
         address = row['address']
         h_id = row['h_id']
         query = """
-            INSERT INTO Hospital (h_id,address,name)
-            VALUES (?,?,?);
+            INSERT INTO Hospital VALUES (?,?,?);
             """#.format(h_id, address, name)
         conn.execute(query, (h_id, address, name))
         
-def hospitalandmaint():
+def hospitalandmaint(conn):
     hospital_maint_junction_columns = ['h_id',	'maint_id']
     for index, row in hospital_maint_junction.iterrows():
         maint_id = row['maint_id']
@@ -53,7 +60,7 @@ def hospitalandmaint():
             INSERT INTO Hospital_Maintenance_Junction_Table (h_id,maint_id) VALUES ('{}','{}');
             """.format(h_id, maint_id)
         conn.execute(query)#, (h_id, maint_id))
-def maint():
+def maint(conn):
     maintenance_columns = ['maint_id',	'name',	'started_working',	'duty',	'phone_number']
     for index, row in maintenance.iterrows():
         maint_id = str(row['maint_id'])
@@ -67,7 +74,7 @@ def maint():
             """.format(maint_id, name, start_date, duty, phone_number)
         conn.execute(query)#, (maint_id, name, start_date, duty, int(phone_number)))
 
-def medication1():
+def medication1(conn):
     medication_columns = ['m_id',	'cost',	'name',	'type',	'side_effect',	'h_id',	'treament_for']
     for index, row in medication.iterrows():
         m_id = row['m_id']
@@ -84,7 +91,7 @@ def medication1():
         print(query)
         conn.execute(query)#,(m_id, cost, name, type, side_effects, h_id, treament_for))
     
-def nurse1():
+def nurse1(conn):
     nurse_columns = ['n_id',	'started_working',	'name',	'h_id']
     for index, row in nurse.iterrows():
         name = row['name']
@@ -97,7 +104,7 @@ def nurse1():
             """.format(n_id, start_date, name, h_id)
         conn.execute(query)#, (n_id, start_date, name, h_id))
 
-def roomandnurseJunct():
+def roomandnurseJunct(conn):
     nurse_room_junction_table_columns = ['r_id',	'n_id']
     for index, row in nurse_room_junction_table.iterrows():
         r_id = row['r_id']
@@ -108,7 +115,7 @@ def roomandnurseJunct():
             """.format(r_id, n_id)
         conn.execute(query)#, (r_id, n_id))
 
-def patient1():
+def patient1(conn):
     patient_columns = ['p_id',	'dob',	'admit_date',	'released_date',	'problem',	'address',	'name'	'phone_number',	'h_id',	'd_id',	'r_id']
     for index, row in patient.iterrows():
         p_id = row['p_id']
@@ -129,7 +136,7 @@ def patient1():
             """.format(p_id,dob, admit_date, released_date, problem, address, name, phone_number,h_id, d_id, r_id)
         conn.execute(query)#, (p_id,dob, admit_date, released_date, problem, address, name, phone_number,h_id, d_id, r_id))
         
-def prescribeMed():
+def prescribeMed(conn):
     prescribed_med_columns = ['pmed_id'	'assigned_date'	'p_id'	'm_id']
     for index, row in prescribed_med.iterrows():
         assined_date = row['assined_date'].to_pydatetime()
@@ -142,7 +149,7 @@ def prescribeMed():
             """.format(pmed_id, assined_date, p_id, m_id)
         conn.execute(query)#, (pmed_id, assined_date, p_id, m_id))
 
-def room1():
+def room1(conn):
     rooms_columns = ['r_id',	'room_number',	'person_allowed',	'cost',	'type'	'h_id',	'p_id']
     for index, row in rooms.iterrows():
         room_number = row['room_number']
@@ -159,13 +166,17 @@ def room1():
         conn.execute(query)#, (r_id, room_number, person_allowed, cost, type, h_id, p_id))
         
 
-doctor1()
-hospital1()
-hospitalandmaint()
-maint()
-medication1()
-nurse1()
-roomandnurseJunct()
-patient1()
-prescribeMed()
-room1()
+def main():
+    conn = connect(r"hsm.db")
+    with conn:
+        doctor1(conn)
+        hospital1(conn)
+        hospitalandmaint(conn)
+        maint(conn)
+        medication1(conn)
+        nurse1(conn)
+        roomandnurseJunct(conn)
+        patient1(conn)
+        prescribeMed(conn)
+        room1(conn)
+main()
