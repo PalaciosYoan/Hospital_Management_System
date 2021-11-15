@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS Room(
     cost DECIMAL(8, 2) NOT NULL,
     type CHAR(255) NOT NULL,
     h_id CHAR(255) NOT NULL,
-    p_id CHAR(255) NOT NULL,
+    p_id CHAR(255) NULL,
     FOREIGN KEY(h_id) REFERENCES Hospital(h_id),
     FOREIGN KEY(p_id) REFERENCES Patient(p_id)
 );
