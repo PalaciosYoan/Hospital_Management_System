@@ -51,4 +51,31 @@ FROM
   Hospital 
 WHERE 
   started_working = '7/24/2017' 
-  and Hospital.h_id = Doctor.h_id
+  and Hospital.h_id = Doctor.h_id;
+
+--
+SELECT 
+  Patient.name, 
+  Medication.name, 
+  Medication.treament_for as Treatment_For 
+FROM 
+  Patient, 
+  Medication, 
+  Prescribed_Med 
+WHERE 
+  Patient.p_id = Prescribed_Med.p_id 
+  and Medication.m_id = Prescribed_Med.m_id;
+
+--
+SELECT 
+  DISTINCT Patient.name 
+FROM 
+  Patient, 
+  Prescribed_Med 
+WHERE 
+  Patient.p_id not in (
+    Select 
+      p_id 
+    from 
+      Prescribed_Med
+  );

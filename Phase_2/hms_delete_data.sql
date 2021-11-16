@@ -80,3 +80,14 @@ where
     where 
       p_id = 'nan'
   );
+
+--
+Delete FROM 
+  Patient 
+WHERE 
+  Patient.p_id not in (
+    Select 
+      p_id 
+    from 
+      Prescribed_Med
+  );

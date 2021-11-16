@@ -6,6 +6,7 @@ VALUES
     "7277 Market Ave. Soddy Daisy, TN 37379", 
     "BOLIVAR MEDICAL CENTER"
   );
+
 INSERT INTO Hospital(h_id, address, name) 
 VALUES 
   (
@@ -13,6 +14,7 @@ VALUES
     "499 Fairfield Lane Port Orange, FL 32127", 
     "MERIT HEALTH WESLEY"
   );
+
 INSERT INTO Hospital(h_id, address, name) 
 VALUES 
   (
@@ -20,6 +22,7 @@ VALUES
     "14 East Oxford Lane Beckley, WV 25801", 
     "BENEFIS TETON MEDICAL CENTER"
   );
+
 INSERT INTO Hospital(h_id, address, name) 
 VALUES 
   (
@@ -27,6 +30,7 @@ VALUES
     "911 Woodland Street Schererville, IN 46375", 
     "BAPTIST MEM HOSP/ GOLDEN TRIANGLE INC"
   );
+
 INSERT INTO Hospital(h_id, address, name) 
 VALUES 
   (
@@ -34,6 +38,7 @@ VALUES
     "8181 Iroquois Street Unit 78 Bonita Springs, FL 34135", 
     "METHODIST HEALTHCARE - OLIVE BRANCH HOSPITAL"
   );
+
 INSERT INTO Hospital(h_id, address, name) 
 VALUES 
   (
@@ -41,6 +46,7 @@ VALUES
     "7878 Ridgeview Ave. Massillon, OH 44646", 
     "QUITMAN COUNTY HOSPITAL CAH"
   );
+
 INSERT INTO Hospital(h_id, address, name) 
 VALUES 
   (
@@ -48,6 +54,7 @@ VALUES
     "73 Oak Ave. Eastlake, OH 44095", 
     "SHELBY BAPTIST MEDICAL CENTER"
   );
+
 INSERT INTO Hospital(h_id, address, name) 
 VALUES 
   (
@@ -55,6 +62,7 @@ VALUES
     "947 Primrose Road Hobart, IN 46342", 
     "GREENE COUNTY HOSPITAL CAH"
   );
+  
 INSERT INTO Hospital(h_id, address, name) 
 VALUES 
   (
@@ -74,6 +82,7 @@ VALUES
     "Joe Rib", "11/14/2020", "3263096506", 
     "18e0672b-e749-4965-b3f7-8bfda0aa23e5"
   );
+
 INSERT INTO Doctor(
   d_id, name, started_working, phone_number, 
   h_id
@@ -83,4 +92,16 @@ VALUES
     "d4a5749f-4521-49a1-91e1-4d57d37c1f6d", 
     "Roger Jae", "11/14/2021", "4324556631", 
     "08ff82be-3ec7-4df0-b1eb-6cd9debbb045"
+  );
+
+--
+INSERT INTO Prescribed_Med(
+  pmed_id, assigned_date, p_id, m_id
+) 
+VALUES 
+  (
+    "131115ee-2df9-4fa1-b339-3f253807d3bf", 
+    "2021-05-23 00:00:00", 
+    "19d08347-9993-4987-a1ff-5817a868ad0a",
+    "56c13807-de12-497a-935b-e4f9eb1d0c8e"
   );

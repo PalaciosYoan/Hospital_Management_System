@@ -12,7 +12,7 @@ UPDATE
 SET 
   cost = 300 
 WHERE 
-  Medication.m_id = (
+  Medication.m_id IN (
     SELECT 
       Medication.m_id 
     FROM 
@@ -30,7 +30,7 @@ UPDATE
 SET 
   dob = '2017-10-13 00:00:00' 
 WHERE 
-  Patient.h_id = (
+  Patient.h_id IN (
     SELECT 
       Hospital.h_id 
     FROM 
@@ -41,3 +41,35 @@ WHERE
       and Hospital.h_id = Patient.h_id 
       and Patient.name = 'Alejandro Hernandez'
   );
+
+--
+UPDATE 
+  Room 
+SET 
+  cost = Room.cost + (Room.cost * .10)
+WHERE 
+  Room.r_id IN (
+    SELECT 
+      Room.r_id
+    FROM 
+      Hospital, 
+      Room 
+    where 
+      Hospital.name like '%CENTER%' 
+      and Hospital.h_id = Room.h_id
+  );
+
+--
+UPDATE 
+  Medication 
+SET 
+  type = 'NOT-SELLING'
+WHERE 
+  Medication.m_id IN (
+    SELECT 
+     Medication.m_id
+    FROM 
+      Medication
+    where 
+     Medication.type = 'HORMONES'
+  ); 
