@@ -1,7 +1,4 @@
 import sqlite3
-
-
-
 class DataBaseManager:
     def __init__(self) -> None:
         self.set_connection()

@@ -1,13 +1,9 @@
---Begin:
-INSERT INTO Hospital(h_id, address, name) VALUES("b6d9b51f-7f1e-438c-b84c-fba8132e78bd", "SOUTHEAST ALABAMA MEDICAL CENTER", "1108 ROSS CLARK CIRCLE");
-INSERT INTO Hospital(h_id, address, name) VALUES("0bb2f9d2-ecd4-4ad7-98b6-d0571c728e3a", "MARSHALL MEDICAL CENTER SOUTH", "2505 U S HIGHWAY 431 NORTH");
-INSERT INTO Hospital(h_id, address, name) VALUES("3b5a7cde-7377-4590-a0d8-431ec91b1a00", "ELIZA COFFEE MEMORIAL HOSPITAL", "205 MARENGO STREET");
-INSERT INTO Hospital(h_id, address, name) VALUES("f336f51f-6216-4b08-a0f1-f23bd860dd39", "MIZELL MEMORIAL HOSPITAL", "702 N MAIN ST");
-INSERT INTO Hospital(h_id, address, name) VALUES("0cb321dd-472a-474e-84ab-44a8c8dada4c", "CRENSHAW COMMUNITY HOSPITAL", "101 HOSPITAL CIRCLE");
-INSERT INTO Hospital(h_id, address, name) VALUES("08ff82be-3ec7-4df0-b1eb-6cd9debbb045", "ST VINCENT'S EAST", "50 MEDICAL PARK EAST DRIVE");
-INSERT INTO Hospital(h_id, address, name) VALUES("8644e1e7-c1cd-4d06-a341-de7ff8d10d15", "DEKALB REGIONAL MEDICAL CENTER", "200 MED CENTER DRIVE");
-INSERT INTO Hospital(h_id, address, name) VALUES("5ea136bc-a263-44cf-83f7-8ce473526164", "SHELBY BAPTIST MEDICAL CENTER", "1000 FIRST STREET NORTH");
-INSERT INTO Hospital(h_id, address, name) VALUES("73b2e004-7096-4be4-81e5-e6c0c38e214f", "CALLAHAN EYE HOSPITAL", "1720 UNIVERSITY BLVD");
-INSERT INTO Hospital(h_id, address, name) VALUES("2a502f14-7102-4aa1-8544-75ce9120f319", "HELEN KELLER MEMORIAL HOSPITAL", "1300 SOUTH MONTGOMERY AVENUE");
-
-SELECT * FROM Hospital;
+INSERT INTO Hospital(h_id, address, name) VALUES("0bb2f9d2-ecd4-4ad7-98b6-d0571c728e3a", "7277 Market Ave. Soddy Daisy, TN 37379", "BOLIVAR MEDICAL CENTER");
+INSERT INTO Hospital(h_id, address, name) VALUES("3b5a7cde-7377-4590-a0d8-431ec91b1a00", "499 Fairfield Lane Port Orange, FL 32127", "MERIT HEALTH WESLEY");
+INSERT INTO Hospital(h_id, address, name) VALUES("f336f51f-6216-4b08-a0f1-f23bd860dd39", "14 East Oxford Lane Beckley, WV 25801", "BENEFIS TETON MEDICAL CENTER");
+INSERT INTO Hospital(h_id, address, name) VALUES("0cb321dd-472a-474e-84ab-44a8c8dada4c", "911 Woodland Street Schererville, IN 46375", "BAPTIST MEM HOSP/ GOLDEN TRIANGLE INC");
+INSERT INTO Hospital(h_id, address, name) VALUES("08ff82be-3ec7-4df0-b1eb-6cd9debbb045", "8181 Iroquois Street Unit 78 Bonita Springs, FL 34135", "METHODIST HEALTHCARE - OLIVE BRANCH HOSPITAL");
+INSERT INTO Hospital(h_id, address, name) VALUES("8644e1e7-c1cd-4d06-a341-de7ff8d10d15", "7878 Ridgeview Ave. Massillon, OH 44646", "QUITMAN COUNTY HOSPITAL CAH");
+INSERT INTO Hospital(h_id, address, name) VALUES("5ea136bc-a263-44cf-83f7-8ce473526164", "73 Oak Ave. Eastlake, OH 44095", "SHELBY BAPTIST MEDICAL CENTER");
+INSERT INTO Hospital(h_id, address, name) VALUES("73b2e004-7096-4be4-81e5-e6c0c38e214f", "947 Primrose Road Hobart, IN 46342", "GREENE COUNTY HOSPITAL CAH");
+INSERT INTO Hospital(h_id, address, name) VALUES("2a502f14-7102-4aa1-8544-75ce9120f319", "14 Harvard St. Griffin, GA 30223", "TWIN RIVERS REGIONAL MEDICAL CENTER");

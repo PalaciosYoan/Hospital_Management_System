@@ -1,4 +1,3 @@
---Drop tables
 DROP TABLE Hospital;
 DROP TABLE Doctor;
 DROP TABLE Maintenance;
