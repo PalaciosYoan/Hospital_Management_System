@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 import pandas as pd
 import sqlite3
 from sqlite3 import Error
@@ -32,12 +32,15 @@ def doctor1(conn):
         name = row['name']
         d_id = row['d_id']
         start_date = row['started_working']
+        
+        start_date = start_date.replace('/','-')
         phone_num = row['phone_number']
         h_id = row['h_id']
         query = """
             INSERT INTO Doctor (d_id,name,started_working,phone_number,h_id)
             VALUES ('{}','{}','{}',{},'{}');
             """.format(d_id, name, start_date, phone_num, h_id)
+        
         conn.execute(query)#, (d_id, name, start_date, phone_num, h_id))
 
 def hospital1(conn):
@@ -71,7 +74,7 @@ def maint(conn):
         query = """
             INSERT INTO Maintenance (maint_id,name,started_working,duty,phone_number)
             VALUES ('{}','{}','{}','{}',{});
-            """.format(maint_id, name, start_date, duty, phone_number)
+            """.format(maint_id, name, start_date.strftime(f"%d-%m-%Y"), duty, phone_number)
         conn.execute(query)#, (maint_id, name, start_date, duty, int(phone_number)))
 
 def medication1(conn):
@@ -88,7 +91,7 @@ def medication1(conn):
             INSERT INTO Medication (m_id,cost,name,type,side_effect,h_id,treament_for)
             VALUES ('{}',{},'{}','{}','{}','{}','{}');
             """.format(m_id, cost, name, type, side_effects, h_id, treament_for)
-        print(query)
+       
         conn.execute(query)#,(m_id, cost, name, type, side_effects, h_id, treament_for))
     
 def nurse1(conn):
@@ -101,7 +104,7 @@ def nurse1(conn):
         query = """
             INSERT INTO Nurse (n_id,started_working,name,h_id)
             VALUES ('{}','{}','{}','{}');
-            """.format(n_id, start_date, name, h_id)
+            """.format(n_id, start_date.strftime(f"%d-%m-%Y"), name, h_id)
         conn.execute(query)#, (n_id, start_date, name, h_id))
 
 def roomandnurseJunct(conn):
@@ -122,7 +125,11 @@ def patient1(conn):
         dob = row['dob'].to_pydatetime()
         admit_date = row['admit_date'].to_pydatetime()
         released_date = row['released_date'].to_pydatetime()
-        released_date = date.today()
+        try:
+            released_date1 = released_date.timetuple()
+            released_date = released_date.strftime(f"%d-%m-%Y")
+        except:
+            released_date = ""
         problem = row['problem']
         address = row['address']
         name = row['name']
@@ -133,7 +140,7 @@ def patient1(conn):
         query = """
             INSERT INTO Patient (p_id,dob,admit_date,released_date,problem,address,name,phone_number, h_id, d_id, r_id)
             VALUES ('{}','{}','{}','{}','{}','{}','{}',{},'{}','{}','{}');
-            """.format(p_id,dob, admit_date, released_date, problem, address, name, phone_number,h_id, d_id, r_id)
+            """.format(p_id,dob, admit_date.strftime(f"%d-%m-%Y"), released_date, problem, address, name, phone_number,h_id, d_id, r_id)
         conn.execute(query)#, (p_id,dob, admit_date, released_date, problem, address, name, phone_number,h_id, d_id, r_id))
         
 def prescribeMed(conn):
@@ -146,7 +153,7 @@ def prescribeMed(conn):
         query = """
             INSERT INTO Prescribed_Med (pmed_id,assigned_date,p_id,m_id)
             VALUES ('{}','{}','{}','{}');
-            """.format(pmed_id, assined_date, p_id, m_id)
+            """.format(pmed_id, assined_date.strftime(f"%d-%m-%Y"), p_id, m_id)
         conn.execute(query)#, (pmed_id, assined_date, p_id, m_id))
 
 def room1(conn):
