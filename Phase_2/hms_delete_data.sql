@@ -7,3 +7,18 @@ DELETE FROM Hospital WHERE h_id = '8644e1e7-c1cd-4d06-a341-de7ff8d10d15';
 DELETE FROM Hospital WHERE h_id = '5ea136bc-a263-44cf-83f7-8ce473526164';
 DELETE FROM Hospital WHERE h_id = '73b2e004-7096-4be4-81e5-e6c0c38e214f';
 DELETE FROM Hospital WHERE h_id = '2a502f14-7102-4aa1-8544-75ce9120f319';
+
+
+DELETE FROM Doctor
+WHERE 
+  Doctor.h_id = (
+    SELECT 
+      Doctor.h_id 
+    FROM 
+      Hospital, 
+      Doctor 
+    where 
+      Hospital.name = 'ELIZA COFFEE MEMORIAL HOSPITAL' 
+      and Hospital.h_id = Doctor.h_id 
+      and Doctor.name = 'Joe Rib'
+    )
