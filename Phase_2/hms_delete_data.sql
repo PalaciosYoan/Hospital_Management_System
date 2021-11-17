@@ -72,7 +72,7 @@ WHERE
 Delete FROM 
   Room 
 where 
-  r_id = (
+  r_id in (
     Select 
       r_id 
     from 
@@ -81,13 +81,15 @@ where
       p_id = 'nan'
   );
 
---
-Delete FROM 
+--'everyone who has been released
+DELETE FROM 
   Patient 
 WHERE 
-  Patient.p_id not in (
-    Select 
+  p_id NOT IN (
+    SELECT 
       p_id 
-    from 
-      Prescribed_Med
-  );
+    FROM 
+      Patient 
+    WHERE 
+      released_date = ''
+  )
