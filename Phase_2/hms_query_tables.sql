@@ -1,6 +1,6 @@
 --
 SELECT 
-  * 
+  name, address
 FROM 
   Hospital;
 
@@ -50,7 +50,7 @@ FROM
   Doctor, 
   Hospital 
 WHERE 
-  started_working = '7/24/2017' 
+  started_working > '2015-01-15' 
   and Hospital.h_id = Doctor.h_id;
 
 --
