@@ -10,7 +10,7 @@ SELECT
 FROM 
   Doctor 
 WHERE 
-  h_id = "18e0672b-e749-4965-b3f7-8bfda0aa23e5";
+  h_id = '18e0672b-e749-4965-b3f7-8bfda0aa23e5';
 
 --
 SELECT 
@@ -20,7 +20,7 @@ FROM
   Hospital 
 WHERE 
   Doctor.h_id = Hospital.h_id 
-  AND Hospital.name = "ELIZA COFFEE MEMORIAL HOSPITAL";
+  AND Hospital.name = 'ELIZA COFFEE MEMORIAL HOSPITAL';
 
 --
 SELECT 
@@ -30,7 +30,7 @@ FROM
   Hospital 
 WHERE 
   Room.h_id = Hospital.h_id 
-  AND Hospital.name = "SOUTHEAST ALABAMA MEDICAL CENTER" 
+  AND Hospital.name = 'SOUTHEAST ALABAMA MEDICAL CENTER' 
   and Room.cost > 4000;
 
 --
@@ -55,17 +55,20 @@ WHERE
 
 --
 SELECT 
-  Patient.name, 
-  Medication.name, 
-  Medication.treament_for as Treatment_For 
+  Patient.name as Patient_Name, 
+  Medication.name as Medication, 
+  Medication.treament_for as Treatment_For,
+  Hospital.name as Hospital
 FROM 
   Patient, 
   Medication, 
-  Prescribed_Med 
+  Prescribed_Med,
+  Hospital
 WHERE 
   Patient.p_id = Prescribed_Med.p_id 
-  and Medication.m_id = Prescribed_Med.m_id;
-
+  and Medication.m_id = Prescribed_Med.m_id
+  and Hospital.h_id = Patient.h_id;
+  
 --
 SELECT 
   DISTINCT Patient.name 
