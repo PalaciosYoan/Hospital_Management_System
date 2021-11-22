@@ -1,6 +1,7 @@
 import sqlite3
 from sqlite3 import Error
 
+
 class Data_Base_Manager:
     def __init__(self, db_path = r'hsm.db') -> None:
         self.conn = self.__set_connection(db_path)
@@ -186,4 +187,48 @@ class Data_Base_Manager:
             self.conn.rollback()
             print(e)
     
+    def delete_doctor_given_hospital_doc(self, h_name, d_name):
+        try:
+            query = """
+                DELETE FROM 
+                Doctor 
+                WHERE 
+                Doctor.h_id = (
+                    SELECT 
+                    Doctor.h_id 
+                    FROM 
+                    Hospital, 
+                    Doctor 
+                    where 
+                    Hospital.name = '?' 
+                    and Hospital.h_id = Doctor.h_id 
+                    and Doctor.name = '?'
+                );
+            """
+            self.conn.execute(query, (h_name, d_name))
+            self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def delete_realeased_patient(self):
+        try:
+            query = """
+                DELETE FROM 
+                Patient 
+                WHERE 
+                p_id NOT IN (
+                    SELECT 
+                    p_id 
+                    FROM 
+                    Patient 
+                    WHERE 
+                    released_date = ''
+                );
+            """
+            self.conn.execute(query)
+            self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)
 x = Data_Base_Manager()
