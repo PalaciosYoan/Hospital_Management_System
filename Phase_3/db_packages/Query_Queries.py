@@ -252,3 +252,30 @@ class Query_Queries(object):
         except Error as e:
             self.conn.rollback()
             print(e)
+    
+    
+    #patients
+    #complex 6
+    def get_prescribedMed_given_patient(self, patient_name):
+        try:
+            query = """
+                select *
+                from Medication
+                    (
+                        select m_id, assigned_date
+                        from Prescribed_Med pm,
+                            (
+                                select p_id as patient_id
+                                from Patient
+                                where name = '{}'
+                            ) p1
+                        where p_id = patient_id
+                    ) t1
+                where
+                    t1.m_id = Medication.m_id;
+            """.format(patient_name)
+            df = pd.read_sql_query(query, con=self.conn)
+            return df
+        except Error as e:
+            self.conn.rollback()
+            print(e)
