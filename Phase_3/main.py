@@ -9,13 +9,13 @@ app = Flask(__name__)
 api = Api(app)
 db_manager = Data_Base_Manager()
 
-class getData(Resource):
+class getHospitalData(Resource):
     def get(self):
         df = db_manager.get_hospitals()
         json_data = json.loads(df.to_json())
         return json_data
 
-api.add_resource(getData, '/gethospital')
+api.add_resource(getHospitalData, '/gethospital')
 
 @app.route('/')
 def home():
