@@ -13,7 +13,7 @@ class Set_Connection(object):
 
         conn = None
         try:
-            conn = sqlite3.connect(db_path)
+            conn = sqlite3.connect(db_path, check_same_thread=False)
             print("success")
         except Error as e:
             print(e)
