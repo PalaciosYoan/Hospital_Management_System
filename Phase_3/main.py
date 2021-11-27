@@ -12,8 +12,8 @@ db_manager = Data_Base_Manager()
 class getData(Resource):
     def get(self):
         df = db_manager.get_hospitals()
-        print(df)
-        return {'hi':'hello'}
+        json_data = json.loads(df.to_json())
+        return json_data
 
 api.add_resource(getData, '/gethospital')
 
