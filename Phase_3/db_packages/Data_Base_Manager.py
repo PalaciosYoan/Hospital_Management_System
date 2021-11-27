@@ -1,4 +1,9 @@
 from sqlite3 import Error
+# from Set_Connection import Set_Connection
+# from Deleting_Queries import Deleting_Queries
+# from Inserting_Queries import Inserting_Queries
+# from Query_Queries import Query_Queries
+# from Update_Queries import Update_Queries
 from db_packages.Set_Connection import Set_Connection
 from db_packages.Deleting_Queries import Deleting_Queries
 from db_packages.Inserting_Queries import Inserting_Queries
@@ -28,3 +33,4 @@ class Data_Base_Manager(Set_Connection, Deleting_Queries, Inserting_Queries, Que
         except Error as e:
             self.conn.rollback()
             print(e)
+

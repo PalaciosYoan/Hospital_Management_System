@@ -1,4 +1,30 @@
+# from db_packages.Data_Base_Manager import Data_Base_Manager
+# from flask import Flask, render_template, jsonify, request, redirect, session, g
+# from flask_restful import Api, Resource
+# from flask.helpers import url_for
+# from distutils.log import error
+# import json
+
+# app = Flask(__name__)
+# api = Api(app)
+# db_manager = Data_Base_Manager()
+
+# class getData(Resource):
+#     def get(self):
+#         df = db_manager.get_hospitals()
+#         print(df)
+#         return {'hi':'hello'}
+
+# api.add_resource(getData, '/gethospital')
+
+# @app.route('/')
+# def home():
+#     return 'hello'
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
 from db_packages.Data_Base_Manager import Data_Base_Manager
 
-
-db_manager = Data_Base_Manager()
+x = Data_Base_Manager()
+print(x.get_hospitals())
