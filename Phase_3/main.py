@@ -9,18 +9,18 @@ app = Flask(__name__)
 api = Api(app)
 db_manager = Data_Base_Manager()
 
-class getAllMaintence(Resource):
+class allMaintenceAPI(Resource):
     def get(self):
         df = db_manager.get_maintence()
         df = json.loads(df.to_json())
         return df
-class getHospitalData(Resource):
+class hospitalAPI(Resource):
     def get(self):
         df = db_manager.get_hospitals()
         json_data = json.loads(df.to_json())
         return json_data
 
-class getAvaliableMaintence(Resource):
+class avaliableMaintenceAPI(Resource):
     def get(self):
         #must send a json format {'hospital_name':hospital_name}
         hospital_name = json.loads(request.data)['hospital_name']
@@ -28,7 +28,7 @@ class getAvaliableMaintence(Resource):
         json_data = json.loads(df.to_json())
         return json_data
 
-class getDoctors(Resource):
+class doctorAPI(Resource):
     def get(self):
         action = json.loads(request.data)['queryType']
         if action == 'hospital':
@@ -38,7 +38,7 @@ class getDoctors(Resource):
             return json_data
         #elif action =='' # easily be able to add more queries to doctor
 
-class getNurse(Resource):
+class nurseAPI(Resource):
     def get(self):
         action = json.loads(request.data)['queryType']
         if action == 'hospital':
@@ -47,7 +47,7 @@ class getNurse(Resource):
             json_data = json.loads(df.to_json())
             return json_data
 
-class getPatients(Resource):
+class patientAPI(Resource):
     def get(self):
         action = json.loads(request.data)['queryType']
         if action == 'hospital':
@@ -65,7 +65,7 @@ class getPatients(Resource):
             df = db_manager.get_patients_given_nurse(nurse_name)
             json_data = json.loads(df.to_json())
 
-class getMedications(Resource):
+class medicationAPI(Resource):
     def get(self):
         hospital_name = json.loads(request.data)['hospital_name']
         df = db_manager.get_medication_given_hospital(hospital_name)
@@ -91,21 +91,21 @@ class getMaintenanceListForAHospital(Resource):
         json_data = json.loads(df.to_json())
         return json_data
 
-class getPrescribedMeds(Resource):
+class prescribedMedsAPI(Resource):
     def get(self):
         patient_name = json.loads(request.data)['patient_name']
         df = db_manager.get_maintenance_given_hospital(patient_name)
         json_data = json.loads(df.to_json())
         return json_data
-
-api.add_resource(getHospitalData, '/gethospital')
-api.add_resource(getAllMaintence, '/getAllMaintence')
-api.add_resource(getAvaliableMaintence, '/AvaliableMaintence')
-api.add_resource(getDoctors, '/getDoctors')
-api.add_resource(getNurse, '/getNurse')
-api.add_resource(getPatients, '/getPatients')
-api.add_resource(getMedications, '/getMedications')
-api.add_resource(getPrescribedMeds, '/getprescribedmeds')
+    
+api.add_resource(hospitalAPI, '/gethospital')
+api.add_resource(allMaintenceAPI, '/getallMaintence')
+api.add_resource(avaliableMaintenceAPI, '/getavaliableMaintence')
+api.add_resource(doctorAPI, '/getDoctors')
+api.add_resource(nurseAPI, '/getNurse')
+api.add_resource(patientAPI, '/getPatients')
+api.add_resource(medicationAPI, '/getMedications')
+api.add_resource(prescribedMedsAPI, '/getprescribedmeds')
 
 @app.route('/')
 def home():
