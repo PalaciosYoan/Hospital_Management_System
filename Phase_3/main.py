@@ -3,12 +3,13 @@ from flask import Flask, render_template, jsonify, request, redirect, session, g
 from flask_restful import Api, Resource
 from flask.helpers import url_for
 from distutils.log import error
+from flask_cors import CORS
 import json
 
 app = Flask(__name__)
 api = Api(app)
 db_manager = Data_Base_Manager()
-
+CORS(app)
 class allMaintenceAPI(Resource):
     def get(self):
         df = db_manager.get_maintence()

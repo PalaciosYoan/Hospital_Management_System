@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <p id="currentClasses"></p>
+    <button onclick="getGrades()">hi</button>
+</body>
+
+<script>
+    function getGrades() {
+        const xhttp = new XMLHttpRequest();
+        const method = "GET";
+        console.log("Done");
+        const url = "http://127.0.0.1:5000/gethospital";
+        const async = true;
+        xhttp.open(method, url, async);
+        xhttp.send();
+        xhttp.onload = function() {
+            console.log(this.responseText);
+        };
+    }
+</script>
+
+</html>
