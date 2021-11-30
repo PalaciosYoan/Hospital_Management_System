@@ -128,7 +128,7 @@ class Query_Queries(object):
         try:
             query = """
                 select * 
-                from Patient 
+                from Patient,
                         (
                             select h_id
                             from Hospital
@@ -285,7 +285,7 @@ class Query_Queries(object):
         try:
             query = """
                 select *
-                from Medication
+                from Medication,
                     (
                         select m_id, assigned_date
                         from Prescribed_Med pm,
