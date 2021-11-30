@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -25,19 +26,6 @@ const useStyles = makeStyles({
   },
 });
 
-const d = [
-  {
-    h_id: "ddbb14ca-d099-409a-a635-ed98491843ca",
-    address: "1108 ROSS CLARK CIRCLE DOTHAN AL 26301",
-    name: "SOUTHEAST ALABAMA MEDICAL CENTER",
-  },
-  {
-    h_id:"ddbb14ca-d099-409a-a635-ed98491843ca",
-    address: "702 N MAIN ST OPP AL 36467",
-    name: "DEKALB REGIONAL MEDICAL CENTER",
-  }
-];
-
 function OutlinedCard() {
   const [hospital, setHospital] = useState([]);
 
@@ -46,38 +34,46 @@ function OutlinedCard() {
     axios.get("http://127.0.0.1:5000/gethospital").then((response) => {
       //console.log(response);
       const h = response.data;
-      console.log(d);
-      setHospital(d);
+      //console.log(h);
+      setHospital(h);
     });
   };
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
 
   function mapCards(hospital, index) {
     return (
-      <Card className={classes.root} variant="outlined" key={index}>
-        <CardContent>
-          <Typography
-            className={classes.title}
-            color="textSecondary"
-            gutterBottom
-          ></Typography>
-          <Typography variant="h5" component="h2">
-            {hospital.name}
-          </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            adjective
-          </Typography>
-          <Typography variant="body2" component="p">
-            well meaning and kindly.
-            <br />
-            {'"a benevolent smile"'}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button size="small">Learn More</Button>
-        </CardActions>
-      </Card>
+      <Grid item xs={12} sm={6} md={4} key={index}>
+        <Card className={classes.root} variant="outlined">
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color="textSecondary"
+              gutterBottom
+            ></Typography>
+            <Typography variant="h5" component="h2">
+              {hospital.name}
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              adjective
+            </Typography>
+            <Typography variant="body2" component="p">
+              well meaning and kindly.
+              <br />
+              {'"a benevolent smile"'}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button
+              onClick={() => {
+                console.log(hospital.name);
+              }}
+              size="small"
+            >
+              Learn More
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
     );
   }
   return hospital.map(mapCards);
