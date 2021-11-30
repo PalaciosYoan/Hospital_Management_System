@@ -71,7 +71,7 @@ class nurseAPI(Resource):
             return df
 
 class patientAPI(Resource):
-    def get(self):
+    def post(self):
         action = json.loads(request.data)['queryType']
         if action == 'hospital':
             hospital_name = json.loads(request.data)['hospital_name']
