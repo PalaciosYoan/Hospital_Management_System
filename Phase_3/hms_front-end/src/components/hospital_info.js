@@ -5,9 +5,8 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { Grid } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -27,17 +26,7 @@ const useStyles = makeStyles({
 });
 
 function OutlinedCard() {
-  const [hospital, setHospital] = useState([]);
-
-  useEffect(() => getHospital(), []);
-  const getHospital = () => {
-    axios.get("http://127.0.0.1:5000/gethospital").then((response) => {
-      //console.log(response);
-      const h = response.data;
-      console.log(h);
-      setHospital(h);
-    });
-  };
+  const navigate = useNavigate();
   const classes = useStyles();
 
   return (
@@ -54,7 +43,7 @@ function OutlinedCard() {
               {localStorage.getItem("hospital_name")}
             </Typography>
             <Typography variant="body2" component="p">
-            {localStorage.getItem("hospital_address")}
+              {localStorage.getItem("hospital_address")}
             </Typography>
           </CardContent>
         </Card>
@@ -82,19 +71,12 @@ function OutlinedCard() {
             <CardActions style={{ justifyContent: "center" }}>
               <Button
                 onClick={() => {
-                  console.log(hospital.name);
+                  console.log(1);
+                  navigate("/doctor");
                 }}
                 size="small"
               >
                 Select Doctor
-              </Button>
-              <Button
-                onClick={() => {
-                  console.log(hospital.name);
-                }}
-                size="small"
-              >
-                Edit Doctor
               </Button>
             </CardActions>
           </Card>
@@ -115,19 +97,11 @@ function OutlinedCard() {
             <CardActions style={{ justifyContent: "center" }}>
               <Button
                 onClick={() => {
-                  console.log(hospital.name);
+                  console.log(1);
                 }}
                 size="small"
               >
                 Select Patient
-              </Button>
-              <Button
-                onClick={() => {
-                  console.log(hospital.name);
-                }}
-                size="small"
-              >
-                Edit Patient
               </Button>
             </CardActions>
           </Card>
@@ -148,19 +122,11 @@ function OutlinedCard() {
             <CardActions style={{ justifyContent: "center" }}>
               <Button
                 onClick={() => {
-                  console.log(hospital.name);
+                  console.log(1);
                 }}
                 size="small"
               >
                 Select Room
-              </Button>
-              <Button
-                onClick={() => {
-                  console.log(hospital.name);
-                }}
-                size="small"
-              >
-                Edit Room
               </Button>
             </CardActions>
           </Card>
@@ -181,19 +147,36 @@ function OutlinedCard() {
             <CardActions style={{ justifyContent: "center" }}>
               <Button
                 onClick={() => {
-                  console.log(hospital.name);
+                  console.log(1);
                 }}
                 size="small"
               >
                 Select Nurse
               </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={4}>
+          <Card className={classes.root} variant="outlined">
+            <CardContent>
+              <Typography
+                className={classes.title}
+                color="textSecondary"
+                gutterBottom
+              ></Typography>
+              <Typography variant="h5" component="h2">
+                <center>Medicine</center>
+              </Typography>
+            </CardContent>
+            <CardActions style={{ justifyContent: "center" }}>
               <Button
                 onClick={() => {
-                  console.log(hospital.name);
+                  console.log(1);
                 }}
                 size="small"
               >
-                Edit Nurse
+                Select Medicine
               </Button>
             </CardActions>
           </Card>
@@ -214,48 +197,7 @@ function OutlinedCard() {
             <CardActions style={{ justifyContent: "center" }}>
               <Button
                 onClick={() => {
-                  console.log(hospital.name);
-                }}
-                size="small"
-              >
-                Select Mainten.
-              </Button>
-              <Button
-                onClick={() => {
-                  console.log(hospital.name);
-                }}
-                size="small"
-              >
-                Select Mainten.
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-          <Card className={classes.root} variant="outlined">
-            <CardContent>
-              <Typography
-                className={classes.title}
-                color="textSecondary"
-                gutterBottom
-              ></Typography>
-              <Typography variant="h5" component="h2">
-                <center>Maintenance</center>
-              </Typography>
-            </CardContent>
-            <CardActions style={{ justifyContent: "center" }}>
-              <Button
-                onClick={() => {
-                  console.log(hospital.name);
-                }}
-                size="small"
-              >
-                Select Maintenance
-              </Button>
-              <Button
-                onClick={() => {
-                  console.log(hospital.name);
+                  console.log(1);
                 }}
                 size="small"
               >
