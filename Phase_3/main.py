@@ -13,21 +13,21 @@ CORS(app)
 class allMaintenceAPI(Resource):
     def get(self):
         df = db_manager.get_maintence()
-        df = json.loads(df.to_json())
+        df = df.to_dict('records')
         return df
 class hospitalAPI(Resource):
     def get(self):
         df = db_manager.get_hospitals()
-        json_data = json.loads(df.to_json())
-        return json_data
+        df = df.to_dict('records')
+        return df
 
 class avaliableMaintenceAPI(Resource):
     def get(self):
         #must send a json format {'hospital_name':hospital_name}
         hospital_name = json.loads(request.data)['hospital_name']
         df = db_manager.get_avaliable_maintence(hospital_name)
-        json_data = json.loads(df.to_json())
-        return json_data
+        df = df.to_dict('records')
+        return df
 
 class doctorAPI(Resource):
     def get(self):
@@ -35,8 +35,8 @@ class doctorAPI(Resource):
         if action == 'hospital':
             hospital_name = json.loads(request.data)['hospital_name']
             df = db_manager.get_doctors_given_hospital(hospital_name)
-            json_data = json.loads(df.to_json())
-            return json_data
+            df = df.to_dict('records')
+            return df
         #elif action =='' # easily be able to add more queries to doctor
 
 class nurseAPI(Resource):
@@ -45,8 +45,8 @@ class nurseAPI(Resource):
         if action == 'hospital':
             hospital_name = json.loads(request.data)['hospital_name']
             df = db_manager.get_nurses_given_hospital(hospital_name)
-            json_data = json.loads(df.to_json())
-            return json_data
+            df = df.to_dict('records')
+            return df
 
 class patientAPI(Resource):
     def get(self):
@@ -54,24 +54,25 @@ class patientAPI(Resource):
         if action == 'hospital':
             hospital_name = json.loads(request.data)['hospital_name']
             df = db_manager.get_patients_given_hospital(hospital_name)
-            json_data = json.loads(df.to_json())
-            return json_data
+            df = df.to_dict('records')
+            return df
         elif action == 'doctor':
             doctor_name = json.loads(request.data)['doctor_name']
             df = db_manager.get_patients_given_doctor(doctor_name)
-            json_data = json.loads(df.to_json())
-            return json_data
+            df = df.to_dict('records')
+            return df
         elif action == 'nurse':
             nurse_name = json.loads(request.data)['nurse_name']
             df = db_manager.get_patients_given_nurse(nurse_name)
-            json_data = json.loads(df.to_json())
+            df = df.to_dict('records')
+            return df
 
 class medicationAPI(Resource):
     def get(self):
         hospital_name = json.loads(request.data)['hospital_name']
         df = db_manager.get_medication_given_hospital(hospital_name)
-        json_data = json.loads(df.to_json())
-        return json_data
+        df = df.to_dict('records')
+        return df
 
 class getRooms(Resource):
     def get(self):
@@ -79,25 +80,26 @@ class getRooms(Resource):
         if action == 'hospital':
             hospital_name = json.loads(request.data)['hospital_name']
             df = db_manager.get_rooms_given_hospital(hospital_name)
-            json_data = json.loads(df.to_json())
-            return json_data
+            df = df.to_dict('records')
+            return df
         elif action == 'nurse':
             nurse_name = json.loads(request.data)['nurse_name']
             df = db_manager.get_rooms_given_nurse(nurse_name)
-            json_data = json.loads(df.to_json())
+            df = df.to_dict('records')
+            return df
 class getMaintenanceListForAHospital(Resource):
     def get(self):
         hospital_name = json.loads(request.data)['hospital_name']
         df = db_manager.get_maintenance_given_hospital(hospital_name)
-        json_data = json.loads(df.to_json())
-        return json_data
+        df = df.to_dict('records')
+        return df
 
 class prescribedMedsAPI(Resource):
     def get(self):
         patient_name = json.loads(request.data)['patient_name']
         df = db_manager.get_maintenance_given_hospital(patient_name)
-        json_data = json.loads(df.to_json())
-        return json_data
+        df = df.to_dict('records')
+        return df
     
 api.add_resource(hospitalAPI, '/gethospital')
 api.add_resource(allMaintenceAPI, '/getallMaintence')
