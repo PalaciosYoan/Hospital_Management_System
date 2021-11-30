@@ -30,7 +30,7 @@ class Query_Queries(object):
     
     #complex 1
     def get_avaliable_maintence(self, h_name):
-        '''This will retrieved any avaliable company that can be assigned to the given hospital'''
+        """This will retrieved any avaliable company that can be assigned to the given hospital"""
         try:
             #select h_id given hospital name
             #filtered maintenance junction table given h_id
@@ -41,7 +41,7 @@ class Query_Queries(object):
                 (select t1.maint_id 
                     from Hospital_Maintenance_Junction_Table t1,
                     (
-                        select h_id from Hospital where name = '{}'
+                        select h_id from Hospital where name = "{}"
                     ) t5
                     where t1.h_id=t5.h_id
                 ) t2
@@ -55,7 +55,7 @@ class Query_Queries(object):
             print(e)
     #complex 8
     def get_maintence_given_hname(self, h_name):
-        '''This will retrieved any avaliable company that can be assigned to the given hospital'''
+        """This will retrieved any avaliable company that can be assigned to the given hospital"""
         try:
             #select h_id given hospital name
             #filtered maintenance junction table given h_id
@@ -66,7 +66,7 @@ class Query_Queries(object):
                 (select t1.maint_id 
                     from Hospital_Maintenance_Junction_Table t1,
                     (
-                        select h_id from Hospital where name = '{}'
+                        select h_id from Hospital where name = "{}"
                     ) t5
                     where t1.h_id=t5.h_id
                 ) t2
@@ -87,7 +87,7 @@ class Query_Queries(object):
                 (
                     select h_id
                     from Hospital
-                    where name = '{}'
+                    where name = "{}"
                 ) t1
                 where Doctor.h_id=t1.h_id;
             """.format(h_name)
@@ -109,7 +109,7 @@ class Query_Queries(object):
                         (
                             select h_id
                             from Hospital
-                            where name = '{}'
+                            where name = "{}"
                         ) h1
                     where Room.h_id = h1.h_id 
                     ) t2
@@ -132,7 +132,7 @@ class Query_Queries(object):
                         (
                             select h_id
                             from Hospital
-                            where name = '{}'
+                            where name = "{}"
                         ) h1
                 where  Patient.h_id = h1.h_id;
             """.format(h_name)
@@ -151,7 +151,7 @@ class Query_Queries(object):
                         (
                             select h_id
                             from Hospital
-                            where name = '{}'
+                            where name = "{}"
                         ) h1
                 
                 where Medication.h_id=h1.h_id;
@@ -170,7 +170,7 @@ class Query_Queries(object):
                 (
                             select h_id
                             from Hospital
-                            where name = '{}'
+                            where name = "{}"
                         ) h1
                 where Room.h_id=h1.h_id;
             """.format(h_name)
@@ -191,7 +191,7 @@ class Query_Queries(object):
                     (
                         select h_id
                         from Hospital
-                        where name = '{}'
+                        where name = "{}"
                     ) h1
                     where j1.h_id=h1.h_id) t1 
                     where
@@ -214,7 +214,7 @@ class Query_Queries(object):
                 (
                         select d_id
                         from Doctor
-                        where name = '{}'
+                        where name = "{}"
                     ) d1
                 where Patient.d_id=d1.d_id;
             """.format(d_name)
@@ -242,7 +242,7 @@ class Query_Queries(object):
                     select *
                     from 
                         Nurse_Room_Junction_Table
-                    where n_id = '{}'
+                    where n_id = "{}"
                 ) t1
                 where Room.r_id = t1.r_id
                     and Patient.p_id = Room.p_id;
@@ -266,7 +266,7 @@ class Query_Queries(object):
                         (
                             n_id as nurse_id
                             from Nurse
-                            where name = '{}'
+                            where name = "{}"
                         )
                     where n_id = nurse_id
                 ) t1
@@ -292,7 +292,7 @@ class Query_Queries(object):
                             (
                                 select p_id as patient_id
                                 from Patient
-                                where name = '{}'
+                                where name = "{}"
                             ) p1
                         where p_id = patient_id
                     ) t1
