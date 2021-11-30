@@ -25,48 +25,62 @@ const useStyles = makeStyles({
   },
 });
 
+const d = [
+  {
+    h_id: "ddbb14ca-d099-409a-a635-ed98491843ca",
+    address: "1108 ROSS CLARK CIRCLE DOTHAN AL 26301",
+    name: "SOUTHEAST ALABAMA MEDICAL CENTER",
+  },
+  {
+    h_id:"ddbb14ca-d099-409a-a635-ed98491843ca",
+    address: "702 N MAIN ST OPP AL 36467",
+    name: "DEKALB REGIONAL MEDICAL CENTER",
+  }
+];
+
 function OutlinedCard() {
   const [hospital, setHospital] = useState([]);
 
+  useEffect(() => getHospital(), []);
   const getHospital = () => {
     axios.get("http://127.0.0.1:5000/gethospital").then((response) => {
       //console.log(response);
       const h = response.data;
-      console.log(h)
-      setHospital(h);
+      console.log(d);
+      setHospital(d);
     });
   };
-
-  useEffect(() => getHospital(), []);
-
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
-  return (
-    <Card className={classes.root} variant="outlined">
-      <CardContent>
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        ></Typography>
-        <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
-  );
+  function mapCards(hospital, index) {
+    return (
+      <Card className={classes.root} variant="outlined" key={index}>
+        <CardContent>
+          <Typography
+            className={classes.title}
+            color="textSecondary"
+            gutterBottom
+          ></Typography>
+          <Typography variant="h5" component="h2">
+            {hospital.name}
+          </Typography>
+          <Typography className={classes.pos} color="textSecondary">
+            adjective
+          </Typography>
+          <Typography variant="body2" component="p">
+            well meaning and kindly.
+            <br />
+            {'"a benevolent smile"'}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button size="small">Learn More</Button>
+        </CardActions>
+      </Card>
+    );
+  }
+  return hospital.map(mapCards);
 }
 
 export default OutlinedCard;
