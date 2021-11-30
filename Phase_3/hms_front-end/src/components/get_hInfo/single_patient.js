@@ -42,8 +42,9 @@ function OutlinedCard() {
   const getPatient = () => {
     axios
       .post("http://127.0.0.1:5000/getPatients", {
-        queryType: "doctor",
-        doctor_name: localStorage.getItem("doctor_name"),
+        queryType: "patient",
+        patient_name: localStorage.getItem("patient_name"),
+        dob: localStorage.getItem("patient_dob"),
       })
       .then(function (response) {
         console.log(response.data);

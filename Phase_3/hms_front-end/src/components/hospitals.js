@@ -52,7 +52,7 @@ function OutlinedCard() {
     return (
       <Grid item xs={12} sm={6} md={4} key={index}>
         <Card className={classes.root} variant="outlined">
-          <CardContent>
+          <CardContent style={{ textAlign: "center" }}>
             <Typography
               className={classes.title}
               color="textSecondary"
@@ -65,7 +65,7 @@ function OutlinedCard() {
               {hospital.address}
             </Typography>
           </CardContent>
-          <CardActions>
+          <CardActions style={{ justifyContent: "center" }}>
             <Button
               onClick={() => {
                 console.log(hospital.name);
