@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Grid } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -36,19 +36,28 @@ const cardStyles = makeStyles({
 
 function OutlinedCard() {
   const navigate = useNavigate();
-  const [hospital, setHospital] = useState([]);
+  const [doctor, setDoctor] = useState([]);
 
-  useEffect(() => getHospital(), []);
-  const getHospital = () => {
-    axios.get("http://127.0.0.1:5000/gethospital").then((response) => {
-      //console.log(response);
-      setHospital(response.data);
+  useEffect(() => getDoctor(), []);
+  const getDoctor = () => {
+
+    axios.post('http://127.0.0.1:5000/getPatients', {
+      queryType: 'hospital',
+      hospital_name: localStorage.getItem("hospital_name")
+    })
+    .then(function (response) {
+      console.log(response.data);
+      setDoctor(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
     });
+
   };
   const classes = useStyles();
   const cards = cardStyles();
 
-  function mapCards(hospital, index) {
+  function mapCards(doctor, index) {
     return (
       <Grid item xs={12} sm={6} md={4} key={index}>
         <Card className={classes.root} variant="outlined">
@@ -59,33 +68,31 @@ function OutlinedCard() {
               gutterBottom
             ></Typography>
             <Typography variant="h5" component="h2">
-              {hospital.name}
+              <center>{doctor.name}</center>
             </Typography>
             <Typography variant="body2" component="p">
-              {hospital.address}
+              {doctor.address}
             </Typography>
           </CardContent>
-          <CardActions>
+          <CardActions style={{ justifyContent: "center" }}>
             <Button
               onClick={() => {
-                console.log(hospital.name);
-                localStorage.setItem("hospital_name", hospital.name);
-                localStorage.setItem("hospital_address", hospital.address);
-                navigate("info");
+                console.log(doctor.name);
+                localStorage.setItem("doctor_name", doctor.name);
+                navigate('/doctor_patient')
               }}
               size="small"
             >
-              Select Hospital
+              Select doctor
             </Button>
             <Button
               onClick={() => {
-                console.log(hospital.name);
-                localStorage.setItem("hospital_name", hospital.name);
-                localStorage.setItem("hospital_address", hospital.address);
+                console.log(doctor.name);
+                localStorage.setItem("doctor_name", doctor.name);
               }}
               size="small"
             >
-              Edit Hospital
+              Edit doctor
             </Button>
           </CardActions>
         </Card>
@@ -94,34 +101,34 @@ function OutlinedCard() {
   }
   return (
     <div>
-      <div>
+        <div>
         <center>
-          <Card className={cards.root} variant="outlined">
-            <CardContent>
-              <Typography
-                className="Hospital"
-                color="textSecondary"
-                gutterBottom
-              ></Typography>
-              <Typography variant="h5" component="h2">
-                Hospital Management System
-              </Typography>
-              <Typography variant="body2" component="p">
-                1.0
-              </Typography>
-            </CardContent>
-          </Card>
-        </center>
-        &nbsp;
-      </div>
-      <Grid
-        container
-        spacing={4}
-        className={cards.gridContainer}
-        justifyContent="center"
-      >
-        {hospital.map(mapCards)}
-      </Grid>
+        <Card className={cards.root} variant="outlined">
+          <CardContent>
+            <Typography
+              className="Hospital"
+              color="textSecondary"
+              gutterBottom
+            ></Typography>
+            <Typography variant="h5" component="h2">
+              {localStorage.getItem("hospital_name")}
+            </Typography>
+            <Typography variant="body2" component="p">
+            {localStorage.getItem("hospital_address")}
+            </Typography>
+          </CardContent>
+        </Card>
+      </center>
+      &nbsp;
+        </div>
+    <Grid
+      container
+      spacing={4}
+      className={cards.gridContainer}
+      justifyContent="center"
+    >
+      {doctor.map(mapCards)}
+    </Grid>
     </div>
   );
 }
