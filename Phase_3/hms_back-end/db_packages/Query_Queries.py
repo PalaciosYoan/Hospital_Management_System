@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 from sqlite3 import Error
 import pandas as pd
 
@@ -278,6 +279,20 @@ class Query_Queries(object):
             self.conn.rollback()
             print(e)
     
+    def get_patients_given_patient(self,name, dob):
+        try:
+            query = """
+                select *
+                from Patient
+                where
+                    name = "{}" and
+                    strftime(dob, %Y-%m-%d) = "{}"
+            """.format(name, dob)
+            df = pd.read_sql_query(query, con=self.conn)
+            return df
+        except Error as e:
+            self.conn.rollback()
+            print(e)
     
     #patients
     #complex 6

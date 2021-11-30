@@ -89,6 +89,12 @@ class patientAPI(Resource):
             df = db_manager.get_patients_given_nurse(nurse_name)
             df = df.to_dict('records')
             return df
+        elif action == 'patient':
+            patient_name = json.loads(request.data)['patient_name']
+            dob = json.loads(request.data)['dob']
+            df = db_manager.get_patients_given_patient(patient_name, dob)
+            df = df.to_dict('records')
+            return df
 
 class medicationAPI(Resource):
     def post(self):
