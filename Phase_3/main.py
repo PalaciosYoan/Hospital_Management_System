@@ -1,3 +1,5 @@
+from django import db
+from sympy import re
 from db_packages.Data_Base_Manager import Data_Base_Manager
 from flask import Flask, render_template, jsonify, request, redirect, session, g
 from flask_restful import Api, Resource
@@ -37,6 +39,20 @@ class MaintenceAPI(Resource):
         df = df.to_dict('records')
         return df
 
+    def delete(self):
+        data = json.loads(request.data)
+        h_name = data['hospital_name']
+        maint_name = data['maintenance_name']
+        db_manager.delete_specific_maintenance(h_name, maint_name)
+        return
+    
+    def post(self):
+        data = json.loads(request.data)
+        h_name = data['hospital_name']
+        maint_name = data['maintenance_name']
+        db_manager.insert_specific_maintenance(h_name, maint_name)
+        return 'status: 200'
+    
 class doctorAPI(Resource):
     def get(self):
         action = json.loads(request.data)['queryType']
@@ -84,6 +100,19 @@ class medicationAPI(Resource):
 
     def delete(self):
         hospital_name = json.loads(request.data)['hospital_name']
+        m_name = json.loads(request.data)['medication_name']
+        db_manager.delete_specific_medication(m_name, hospital_name)
+        return 'status: 2000'
+    
+    def post(self):
+        json_data = json.loads(request.data)
+        m_name = json_data['medication_name']
+        h_name = json_data['hospital_name']
+        cost = json_data['cost']
+        type = json_data['type']
+        side_effect = json_data['side_effect']
+        treament_for = json_data['treament_for']
+        db_manager.insert_specific_medication(m_name, h_name, cost, type, side_effect, treament_for)
 class getRooms(Resource):
     def get(self):
         action = json.loads(request.data)['queryType']
@@ -115,6 +144,16 @@ class prescribedMedsAPI(Resource):
     def delete(self):
         patient_name = json.loads(request.data)['patient_name']
         db_manager.delete_specific_prescribed_med(patient_name)
+        return 'status: 200'
+    
+    def post(self):
+        data = json.loads(request.data)
+        assigned_date = data['assigned_date']
+        p_name = data['patient_name']
+        m_name = data['medication_name']
+        h_name = data['hospital_name']
+        db_manager.insert_specific_prescribed_med(assigned_date, p_name, m_name, h_name)
+        return 'status: 200'
     
 api.add_resource(hospitalAPI, '/gethospital')
 api.add_resource(allMaintenceAPI, '/getallMaintence')
