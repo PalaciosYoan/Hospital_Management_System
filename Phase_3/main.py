@@ -1,5 +1,3 @@
-from django import db
-from sympy import re
 from db_packages.Data_Base_Manager import Data_Base_Manager
 from flask import Flask, render_template, jsonify, request, redirect, session, g
 from flask_restful import Api, Resource
