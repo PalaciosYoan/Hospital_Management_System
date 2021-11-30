@@ -53,6 +53,31 @@ class Query_Queries(object):
         except Error as e:
             self.conn.rollback()
             print(e)
+    #complex 8
+    def get_maintence_given_hname(self, h_name):
+        '''This will retrieved any avaliable company that can be assigned to the given hospital'''
+        try:
+            #select h_id given hospital name
+            #filtered maintenance junction table given h_id
+            #filtered maintenance table given maint_id
+            query = """
+                select *
+                from Maintenance,
+                (select t1.maint_id 
+                    from Hospital_Maintenance_Junction_Table t1,
+                    (
+                        select h_id from Hospital where name = '{}'
+                    ) t5
+                    where t1.h_id=t5.h_id
+                ) t2
+                where Maintenance.maint_id == t2.maint_id
+                ;
+            """.format(h_name)
+            df = pd.read_sql_query(query, con=self.conn)
+            return df
+        except Error as e:
+            self.conn.rollback()
+            print(e)
     
     def get_doctors_given_hospital(self, h_name):
         try:

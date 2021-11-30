@@ -29,6 +29,14 @@ class avaliableMaintenceAPI(Resource):
         df = df.to_dict('records')
         return df
 
+class MaintenceAPI(Resource):
+    def get(self):
+        #must send a json format {'hospital_name':hospital_name}
+        hospital_name = json.loads(request.data)['hospital_name']
+        df = db_manager.get_maintenance_given_hospital(hospital_name)
+        df = df.to_dict('records')
+        return df
+
 class doctorAPI(Resource):
     def get(self):
         action = json.loads(request.data)['queryType']
@@ -74,6 +82,8 @@ class medicationAPI(Resource):
         df = df.to_dict('records')
         return df
 
+    def delete(self):
+        hospital_name = json.loads(request.data)['hospital_name']
 class getRooms(Resource):
     def get(self):
         action = json.loads(request.data)['queryType']
@@ -93,6 +103,7 @@ class getMaintenanceListForAHospital(Resource):
         df = db_manager.get_maintenance_given_hospital(hospital_name)
         df = df.to_dict('records')
         return df
+    
 
 class prescribedMedsAPI(Resource):
     def get(self):
@@ -100,6 +111,10 @@ class prescribedMedsAPI(Resource):
         df = db_manager.get_maintenance_given_hospital(patient_name)
         df = df.to_dict('records')
         return df
+    
+    def delete(self):
+        patient_name = json.loads(request.data)['patient_name']
+        db_manager.delete_specific_prescribed_med(patient_name)
     
 api.add_resource(hospitalAPI, '/gethospital')
 api.add_resource(allMaintenceAPI, '/getallMaintence')
@@ -109,6 +124,7 @@ api.add_resource(nurseAPI, '/getNurse')
 api.add_resource(patientAPI, '/getPatients')
 api.add_resource(medicationAPI, '/getMedications')
 api.add_resource(prescribedMedsAPI, '/getprescribedmeds')
+api.add_resource(MaintenceAPI, '/maintenceAPI_given_h_name')
 
 @app.route('/')
 def home():
