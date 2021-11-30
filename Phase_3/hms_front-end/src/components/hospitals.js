@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Grid } from "@material-ui/core";
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -26,7 +27,15 @@ const useStyles = makeStyles({
   },
 });
 
+const cardStyles = makeStyles({
+  gridContainer: {
+    paddingLeft: "20px",
+    paddingRight: "20px",
+  },
+});
+
 function OutlinedCard() {
+  const navigate = useNavigate();
   const [hospital, setHospital] = useState([]);
 
   useEffect(() => getHospital(), []);
@@ -39,6 +48,7 @@ function OutlinedCard() {
     });
   };
   const classes = useStyles();
+  const cards = cardStyles();
 
   function mapCards(hospital, index) {
     return (
@@ -53,30 +63,48 @@ function OutlinedCard() {
             <Typography variant="h5" component="h2">
               {hospital.name}
             </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              adjective
-            </Typography>
             <Typography variant="body2" component="p">
-              well meaning and kindly.
-              <br />
-              {'"a benevolent smile"'}
+              {hospital.address}
             </Typography>
           </CardContent>
           <CardActions>
             <Button
               onClick={() => {
                 console.log(hospital.name);
+                localStorage.setItem("hospital_name", hospital.name);
+                localStorage.setItem("hospital_address", hospital.address);
+                navigate('info')
               }}
               size="small"
             >
-              Learn More
+              Select Hospital
+            </Button>
+            <Button
+              onClick={() => {
+                console.log(hospital.name);
+                localStorage.setItem("hospital_name", hospital.name);
+                localStorage.setItem("hospital_address", hospital.address);
+
+              }}
+              size="small"
+            >
+              Edit Hospital
             </Button>
           </CardActions>
         </Card>
       </Grid>
     );
   }
-  return hospital.map(mapCards);
+  return (
+    <Grid
+      container
+      spacing={4}
+      className={classes.gridContainer}
+      justifyContent="center"
+    >
+      {hospital.map(mapCards)}
+    </Grid>
+  );
 }
 
 export default OutlinedCard;
