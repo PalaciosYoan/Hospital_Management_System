@@ -286,7 +286,7 @@ class Query_Queries(object):
                 from Patient
                 where
                     name = "{}" and
-                    strftime(dob, %Y-%m-%d) = "{}"
+                    dob = "{}"
             """.format(name, dob)
             df = pd.read_sql_query(query, con=self.conn)
             return df
