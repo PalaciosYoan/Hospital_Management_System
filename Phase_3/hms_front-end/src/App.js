@@ -8,6 +8,7 @@ import Single_Patient from "./components/get_hInfo/single_patient"
 import Patient from './components/get_hInfo/patient'
 import Room from "./components/get_hInfo/room"
 import Nurse from "./components/get_hInfo/nurse"
+import Medicine from "./components/get_hInfo/medicine"
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/patient" element={<Patient />} />
         <Route path="/room" element={<Room />} />
         <Route path="/nurse" element={<Nurse />} />
+        <Route path="/medicine" element={<Medicine />} />
       </Routes>
     </Router>
   );
