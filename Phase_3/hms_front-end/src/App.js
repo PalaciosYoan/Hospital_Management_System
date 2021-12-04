@@ -10,6 +10,8 @@ import Room from "./components/get_hInfo/room";
 import Nurse from "./components/get_hInfo/nurse";
 import Medicine from "./components/get_hInfo/medicine";
 import Maintenance from "./components/get_hInfo/maintenance";
+import Nurse_Room from "./components/get_hInfo/nurse_room";
+import Hospital_Maintenance from "./components/get_hInfo/hospital_maintenance";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 export default function App() {
@@ -26,6 +28,8 @@ export default function App() {
         <Route path="/nurse" element={<Nurse />} />
         <Route path="/medicine" element={<Medicine />} />
         <Route path="/maintenance" element={<Maintenance />} />
+        <Route path="/nurse_room" element={<Nurse_Room />} />
+        <Route path="/hospital_maintenance" element={<Hospital_Maintenance />} />
 
       </Routes>
     </Router>

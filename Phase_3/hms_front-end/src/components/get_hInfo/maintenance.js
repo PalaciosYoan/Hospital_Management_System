@@ -88,11 +88,11 @@ function OutlinedCard() {
               onClick={() => {
                 console.log(maintenance.name);
                 localStorage.setItem("maintenance_name", maintenance.name);
-                navigate('/doctor_patient')
+                navigate('/hospital_maintenance')
               }}
               size="small"
             >
-              Edit maintenance
+              Show other hospitals they are maintaining
             </Button>
           </CardActions>
         </Card>
