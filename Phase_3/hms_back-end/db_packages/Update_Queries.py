@@ -3,7 +3,6 @@ import sqlite3
 from datetime import datetime
 from sqlite3 import Error
 import pandas as pd
-from sympy import E
 class Update_Queries(object):
     ########Patient updates################
     #release date

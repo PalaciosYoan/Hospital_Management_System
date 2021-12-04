@@ -98,6 +98,7 @@ function OutlinedCard() {
               <Button
                 onClick={() => {
                   console.log(1);
+                  navigate("/patient");
                 }}
                 size="small"
               >

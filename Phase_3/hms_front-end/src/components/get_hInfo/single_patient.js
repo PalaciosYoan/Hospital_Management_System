@@ -70,6 +70,30 @@ function OutlinedCard() {
             <Typography variant="h5" component="h2">
               <center>{patient.name}</center>
             </Typography>
+            
+            <Typography variant="body2">
+              <b>Address</b>: {patient.address}
+            </Typography>
+
+            <Typography variant="body2">
+              <b>Reason for visit</b>: {patient.problem}
+            </Typography>
+
+            <Typography variant="body2">
+              <b>DOB</b>: {patient.dob}
+            </Typography>
+
+            <Typography variant="body2">
+              <b>Phone Number</b>: {patient.phone_number}
+            </Typography>
+
+            <Typography variant="body2">
+              <b>Admit Date</b>: {patient.admit_date}
+            </Typography>
+
+            <Typography variant="body2">
+              <b>Released Date</b>: {patient.released_date}
+            </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
             <Button
