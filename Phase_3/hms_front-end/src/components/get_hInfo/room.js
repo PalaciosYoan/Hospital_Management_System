@@ -70,6 +70,9 @@ function OutlinedCard() {
             <Typography variant="h5" component="h2">
               <center>{room.room_number}</center>
             </Typography>
+            <Typography variant="body2">
+            <center>{room.type}</center>
+            </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
             <Button

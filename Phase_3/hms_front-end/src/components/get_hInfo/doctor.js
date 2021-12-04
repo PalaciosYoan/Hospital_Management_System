@@ -70,8 +70,11 @@ function OutlinedCard() {
             <Typography variant="h5" component="h2">
               <center>{doctor.name}</center>
             </Typography>
-            <Typography variant="body2" component="p">
-              {doctor.address}
+            <Typography variant="body2">
+              <b>Phone Number</b>: {doctor.phone_number}
+            </Typography>
+            <Typography variant="body2">
+              <b>Started Working</b>: {doctor.started_working}
             </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
