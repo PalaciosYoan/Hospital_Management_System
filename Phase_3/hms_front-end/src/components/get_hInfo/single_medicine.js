@@ -76,7 +76,7 @@ function OutlinedCard() {
               onClick={() => {
                 console.log(medicine.name);
                 localStorage.setItem("medicine_name", medicine.name);
-                navigate('/single_medicine')
+                navigate('/doctor_patient')
               }}
               size="small"
             >

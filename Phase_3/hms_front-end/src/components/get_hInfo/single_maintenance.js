@@ -36,18 +36,18 @@ const cardStyles = makeStyles({
 
 function OutlinedCard() {
   const navigate = useNavigate();
-  const [medicine, setMedicine] = useState([]);
+  const [doctor, setDoctor] = useState([]);
 
-  useEffect(() => getMedicine(), []);
-  const getMedicine = () => {
+  useEffect(() => getDoctor(), []);
+  const getDoctor = () => {
 
-    axios.post('http://127.0.0.1:5000/getMedications', {
-      queryType: 'get',
+    axios.post('http://127.0.0.1:5000/getDoctors', {
+      queryType: 'hospital',
       hospital_name: localStorage.getItem("hospital_name")
     })
     .then(function (response) {
       console.log(response.data);
-      setMedicine(response.data);
+      setDoctor(response.data);
     })
     .catch(function (error) {
       console.log(error);
@@ -57,7 +57,7 @@ function OutlinedCard() {
   const classes = useStyles();
   const cards = cardStyles();
 
-  function mapCards(medicine, index) {
+  function mapCards(doctor, index) {
     return (
       <Grid item xs={12} sm={6} md={4} key={index}>
         <Card className={classes.root} variant="outlined">
@@ -68,19 +68,31 @@ function OutlinedCard() {
               gutterBottom
             ></Typography>
             <Typography variant="h5" component="h2">
-              <center>{medicine.name}</center>
+              <center>{doctor.name}</center>
+            </Typography>
+            <Typography variant="body2" component="p">
+              {doctor.address}
             </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
             <Button
               onClick={() => {
-                console.log(medicine.name);
-                localStorage.setItem("medicine_name", medicine.name);
-                navigate('/single_medicine')
+                console.log(doctor.name);
+                localStorage.setItem("doctor_name", doctor.name);
+                navigate('/doctor_patient')
               }}
               size="small"
             >
-              Select medicine
+              Select doctor
+            </Button>
+            <Button
+              onClick={() => {
+                console.log(doctor.name);
+                localStorage.setItem("doctor_name", doctor.name);
+              }}
+              size="small"
+            >
+              Edit doctor
             </Button>
           </CardActions>
         </Card>
@@ -115,7 +127,7 @@ function OutlinedCard() {
       className={cards.gridContainer}
       justifyContent="center"
     >
-      {medicine.map(mapCards)}
+      {doctor.map(mapCards)}
     </Grid>
     </div>
   );
