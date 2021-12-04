@@ -69,6 +69,13 @@ function OutlinedCard() {
             <Typography variant="h5" component="h2">
               <center>{patient.name}</center>
             </Typography>
+            <Typography variant="body2">
+              <b>Reason for visit</b>: {patient.problem}
+            </Typography>
+
+            <Typography variant="body2">
+              <b>DOB</b>: {patient.dob}
+            </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
             <Button

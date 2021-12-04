@@ -70,6 +70,9 @@ function OutlinedCard() {
             <Typography variant="h5" component="h2">
               <center>{nurse.name}</center>
             </Typography>
+            <Typography variant="body2">
+              <b>Started Working</b>: {nurse.started_working}
+            </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
             <Button
@@ -80,7 +83,7 @@ function OutlinedCard() {
               }}
               size="small"
             >
-              Select nurse
+              Show monitoring room(s)
             </Button>
             <Button
               onClick={() => {
