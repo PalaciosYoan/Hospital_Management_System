@@ -86,7 +86,7 @@ function OutlinedCard() {
               }}
               size="small"
             >
-              Show Patient(s) for this doctor 
+              Show doctor's patient(s)
             </Button>
             <Button
               onClick={() => {

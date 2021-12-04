@@ -87,7 +87,7 @@ function OutlinedCard() {
               }}
               size="small"
             >
-              Select patient
+              show patient details
             </Button>
           </CardActions>
         </Card>
