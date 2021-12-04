@@ -7,6 +7,7 @@ import Doctor_Patient from "./components/get_hInfo/doctor_patient"
 import Single_Patient from "./components/get_hInfo/single_patient"
 import Patient from './components/get_hInfo/patient'
 import Room from "./components/get_hInfo/room"
+import Nurse from "./components/get_hInfo/nurse"
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/single_patient" element={<Single_Patient />} />
         <Route path="/patient" element={<Patient />} />
         <Route path="/room" element={<Room />} />
+        <Route path="/nurse" element={<Nurse />} />
       </Routes>
     </Router>
   );
