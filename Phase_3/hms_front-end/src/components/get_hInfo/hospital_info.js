@@ -201,6 +201,7 @@ function OutlinedCard() {
             <CardActions style={{ justifyContent: "center" }}>
               <Button
                 onClick={() => {
+                  navigate("/maintenance");
                   console.log(1);
                 }}
                 size="small"
