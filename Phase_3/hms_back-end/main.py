@@ -21,6 +21,12 @@ class hospitalAPI(Resource):
         df = df.to_dict('records')
         return df
 
+    def post(self):
+        maint_name = json.loads(request.data)['maint_name']
+        df = db_manager.get_hospital_given_maintence(maint_name=maint_name)
+        df = df.to_dict('records')
+        return df
+
 class avaliableMaintenceAPI(Resource):
     def post(self):
         #must send a json format {'hospital_name':hospital_name}

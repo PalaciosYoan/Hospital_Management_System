@@ -37,17 +37,17 @@ class Query_Queries(object):
             #filtered maintenance table given maint_id
             query = """
                 select *
-                from Maintenance,
-                (select t1.maint_id 
+                from Hospital,
+                (select t1.h_id 
                     from Hospital_Maintenance_Junction_Table t1,
                     (
                         select maint_id
                         from Maintenance
                         where name = "{}"
                     ) t5
-                    where t1.h_id=t5.h_id
+                    where t1.maint_id=t5.maint_id
                 ) t2
-                where Maintenance.maint_id <> t2.maint_id
+                where Hospital.h_id = t2.h_id
                 ;
             """.format(maint_name)
             df = pd.read_sql_query(query, con=self.conn)
