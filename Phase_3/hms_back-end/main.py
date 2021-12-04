@@ -159,7 +159,8 @@ class prescribedMedsAPI(Resource):
         action = json.loads(request.data)['queryType']
         if action == 'get':
             patient_name = json.loads(request.data)['patient_name']
-            df = db_manager.get_maintenance_given_hospital(patient_name)
+            dob = json.loads(request.data)['dob']
+            df = db_manager.get_medication_given_patient(patient_name, dob)
             df = df.to_dict('records')
             return df
         elif action == 'post':
