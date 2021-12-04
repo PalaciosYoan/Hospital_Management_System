@@ -41,8 +41,8 @@ function OutlinedCard() {
   useEffect(() => getMedicine(), []);
   const getMedicine = () => {
 
-    axios.post('http://127.0.0.1:5000/maintenceAPI_given_h_name', {
-      queryType: 'hospital',
+    axios.post('http://127.0.0.1:5000/getMedications', {
+      queryType: 'get',
       hospital_name: localStorage.getItem("hospital_name")
     })
     .then(function (response) {
