@@ -95,6 +95,19 @@ class patientAPI(Resource):
             df = db_manager.get_patients_given_patient(patient_name, dob)
             df = df.to_dict('records')
             return df
+    
+    def put(self):
+        action = json.loads(request.data)['queryType']
+        if action == 'released_date':
+            data = json.loads(request.data)
+            db_manager.update_released_date(data['released_date'], data['patient_name'], data['dob'])
+            
+        elif action == 'update_doctor':
+            data = json.loads(request.data)
+            db_manager.update_released_date(data['doctor_name'], data['patient_name'], data['dob'])
+            
+        return "Success 200"
+
 
 class medicationAPI(Resource):
     def post(self):
