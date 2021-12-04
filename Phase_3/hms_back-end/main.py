@@ -101,6 +101,13 @@ class patientAPI(Resource):
             df = db_manager.get_patients_given_patient(patient_name, dob)
             df = df.to_dict('records')
             return df
+        elif action == 'medication':
+            data = json.loads(request.data)
+            m_name = data['med_name']
+            h_name = data['hospital_name']
+            df = db_manager.get_patients_given_med(m_name, h_name)
+            df = df.to_dict('records')
+            return df
     
     def put(self):
         action = json.loads(request.data)['queryType']
