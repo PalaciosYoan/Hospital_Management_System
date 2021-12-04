@@ -70,6 +70,18 @@ function OutlinedCard() {
             <Typography variant="h5" component="h2">
               <center>{medicine.name}</center>
             </Typography>
+            <Typography variant="body2">
+              <b>Cost</b>: {medicine.cost}
+            </Typography>
+            <Typography variant="body2">
+              <b>Treatment For</b>: {medicine.treatment_for}
+            </Typography>
+            <Typography variant="body2">
+              <b>Type</b>: {medicine.type}
+            </Typography>
+            <Typography variant="body2">
+              <b>Side Effect</b>: {medicine.side_effect}
+            </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
             <Button
@@ -80,7 +92,7 @@ function OutlinedCard() {
               }}
               size="small"
             >
-              Select medicine
+              Show Patient(s) taking this Medicine
             </Button>
           </CardActions>
         </Card>
