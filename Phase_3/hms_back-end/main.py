@@ -76,6 +76,11 @@ class nurseAPI(Resource):
             df = db_manager.get_nurses_given_hospital(hospital_name)
             df = df.to_dict('records')
             return df
+        if action == "room":
+            r_number = json.loads(request.data)["room_number"]
+            df = db_manager.get_nurses_given_rooms(r_number=r_number)
+            df = df.to_dict('records')
+            return df
 
 class patientAPI(Resource):
     def post(self):

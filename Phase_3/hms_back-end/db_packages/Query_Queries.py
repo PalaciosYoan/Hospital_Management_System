@@ -150,6 +150,29 @@ class Query_Queries(object):
         except Error as e:
             self.conn.rollback()
             print(e)
+            
+    def get_nurses_given_rooms(self, r_number):
+        try:
+            query = """
+                select Nurse.name, Nurse.started_working
+                from Nurse, 
+                    (select n_id 
+                    from Nurse_Room_Junction_Table,
+                        (
+                            select r_id
+                            from Room
+                            where room_number = {}
+                        ) h1
+                    where Nurse_Room_Junction_Table.r_id = h1.r_id 
+                    ) t2
+                where Nurse.n_id = t2.n_id;
+                
+            """.format(r_number)
+            df = pd.read_sql_query(query, con=self.conn)
+            return df
+        except Error as e:
+            self.conn.rollback()
+            print(e)
     
     def get_patients_given_hospital(self, h_name):
         try:
