@@ -186,6 +186,7 @@ api.add_resource(patientAPI, '/getPatients')
 api.add_resource(medicationAPI, '/getMedications')
 api.add_resource(prescribedMedsAPI, '/getprescribedmeds')
 api.add_resource(MaintenceAPI, '/maintenceAPI_given_h_name')
+api.add_resource(getRooms, '/getRooms')
 
 @app.route('/')
 def home():
