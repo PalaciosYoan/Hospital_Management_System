@@ -107,7 +107,7 @@ function OutlinedCard() {
                 Hospital Management System
               </Typography>
               <Typography variant="body2" component="p">
-                1.0
+                1.1
               </Typography>
             </CardContent>
           </Card>
