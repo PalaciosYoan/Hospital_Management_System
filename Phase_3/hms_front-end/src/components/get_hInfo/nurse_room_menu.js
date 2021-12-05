@@ -82,9 +82,8 @@ function OutlinedCard() {
           <CardActions style={{ justifyContent: "center" }}>
             <Button
               onClick={() => {
-                console.log(nurse_room_menu.name);
-                localStorage.setItem("nurse", nurse_room_menu.name);
-                navigate("/nurse_patient");
+                localStorage.setItem("room_number", nurse_room_menu.room_number);
+                navigate("/nurse_room_patient");
               }}
               size="small"
             >
@@ -93,12 +92,12 @@ function OutlinedCard() {
             <Button
               onClick={() => {
                 console.log(nurse_room_menu.name);
-                localStorage.setItem("nurse", nurse_room_menu.name);
-                navigate("/nurse_patient");
+                localStorage.setItem("room_number", nurse_room_menu.room_number);
+                navigate("/nurse_room_nurse");
               }}
               size="small"
             >
-              show other nurses
+              show all nurses
             </Button>
           </CardActions>
         </Card>
