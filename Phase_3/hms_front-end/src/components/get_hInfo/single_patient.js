@@ -96,6 +96,16 @@ function OutlinedCard() {
             </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
+          <Button
+              onClick={() => {
+                console.log(patient.name);
+                localStorage.setItem("patient_name", patient.name);
+                navigate("/medicine_patient");
+              }}
+              size="small"
+            >
+              Show medicine taking
+            </Button>
             <Button
               onClick={() => {
                 console.log(patient.name);
@@ -106,16 +116,7 @@ function OutlinedCard() {
             >
               Edit patient
             </Button>
-            <Button
-              onClick={() => {
-                console.log(patient.name);
-                localStorage.setItem("patient_name", patient.name);
-                navigate("/medicine_patient");
-              }}
-              size="small"
-            >
-              Show medicine taking
-            </Button>
+
           </CardActions>
         </Card>
       </Grid>
