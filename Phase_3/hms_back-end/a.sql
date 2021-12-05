@@ -28,3 +28,27 @@ select Room.room_number, Room.person_allowed, Room.cost, Room.type
                     where n_id = nurse_id
                 ) t1
                 where t1.r_id = Room.r_id;
+
+
+
+select 
+    p.dob, p.admit_date, p.problem, p.address, p.name, p.phone_number
+from Patient p,
+(
+    select p_id
+    from Prescribed_Med,
+    (
+        select m_id
+        from Medication,
+        (
+            select h_id
+            from Hospital
+            where name = "CALLAHAN EYE HOSPITAL"
+        ) h1
+        where
+            Medication.name = "Cephalosporins" and h1.h_id = Medication.h_id ) t1
+    where
+        t1.m_id = Prescribed_Med.m_id
+) m1
+where
+    p.p_id = m1.p_id;

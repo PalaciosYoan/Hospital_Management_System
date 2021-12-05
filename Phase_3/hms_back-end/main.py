@@ -79,7 +79,7 @@ class nurseAPI(Resource):
         if action == "room":
             r_number = json.loads(request.data)["room_number"]
             h_name = json.loads(request.data)["hospital_name"]
-            df = db_manager.get_nurses_given_rooms(r_number=r_number, h_name)
+            df = db_manager.get_nurses_given_rooms(r_number=r_number, h_name=h_name)
             df = df.to_dict('records')
             return df
 
