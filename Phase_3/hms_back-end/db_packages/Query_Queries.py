@@ -253,9 +253,9 @@ class Query_Queries(object):
                             (
                                 select p_id
                                 from Patient
-                                where name = "{}", dob = "{}"
+                                where name = "{}" and dob = "{}"
                                 ) p1
-                            where p1.p_id = Prescribed_Med.p_id;
+                            where p1.p_id = Prescribed_Med.p_id
                         ) h1
                 where Medication.m_id=h1.med_id;
             """.format(p_name, dob)

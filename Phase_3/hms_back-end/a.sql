@@ -97,3 +97,18 @@ from Nurse,
     where Nurse_Room_Junction_Table.r_id = h1.r_id 
     ) t2
 where Nurse.n_id = t2.n_id;
+
+
+
+select name, cost, type, side_effect, treament_for,  assigned_date
+from Medication,
+        ( select assigned_date, m_id as med_id
+            from Prescribed_Med,
+            (
+                select p_id
+                from Patient
+                where name = "Alejandro Hernandez" and dob = "None"
+                ) p1
+            where p1.p_id = Prescribed_Med.p_id
+        ) h1
+where Medication.m_id=h1.med_id;
