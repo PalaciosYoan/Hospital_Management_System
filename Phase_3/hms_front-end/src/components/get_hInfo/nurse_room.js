@@ -60,23 +60,22 @@ function OutlinedCard() {
     return (
       <Grid item xs={12} sm={6} md={4} key={index}>
         <Card className={classes.root} variant="outlined">
-          <CardContent>
+          <CardContent  style={{textAlign: "center" }}>
             <Typography
               className={classes.title}
               color="textSecondary"
               gutterBottom
             ></Typography>
             <Typography variant="h5" component="h2">
-              <center>{nurse.room_number}</center>
+              {nurse.room_number}
             </Typography>
             <Typography variant="body2">
-              <center>{nurse.type}</center>
+              {nurse.type}
             </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
             <Button
               onClick={() => {
-                console.log(nurse.name);
                 localStorage.setItem("nurse", nurse.name);
                 navigate("/nurse_room_menu");
               }}

@@ -67,8 +67,8 @@ function OutlinedCard() {
               color="textSecondary"
               gutterBottom
             ></Typography>
-            <Typography variant="h5" component="h2">
-              <center>{patient.name}</center>
+            <Typography variant="h5" component="h2" style={{textAlign: "center" }}>
+              {patient.name}
             </Typography>
             
             <Typography variant="body2">

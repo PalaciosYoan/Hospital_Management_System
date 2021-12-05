@@ -66,11 +66,11 @@ function OutlinedCard() {
               color="textSecondary"
               gutterBottom
             ></Typography>
-            <Typography variant="h5" component="h2">
-              <center>{room_menu.room_number}</center>
+            <Typography variant="h5" component="h2" style={{textAlign: "center" }}>
+              {room_menu.room_number}
             </Typography>
-            <Typography variant="body2">
-              <center>{room_menu.type}</center>
+            <Typography variant="body2" style={{textAlign: "center" }}>
+              {room_menu.type}
             </Typography>
             <Typography variant="body2">
               <b>Person Allowed</b> : {room_menu.person_allowed}
