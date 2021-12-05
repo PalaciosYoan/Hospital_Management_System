@@ -119,7 +119,7 @@ function OutlinedCard() {
             <Typography variant="body2" component="p">
               <Button
               onClick={() => {
-                navigate("/");
+                navigate("/insert_maintenance");
               }}
               size="small"
               variant="outlined"
