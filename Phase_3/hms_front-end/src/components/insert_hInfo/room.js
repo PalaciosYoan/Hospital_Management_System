@@ -34,14 +34,15 @@ function MaterialUIFormSubmit(props) {
   const [formInput, setFormInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      name: "",
-      address: "",
+      room_number: "",
+      person_allowed: "",
+      type: "",
     }
   );
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
+    formInput["h_name"] = localStorage.getItem("hospital_name");
     let data = { formInput };
     console.log(data);
   };
@@ -85,21 +86,30 @@ function MaterialUIFormSubmit(props) {
 
           <form onSubmit={handleSubmit}>
             <TextField
-              label="Name"
+              label="Room Number"
               id="margin-normal"
-              name="name"
-              defaultValue={formInput.name}
+              name="room_number"
+              defaultValue={formInput.room_number}
               className={classes.textField}
-              helperText="Enter hospital name"
+              helperText="Enter room number"
               onChange={handleInput}
             />
             <TextField
-              label="Address"
+              label="Person Allowed"
               id="margin-normal"
-              name="address"
-              defaultValue={formInput.address}
+              name="person_allowed"
+              defaultValue={formInput.person_allowed}
               className={classes.textField}
-              helperText="Enter hospital address"
+              helperText="Enter # of person allowed"
+              onChange={handleInput}
+            />
+            <TextField
+              label="Type"
+              id="margin-normal"
+              name="type"
+              defaultValue={formInput.type}
+              className={classes.textField}
+              helperText="Enter type"
               onChange={handleInput}
             />
             <Button
