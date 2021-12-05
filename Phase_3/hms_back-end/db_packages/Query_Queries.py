@@ -168,7 +168,7 @@ class Query_Queries(object):
                                 where
                                     name = "{}"
                             )h1
-                            where room_number = {} and h1.h_id = Room.h_id;
+                            where room_number = {} and h1.h_id = Room.h_id
                         ) h1
                     where Nurse_Room_Junction_Table.r_id = h1.r_id 
                     ) t2
