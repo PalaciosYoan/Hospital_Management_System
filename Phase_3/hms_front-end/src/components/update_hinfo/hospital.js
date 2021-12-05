@@ -94,26 +94,26 @@ function OutlinedCard() {
   }
   return (
     <div>
-      <div>
+        <div>
         <center>
-          <Card className={cards.root} variant="outlined">
-            <CardContent>
-              <Typography
-                className="Hospital"
-                color="textSecondary"
-                gutterBottom
-              ></Typography>
-              <Typography variant="h5" component="h2">
-                Hospital Management System
-              </Typography>
-              <Typography variant="body2" component="p">
-                1.1
-              </Typography>
-            </CardContent>
-          </Card>
-        </center>
-        &nbsp;
-      </div>
+        <Card className={cards.root} variant="outlined">
+          <CardContent>
+            <Typography
+              className="Hospital"
+              color="textSecondary"
+              gutterBottom
+            ></Typography>
+            <Typography variant="h5" component="h2">
+              {localStorage.getItem("hospital_name")}
+            </Typography>
+            <Typography variant="body2" component="p">
+            {localStorage.getItem("hospital_address")}
+            </Typography>
+          </CardContent>
+        </Card>
+      </center>
+      &nbsp;
+        </div>
       <Grid
         container
         spacing={4}
