@@ -16,8 +16,7 @@ function MaterialUIFormSubmit(props) {
   const [doctor, setDoctor] = useState([]);
   useEffect(() => getDoctor(), []);
   const getDoctor = () => {
-    const doc = JSON.parse(localStorage.getItem('doctor'))
-    console.log(doc)
+
   };
 
   const cards = cardStyles();
@@ -42,7 +41,7 @@ function MaterialUIFormSubmit(props) {
   const [formInput, setFormInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      name: doctor.name,
+      name: 'hi',
       Address: localStorage.getItem("hospital_address"),
     }
   );

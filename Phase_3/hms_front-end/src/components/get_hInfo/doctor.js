@@ -90,8 +90,7 @@ function OutlinedCard() {
             </Button>
             <Button
               onClick={() => {
-                console.log(doctor.name);
-                localStorage.setItem("doctor", JSON.stringify(doctor));
+                localStorage.setItem("doctor_name", doctor.name);
                 navigate('/update_doctor')
               }}
               size="small"
