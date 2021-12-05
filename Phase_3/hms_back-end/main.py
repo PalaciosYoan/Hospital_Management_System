@@ -179,6 +179,12 @@ class getRooms(Resource):
             df = db_manager.get_rooms_given_nurse(nurse_name)
             df = df.to_dict('records')
             return df
+        elif action == 'room':
+            r_number = json.loads(request.data)['room_number']
+            hospital_name = json.loads(request.data)['hospital_name']
+            df = db_manager.get_rooms_given_room(r_number, hospital_name)
+            df = df.to_dict('records')
+            return df
 class getMaintenanceListForAHospital(Resource):
     def post(self):
         hospital_name = json.loads(request.data)['hospital_name']

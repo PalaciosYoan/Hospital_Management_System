@@ -283,6 +283,24 @@ class Query_Queries(object):
             self.conn.rollback()
             print(e)
     
+    
+    def get_rooms_given_room(self, r_number, h_name):
+        try:
+            query = """
+                select * 
+                from Room,
+                (
+                            select h_id
+                            from Hospital
+                            where name = "{}"
+                        ) h1
+                where Room.h_id=h1.h_id and Room.room_number = {};
+            """.format(h_name, r_number)
+            df = pd.read_sql_query(query, con=self.conn)
+            return df
+        except Error as e:
+            self.conn.rollback()
+            print(e)
             
     #complex query #3
     def get_maintenance_given_hospital(self, h_name):
