@@ -44,7 +44,7 @@ function OutlinedCard() {
     axios.post('http://127.0.0.1:5000/getprescribedmeds', {
       queryType: 'get',
       patient_name: localStorage.getItem("patient_name"),
-      dob: localStorage.getItem("patient.dob")
+      dob: localStorage.getItem("patient_dob")
     })
     .then(function (response) {
       console.log(response.data);
@@ -72,7 +72,7 @@ function OutlinedCard() {
               {medicine.name}
             </Typography>
             <Typography variant="body2">
-              <b>Cost</b>: {medicine.cost}
+              <b>Cost</b>: ${medicine.cost}
             </Typography>
             <Typography variant="body2">
               <b>Treatment For</b>: {medicine.treament_for}

@@ -80,7 +80,7 @@ function OutlinedCard() {
           <CardActions style={{ justifyContent: "center" }}>
             <Button
               onClick={() => {
-                console.log(patient.name);
+                console.log(patient.dob);
                 localStorage.setItem("patient_name", patient.name);
                 localStorage.setItem("patient_dob", patient.dob);
                 navigate("/single_patient");

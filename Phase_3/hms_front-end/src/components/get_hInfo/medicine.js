@@ -71,7 +71,7 @@ function OutlinedCard() {
               {medicine.name}
             </Typography>
             <Typography variant="body2">
-              <b>Cost</b>: {medicine.cost}
+              <b>Cost</b>: ${medicine.cost}
             </Typography>
             <Typography variant="body2">
               <b>Treatment For</b>: {medicine.treament_for}
