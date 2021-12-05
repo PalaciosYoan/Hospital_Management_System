@@ -19,6 +19,8 @@ import Update_Hospital from "./components/update_hinfo/hospital";
 import Update_Doctor from "./components/update_hinfo/doctor";
 import Nurse_Room_Patient from "./components/get_hInfo/nurse_room_patient";
 import Nurse_Room_Nurse from "./components/get_hInfo/nurse_room_nurse";
+import Room_Menu_Patient from "./components/get_hInfo/room_menu_patient"
+import Room_Menu_Nurse from "./components/get_hInfo/room_menu_nurse"
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 export default function App() {
@@ -44,6 +46,8 @@ export default function App() {
         <Route path="/update_hospital" element={<Update_Hospital />} />
         <Route path="/update_doctor" element={<Update_Doctor />} />
         <Route path="/nurse_room_nurse" element={<Nurse_Room_Nurse />} />
+        <Route path="/room_menu_patient" element={<Room_Menu_Patient />} />
+        <Route path="/room_menu_nurse" element={<Room_Menu_Nurse />} />
       </Routes>
     </Router>
   );
