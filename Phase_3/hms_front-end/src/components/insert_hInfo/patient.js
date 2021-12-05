@@ -35,13 +35,14 @@ function MaterialUIFormSubmit(props) {
     (state, newState) => ({ ...state, ...newState }),
     {
       name: "",
-      address: "",
+      phone_number: "",
+      started_working: "",
     }
   );
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
+    formInput["h_name"] = localStorage.getItem("hospital_name");
     let data = { formInput };
     console.log(data);
   };
@@ -90,16 +91,25 @@ function MaterialUIFormSubmit(props) {
               name="name"
               defaultValue={formInput.name}
               className={classes.textField}
-              helperText="Enter hospital name"
+              helperText="Enter doctor name"
               onChange={handleInput}
             />
             <TextField
-              label="Address"
+              label="Phone Number"
               id="margin-normal"
-              name="address"
-              defaultValue={formInput.address}
+              name="phone_number"
+              defaultValue={formInput.phone_number}
               className={classes.textField}
-              helperText="Enter hospital address"
+              helperText="Enter phone number"
+              onChange={handleInput}
+            />
+            <TextField
+              label="Started Working"
+              id="margin-normal"
+              name="started_working"
+              defaultValue={formInput.started_working}
+              className={classes.textField}
+              helperText="Enter started working date"
               onChange={handleInput}
             />
             <Button

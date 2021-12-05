@@ -35,13 +35,16 @@ function MaterialUIFormSubmit(props) {
     (state, newState) => ({ ...state, ...newState }),
     {
       name: "",
-      address: "",
+      side_effect: "",
+      treatment_for: "",
+      type: "",
+      cost: ""
     }
   );
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
+    formInput["h_name"] = localStorage.getItem("hospital_name");
     let data = { formInput };
     console.log(data);
   };
@@ -90,16 +93,43 @@ function MaterialUIFormSubmit(props) {
               name="name"
               defaultValue={formInput.name}
               className={classes.textField}
-              helperText="Enter hospital name"
+              helperText="Enter medicine name"
               onChange={handleInput}
             />
             <TextField
-              label="Address"
+              label="Side Effect"
               id="margin-normal"
-              name="address"
-              defaultValue={formInput.address}
+              name="side_effect"
+              defaultValue={formInput.side_effect}
               className={classes.textField}
-              helperText="Enter hospital address"
+              helperText="Enter side effect"
+              onChange={handleInput}
+            />
+            <TextField
+              label="Treatment For"
+              id="margin-normal"
+              name="treatment_for"
+              defaultValue={formInput.treatment_for}
+              className={classes.textField}
+              helperText="Enter treatment for"
+              onChange={handleInput}
+            />
+              <TextField
+              label="Type"
+              id="margin-normal"
+              name="type"
+              defaultValue={formInput.type}
+              className={classes.textField}
+              helperText="Enter type"
+              onChange={handleInput}
+            />
+            <TextField
+              label="Cost"
+              id="margin-normal"
+              name="cost"
+              defaultValue={formInput.cost}
+              className={classes.textField}
+              helperText="Enter cost"
               onChange={handleInput}
             />
             <Button

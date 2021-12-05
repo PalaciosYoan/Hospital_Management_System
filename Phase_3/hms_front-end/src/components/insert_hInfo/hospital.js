@@ -41,7 +41,7 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
+    formInput["h_name"] = localStorage.getItem("hospital_name");
     let data = { formInput };
     console.log(data);
   };
