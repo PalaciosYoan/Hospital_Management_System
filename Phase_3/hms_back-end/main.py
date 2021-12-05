@@ -144,6 +144,12 @@ class medicationAPI(Resource):
             df = db_manager.get_medication_given_hospital(hospital_name)
             df = df.to_dict('records')
             return df
+        elif action == 'patient':
+            patient_name = json.loads(request.data)['patient_name']
+            dob = json.loads(request.data)['dob']
+            df = db_manager.get_medication_given_patient(patient_name, dob)
+            df = df.to_dict('records')
+            return df
         elif action =='post':
             json_data = json.loads(request.data)
             m_name = json_data['medication_name']

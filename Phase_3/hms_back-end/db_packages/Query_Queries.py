@@ -242,6 +242,28 @@ class Query_Queries(object):
             self.conn.rollback()
             print(e)
 
+    #complex
+    def get_medication_given_patient(self, p_name, dob):
+        try:
+            query = """
+                select name, cost, type, side_effect, treament_for,  assigned_date
+                from Medication,
+                        ( select assigned_date, m_id as med_id
+                            from Prescribed_Med,
+                            (
+                                select p_id
+                                from Patient
+                                where name = "{}", dob = "{}"
+                                ) p1
+                            where p1.p_id = Prescribed_Med.p_id;
+                        ) h1
+                where Medication.m_id=h1.med_id;
+            """.format(p_name, dob)
+            df = pd.read_sql_query(query, con=self.conn)
+            return df
+        except Error as e:
+            self.conn.rollback()
+            print(e)
 
     def get_rooms_given_hospital(self, h_name):
         try:
