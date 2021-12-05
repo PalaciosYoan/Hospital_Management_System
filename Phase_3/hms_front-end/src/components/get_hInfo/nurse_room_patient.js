@@ -36,18 +36,19 @@ const cardStyles = makeStyles({
 
 function OutlinedCard() {
   const navigate = useNavigate();
-  const [nurse_room_menu, setNurse_Room_Menu] = useState([]);
+  const [patient, setPatient] = useState([]);
 
-  useEffect(() => getNurse_Room_Menu(), []);
-  const getNurse_Room_Menu = () => {
+  useEffect(() => getPatient(), []);
+  const getPatient = () => {
     axios
-      .post("http://127.0.0.1:5000/getRooms", {
-        queryType: "nurse",
-        nurse_name: localStorage.getItem("nurse_name"),
+      .post("http://127.0.0.1:5000/getPatients", {
+        queryType: "room",
+        room_number: localStorage.getItem("room_number"),
+        hospital_name: localStorage.getItem("hospital_name"),
       })
       .then(function (response) {
         console.log(response.data);
-        setNurse_Room_Menu(response.data);
+        setPatient(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -56,7 +57,7 @@ function OutlinedCard() {
   const classes = useStyles();
   const cards = cardStyles();
 
-  function mapCards(nurse_room_menu, index) {
+  function mapCards(patient, index) {
     return (
       <Grid item xs={12} sm={6} md={4} key={index}>
         <Card className={classes.root} variant="outlined">
@@ -67,37 +68,27 @@ function OutlinedCard() {
               gutterBottom
             ></Typography>
             <Typography variant="h5" component="h2" style={{textAlign: "center" }}>
-              {nurse_room_menu.room_number}
-            </Typography>
-            <Typography variant="body2" style={{textAlign: "center" }}>
-              {nurse_room_menu.type}
+              {patient.name}
             </Typography>
             <Typography variant="body2">
-              <b>Person Allowed</b> : {nurse_room_menu.person_allowed}
+              <b>Reason for visit</b>: {patient.problem}
             </Typography>
+
             <Typography variant="body2">
-              <b>Cost</b> : ${nurse_room_menu.cost}
+              <b>DOB</b>: {patient.dob}
             </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
             <Button
               onClick={() => {
-                localStorage.setItem("room_number", nurse_room_menu.room_number);
-                navigate("/nurse_room_patient");
+                console.log(patient.name);
+                localStorage.setItem("patient_name", patient.name);
+                localStorage.setItem("patient_dob", patient.dob);
+                navigate("/single_patient");
               }}
               size="small"
             >
-              show patient
-            </Button>
-            <Button
-              onClick={() => {
-                console.log(nurse_room_menu.name);
-                localStorage.setItem("room_number", nurse_room_menu.room_number);
-                navigate("/nurse_room_nurse");
-              }}
-              size="small"
-            >
-              show all nurses
+              show patient details
             </Button>
           </CardActions>
         </Card>
@@ -132,7 +123,7 @@ function OutlinedCard() {
         className={cards.gridContainer}
         justifyContent="center"
       >
-        {nurse_room_menu.map(mapCards)}
+        {patient.map(mapCards)}
       </Grid>
     </div>
   );
