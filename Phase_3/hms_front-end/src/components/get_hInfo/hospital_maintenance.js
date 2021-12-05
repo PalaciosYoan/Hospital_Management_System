@@ -36,18 +36,17 @@ const cardStyles = makeStyles({
 
 function OutlinedCard() {
   const navigate = useNavigate();
-  const [medicine, setMedicine] = useState([]);
+  const [hospital_maintenance, setHospital_Maintenance] = useState([]);
 
-  useEffect(() => getMedicine(), []);
-  const getMedicine = () => {
+  useEffect(() => getHospital_Maintenance(), []);
+  const getHospital_Maintenance = () => {
 
-    axios.post('http://127.0.0.1:5000/getMedications', {
-      queryType: 'get',
-      hospital_name: localStorage.getItem("hospital_name")
+    axios.post('http://127.0.0.1:5000/gethospital', {
+      maint_name: localStorage.getItem("maintenance_name")
     })
     .then(function (response) {
       console.log(response.data);
-      setMedicine(response.data);
+      setHospital_Maintenance(response.data);
     })
     .catch(function (error) {
       console.log(error);
@@ -57,51 +56,34 @@ function OutlinedCard() {
   const classes = useStyles();
   const cards = cardStyles();
 
-  function mapCards(medicine, index) {
+  function mapCards(hospital_maintenance, index) {
     return (
       <Grid item xs={12} sm={6} md={4} key={index}>
         <Card className={classes.root} variant="outlined">
-          <CardContent>
+        <CardContent style={{ textAlign: "center" }}>
             <Typography
               className={classes.title}
               color="textSecondary"
               gutterBottom
             ></Typography>
             <Typography variant="h5" component="h2">
-              <center>{medicine.name}</center>
+              <center>{hospital_maintenance.name}</center>
             </Typography>
             <Typography variant="body2">
-              <b>Cost</b>: {medicine.cost}
-            </Typography>
-            <Typography variant="body2">
-              <b>Treatment For</b>: {medicine.treatment_for}
-            </Typography>
-            <Typography variant="body2">
-              <b>Type</b>: {medicine.type}
-            </Typography>
-            <Typography variant="body2">
-              <b>Side Effect</b>: {medicine.side_effect}
+            {hospital_maintenance.address}
             </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
             <Button
               onClick={() => {
-                localStorage.setItem("medicine_name", medicine.name);
-                navigate('/patient_medication')
+                console.log(hospital_maintenance.name);
+                localStorage.setItem("hospital_name", hospital_maintenance.name);
+                localStorage.setItem("hospital_address", hospital_maintenance.address);
+                navigate('/info')
               }}
               size="small"
             >
-              Show Patient(s) taking this Medicine
-            </Button>
-            <Button
-              onClick={() => {
-                console.log(medicine.name);
-                localStorage.setItem("medicine_name", medicine.name);
-                navigate('/patient_medication')
-              }}
-              size="small"
-            >
-             Edit Medicine
+              select hospital
             </Button>
           </CardActions>
         </Card>
@@ -136,7 +118,7 @@ function OutlinedCard() {
       className={cards.gridContainer}
       justifyContent="center"
     >
-      {medicine.map(mapCards)}
+      {hospital_maintenance.map(mapCards)}
     </Grid>
     </div>
   );

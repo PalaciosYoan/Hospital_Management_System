@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Grid } from "@material-ui/core";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -40,19 +40,18 @@ function OutlinedCard() {
 
   useEffect(() => getNurse(), []);
   const getNurse = () => {
-
-    axios.post('http://127.0.0.1:5000/getNurses', {
-      queryType: 'hospital',
-      hospital_name: localStorage.getItem("hospital_name")
-    })
-    .then(function (response) {
-      console.log(response.data);
-      setNurse(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
+    axios
+      .post("http://127.0.0.1:5000/getRooms", {
+        queryType: "nurse",
+        nurse_name: localStorage.getItem("nurse_name"),
+      })
+      .then(function (response) {
+        console.log(response.data);
+        setNurse(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   const classes = useStyles();
   const cards = cardStyles();
@@ -68,31 +67,22 @@ function OutlinedCard() {
               gutterBottom
             ></Typography>
             <Typography variant="h5" component="h2">
-              <center>{nurse.name}</center>
+              <center>{nurse.room_number}</center>
             </Typography>
             <Typography variant="body2">
-              <b>Started Working</b>: {nurse.started_working}
+              <center>{nurse.type}</center>
             </Typography>
           </CardContent>
           <CardActions style={{ justifyContent: "center" }}>
             <Button
               onClick={() => {
                 console.log(nurse.name);
-                localStorage.setItem("nurse_name", nurse.name);
-                navigate('/nurse_room')
+                localStorage.setItem("nurse", nurse.name);
+                navigate("/nurse_room_menu");
               }}
               size="small"
             >
-              Show monitoring room(s)
-            </Button>
-            <Button
-              onClick={() => {
-                console.log(nurse.name);
-                localStorage.setItem("nurse_name", nurse.name);
-              }}
-              size="small"
-            >
-              Edit nurse
+              Select room
             </Button>
           </CardActions>
         </Card>
@@ -101,34 +91,34 @@ function OutlinedCard() {
   }
   return (
     <div>
-        <div>
+      <div>
         <center>
-        <Card className={cards.root} variant="outlined">
-          <CardContent>
-            <Typography
-              className="Hospital"
-              color="textSecondary"
-              gutterBottom
-            ></Typography>
-            <Typography variant="h5" component="h2">
-              {localStorage.getItem("hospital_name")}
-            </Typography>
-            <Typography variant="body2" component="p">
-            {localStorage.getItem("hospital_address")}
-            </Typography>
-          </CardContent>
-        </Card>
-      </center>
-      &nbsp;
-        </div>
-    <Grid
-      container
-      spacing={4}
-      className={cards.gridContainer}
-      justifyContent="center"
-    >
-      {nurse.map(mapCards)}
-    </Grid>
+          <Card className={cards.root} variant="outlined">
+            <CardContent>
+              <Typography
+                className="Hospital"
+                color="textSecondary"
+                gutterBottom
+              ></Typography>
+              <Typography variant="h5" component="h2">
+                {localStorage.getItem("hospital_name")}
+              </Typography>
+              <Typography variant="body2" component="p">
+                {localStorage.getItem("hospital_address")}
+              </Typography>
+            </CardContent>
+          </Card>
+        </center>
+        &nbsp;
+      </div>
+      <Grid
+        container
+        spacing={4}
+        className={cards.gridContainer}
+        justifyContent="center"
+      >
+        {nurse.map(mapCards)}
+      </Grid>
     </div>
   );
 }

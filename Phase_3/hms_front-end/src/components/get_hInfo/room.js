@@ -79,20 +79,11 @@ function OutlinedCard() {
               onClick={() => {
                 console.log(room.room_number);
                 localStorage.setItem("room_number", room.room_number);
-                navigate('/doctor_patient')
+                navigate('/room_menu')
               }}
               size="small"
             >
               Select room
-            </Button>
-            <Button
-              onClick={() => {
-                console.log(room.room_number);
-                localStorage.setItem("room_number", room.room_number);
-              }}
-              size="small"
-            >
-              Edit room
             </Button>
           </CardActions>
         </Card>
