@@ -86,7 +86,6 @@ function OutlinedCard() {
           <CardActions style={{ justifyContent: "center" }}>
             <Button
               onClick={() => {
-                console.log(medicine.name);
                 localStorage.setItem("medicine_name", medicine.name);
                 navigate('/patient_medication')
               }}
