@@ -1,31 +1,8 @@
-import React from "react";
+import React, { useReducer } from "react";
+import { Button, TextField, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Grid } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
-
-const useStyles = makeStyles({
-  root: {
-    minWidth: 200,
-  },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
 
 const cardStyles = makeStyles({
   gridContainer: {
@@ -34,96 +11,119 @@ const cardStyles = makeStyles({
   },
 });
 
-function OutlinedCard() {
-  const navigate = useNavigate();
-  const [hospital, setHospital] = useState([]);
-
-  useEffect(() => getHospital(), []);
-  const getHospital = () => {
-    axios.get("http://127.0.0.1:5000/gethospital").then((response) => {
-      //console.log(response);
-      setHospital(response.data);
-    });
-  };
-  const classes = useStyles();
+function MaterialUIFormSubmit(props) {
   const cards = cardStyles();
+  const useStyles = makeStyles((theme) => ({
+    button: {
+      margin: theme.spacing(1),
+    },
+    root: {
+      padding: theme.spacing(3, 2),
+    },
+    container: {
+      display: "flex",
+      flexWrap: "wrap",
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: 400,
+    },
+  }));
 
-  function mapCards(hospital, index) {
-    return (
-      <Grid item xs={12} sm={6} md={4} key={index}>
-        <Card className={classes.root} variant="outlined">
-          <CardContent style={{ textAlign: "center" }}>
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              gutterBottom
-            ></Typography>
-            <Typography variant="h5" component="h2">
-              {hospital.name}
-            </Typography>
-            <Typography variant="body2" component="p">
-              {hospital.address}
-            </Typography>
-          </CardContent>
-          <CardActions style={{ justifyContent: "center" }}>
-            <Button
-              onClick={() => {
-                console.log(hospital.name);
-                localStorage.setItem("hospital_name", hospital.name);
-                localStorage.setItem("hospital_address", hospital.address);
-                navigate("info");
-              }}
-              size="small"
-            >
-              Select Hospital
-            </Button>
-            <Button
-              onClick={() => {
-                console.log(hospital.name);
-                localStorage.setItem("hospital_name", hospital.name);
-                localStorage.setItem("hospital_address", hospital.address);
-              }}
-              size="small"
-            >
-              Edit Hospital
-            </Button>
-          </CardActions>
-        </Card>
-      </Grid>
-    );
-  }
+  const [formInput, setFormInput] = useReducer(
+    (state, newState) => ({ ...state, ...newState }),
+    {
+      name: localStorage.getItem("hospital_name"),
+      Address: localStorage.getItem("hospital_address"),
+    }
+  );
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    let data = { formInput };
+    console.log(data);
+  };
+
+  const handleInput = (evt) => {
+    const name = evt.target.name;
+    const newValue = evt.target.value;
+    setFormInput({ [name]: newValue });
+  };
+
+  const classes = useStyles();
+
   return (
     <div>
-        <div>
+      <div>
         <center>
-        <Card className={cards.root} variant="outlined">
-          <CardContent>
-            <Typography
-              className="Hospital"
-              color="textSecondary"
-              gutterBottom
-            ></Typography>
-            <Typography variant="h5" component="h2">
-              {localStorage.getItem("hospital_name")}
-            </Typography>
-            <Typography variant="body2" component="p">
-            {localStorage.getItem("hospital_address")}
-            </Typography>
-          </CardContent>
-        </Card>
-      </center>
-      &nbsp;
-        </div>
-      <Grid
-        container
-        spacing={4}
-        className={cards.gridContainer}
-        justifyContent="center"
-      >
-        {hospital.map(mapCards)}
-      </Grid>
+          <Card className={cards.root} variant="outlined">
+            <CardContent>
+              <Typography
+                className="Hospital"
+                color="textSecondary"
+                gutterBottom
+              ></Typography>
+              <Typography variant="h5" component="h2">
+                {localStorage.getItem("hospital_name")}
+              </Typography>
+              <Typography variant="body2" component="p">
+                {localStorage.getItem("hospital_address")}
+              </Typography>
+            </CardContent>
+          </Card>
+        </center>
+        &nbsp;
+      </div>
+      <Paper className={classes.root} justifyContent="center">
+        <center>
+          <Typography variant="h5" component="h3">
+            {props.formName}
+          </Typography>
+          <Typography component="p">{props.formDescription}</Typography>
+
+          <form onSubmit={handleSubmit}>
+            <TextField
+              label="Name"
+              id="margin-normal"
+              name="name"
+              defaultValue={formInput.name}
+              className={classes.textField}
+              helperText="Enter hospital name"
+              onChange={handleInput}
+            />
+            <TextField
+              label="Address"
+              id="margin-normal"
+              name="Address"
+              defaultValue={formInput.Address}
+              className={classes.textField}
+              helperText="Enter hospital address"
+              onChange={handleInput}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
+              Submit
+            </Button>
+            <Button style={{backgroundColor: 'red', color: '#FFFFFF'}}
+              onClick={() => {
+                console.log(1);
+              }}
+              variant="contained"
+              className={classes.button}
+            >
+              Delete
+            </Button>
+          </form>
+        </center>
+      </Paper>
     </div>
   );
 }
 
-export default OutlinedCard;
+export default MaterialUIFormSubmit;
