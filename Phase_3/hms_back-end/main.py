@@ -114,7 +114,15 @@ class patientAPI(Resource):
             df = db_manager.get_patients_given_med(m_name, h_name)
             df = df.to_dict('records')
             return df
-    
+        elif action == 'room':
+            data = json.loads(request.data)
+            r_number = data['room_number']
+            h_name = data['hospital_name']
+            df = db_manager.get_patients_given_room(r_number, h_name)
+            df = df.to_dict('records')
+            return df
+        
+        
     def put(self):
         action = json.loads(request.data)['queryType']
         if action == 'released_date':

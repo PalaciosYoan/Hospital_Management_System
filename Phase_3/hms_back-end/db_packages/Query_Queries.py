@@ -199,23 +199,23 @@ class Query_Queries(object):
             self.conn.rollback()
             print(e)
 
-    def get_patients_given_room(self, r_number):
+    def get_patients_given_room(self, r_number, h_name):
         try:
             query = """
-                select Nurse.name, Nurse.started_working
-                from Nurse, 
-                    (select n_id 
-                    from Nurse_Room_Junction_Table,
+                select *
+                from Patient, 
+                    (select p_id 
+                    from Room,
                         (
-                            select r_id
-                            from Room
-                            where room_number = {}
+                            select h_id
+                            from Hospital
+                            where name = "{}"
                         ) h1
-                    where Nurse_Room_Junction_Table.r_id = h1.r_id 
+                    where Room.h_id = h1.h_id and room.room_number = {}
                     ) t2
-                where Nurse.n_id = t2.n_id;
+                where Patient.p_id = t2.p_id;
                 
-            """.format(r_number)
+            """.format(h_name, r_number)
             df = pd.read_sql_query(query, con=self.conn)
             return df
         except Error as e:
