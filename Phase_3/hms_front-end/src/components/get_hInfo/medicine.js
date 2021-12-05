@@ -94,6 +94,16 @@ function OutlinedCard() {
             >
               Show Patient(s) taking this Medicine
             </Button>
+            <Button
+              onClick={() => {
+                console.log(medicine.name);
+                localStorage.setItem("medicine_name", medicine.name);
+                navigate('/patient_medication')
+              }}
+              size="small"
+            >
+             Edit Medicine
+            </Button>
           </CardActions>
         </Card>
       </Grid>
