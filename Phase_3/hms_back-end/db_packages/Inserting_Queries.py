@@ -152,12 +152,26 @@ class Inserting_Queries(object):
                 """.format(h_name)
             self.cursor.execute(h_id)
             h_id = self.cursor.fetchall()[0][0]
-            d_id = str(uuid.uuid4())
+            n_id = str(uuid.uuid4())
             
             query = """
                 INSERT INTO Nurse
                 VALUES("{}", "{}","{}",{}, "{}")
-            """.format(d_id, name, datetime.strftime(started_working, f"%Y-%m-%d"), phone_number, h_id)
+            """.format(n_id, name, datetime.strftime(started_working, f"%Y-%m-%d"), phone_number, h_id)
+            self.conn.execute(query)
+            self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def insert_maint(self, name, started_working, phone_number, duty):
+        try:
+            maint_id = str(uuid.uuid4())
+            
+            query = """
+                INSERT INTO Maintenance
+                VALUES("{}", "{}","{}","{}", {})
+            """.format(maint_id, name, datetime.strftime(started_working, f"%Y-%m-%d"), duty, phone_number)
             self.conn.execute(query)
             self.conn.commit()
         except Error as e:

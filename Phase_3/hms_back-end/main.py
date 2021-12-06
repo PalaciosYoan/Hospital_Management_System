@@ -51,6 +51,13 @@ class MaintenceAPI(Resource):
             maint_name = data['maintenance_name']
             db_manager.insert_specific_maintenance_hos_junct(h_name, maint_name)
             return 'status: 200'
+        elif action =='insert-maintenance' # easily be able to add more queries to doctor
+            data = json.loads(request.data)
+            name = data['maint_name']
+            started_working = data['start_date']
+            phone_number = data['phone_number']
+            duty = data['duty']
+            db_manager.insert_maint(name, started_working, phone_number, duty)
 
     def delete(self):
         given = json.loads(request.data)
