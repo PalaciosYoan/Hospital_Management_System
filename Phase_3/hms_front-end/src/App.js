@@ -15,13 +15,20 @@ import Hospital_Maintenance from "./components/get_hInfo/hospital_maintenance";
 import Patient_Medication from "./components/get_hInfo/patient_medication";
 import Nurse_Room_Menu from "./components/get_hInfo/nurse_room_menu";
 import Room_Menu from "./components/get_hInfo/room_menu";
-import Update_Hospital from "./components/update_hinfo/hospital";
-import Update_Doctor from "./components/update_hinfo/doctor";
+import Update_Hospital from "./components/update_hInfo/hospital";
+import Update_Doctor from "./components/update_hInfo/doctor";
 import Nurse_Room_Patient from "./components/get_hInfo/nurse_room_patient";
 import Nurse_Room_Nurse from "./components/get_hInfo/nurse_room_nurse";
-import Room_Menu_Patient from "./components/get_hInfo/room_menu_patient"
-import Room_Menu_Nurse from "./components/get_hInfo/room_menu_nurse"
-import Medicine_Patient from "./components/get_hInfo/medicine_patient"
+import Room_Menu_Patient from "./components/get_hInfo/room_menu_patient";
+import Room_Menu_Nurse from "./components/get_hInfo/room_menu_nurse";
+import Medicine_Patient from "./components/get_hInfo/medicine_patient";
+import Insert_Hospital from "./components/insert_hInfo/hospital";
+import Insert_Maintenance from "./components/insert_hInfo/maintenance";
+import Insert_Medicine from "./components/insert_hInfo/medicine";
+import Insert_Nurse from "./components/insert_hInfo/nurse";
+import Insert_Patient from "./components/insert_hInfo/patient";
+import Insert_Room from "./components/insert_hInfo/room";
+import Insert_Doctor from "./components/insert_hInfo/doctor";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 export default function App() {
@@ -50,6 +57,13 @@ export default function App() {
         <Route path="/room_menu_patient" element={<Room_Menu_Patient />} />
         <Route path="/room_menu_nurse" element={<Room_Menu_Nurse />} />
         <Route path="/medicine_patient" element={<Medicine_Patient />} />
+        <Route path="/insert_hospital" element={<Insert_Hospital />} />
+        <Route path="/insert_maintenance" element={<Insert_Maintenance />} />
+        <Route path="/insert_medicine" element={<Insert_Medicine />} />
+        <Route path="/insert_nurse" element={<Insert_Nurse />} />
+        <Route path="/insert_patient" element={<Insert_Patient />} />
+        <Route path="/insert_room" element={<Insert_Room />} />
+        <Route path="/insert_doctor" element={<Insert_Doctor />} />
       </Routes>
     </Router>
   );

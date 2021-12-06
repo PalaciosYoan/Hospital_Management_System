@@ -42,8 +42,9 @@ function OutlinedCard() {
   const getRoom_Menu = () => {
     axios
       .post("http://127.0.0.1:5000/getRooms", {
-        queryType: "nurse",
-        nurse_name: localStorage.getItem("nurse_name"),
+        queryType: "room",
+        room_number: localStorage.getItem("room_number"),
+        hospital_name: localStorage.getItem("hospital_name"),
       })
       .then(function (response) {
         console.log(response.data);

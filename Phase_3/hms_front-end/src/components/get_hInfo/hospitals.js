@@ -110,6 +110,17 @@ function OutlinedCard() {
               <Typography variant="body2" component="p">
                 1.1
               </Typography>
+              <Typography variant="body2" component="p">
+              <Button
+              onClick={() => {
+                navigate("/insert_hospital");
+              }}
+              size="small"
+              variant="outlined"
+            >
+              Add Hospital
+            </Button>
+              </Typography>
             </CardContent>
           </Card>
         </center>
