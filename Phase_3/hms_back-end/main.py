@@ -51,7 +51,7 @@ class MaintenceAPI(Resource):
             maint_name = data['maintenance_name']
             db_manager.insert_specific_maintenance_hos_junct(h_name, maint_name)
             return 'status: 200'
-        elif action =='insert-maintenance' # easily be able to add more queries to doctor
+        elif action =='insert-maintenance': # easily be able to add more queries to doctor
             data = json.loads(request.data)
             name = data['maint_name']
             started_working = data['start_date']
@@ -79,7 +79,7 @@ class doctorAPI(Resource):
             df = db_manager.get_doctors_given_hospital(hospital_name)
             df = df.to_dict('records')
             return df
-        elif action =='insert-doctor' # easily be able to add more queries to doctor
+        elif action =='insert-doctor': # easily be able to add more queries to doctor
             data = json.loads(request.data)
             name = data['doctor_name']
             started_working = data['start_date']
@@ -106,7 +106,7 @@ class nurseAPI(Resource):
             df = db_manager.get_nurses_given_rooms(r_number=r_number, h_name=h_name)
             df = df.to_dict('records')
             return df
-        elif action =='insert-nurse' # easily be able to add more queries to doctor
+        elif action =='insert-nurse': # easily be able to add more queries to doctor
             data = json.loads(request.data)
             name = data['nurse_name']
             started_working = data['start_date']
