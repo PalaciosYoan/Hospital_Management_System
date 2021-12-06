@@ -79,7 +79,7 @@ function MaterialUIFormSubmit(props) {
         </center>
         &nbsp;
       </div>
-      <Paper className={classes.root} justifyContent="center">
+      <Paper className={classes.root} justifycontent="center">
         <center>
           <Typography variant="h5" component="h3">
             {props.formName}
