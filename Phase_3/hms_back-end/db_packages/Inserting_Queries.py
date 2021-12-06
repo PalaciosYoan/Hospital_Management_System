@@ -8,7 +8,7 @@ class Inserting_Queries(object):
         try:
             #gets h_id first given h_name
             q1 = """
-                select h_name
+                select h_id
                 from Hospital
                 where name = '{}'
                 limit 1;
@@ -28,15 +28,15 @@ class Inserting_Queries(object):
             self.conn.rollback()
             print(e)
     
-    def insert_specific_prescribed_med(self, assigned_date, p_name, m_name, h_name):
+    def insert_specific_prescribed_med(self, assigned_date, p_name, dob, m_name, h_name):
         try:
             #get p_id given p_name
             q1 = """
                 select p_id
                 from Patient
-                where name = '{}'
+                where name = "{}" and dob="{}"
                 limit 1;
-            """.format(p_name)
+            """.format(p_name, dob)
             self.cursor.execute(q1)
             p_id = self.cursor.fetchall()[0][0]
 
@@ -84,7 +84,7 @@ class Inserting_Queries(object):
             print(e)
     
     #complex query number 7
-    def insert_specific_maintenance(self, h_name, maint_name):
+    def insert_specific_maintenance_hos_junct(self, h_name, maint_name):
         try:
             #get h_id given h_name
             q1 = """
@@ -118,6 +118,62 @@ class Inserting_Queries(object):
             self.conn.execute(query)
             self.conn.commit()
         
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def insert_doctor(self, name, started_working, phone_number, h_name):
+        try:
+            h_id = """
+                select h_id
+                from Hospital
+                where name = "{}"
+                """.format(h_name)
+            self.cursor.execute(h_id)
+            h_id = self.cursor.fetchall()[0][0]
+            d_id = str(uuid.uuid4())
+            
+            query = """
+                INSERT INTO Doctor
+                VALUES("{}", "{}","{}",{}, "{}")
+            """.format(d_id, name, datetime.strftime(started_working, f"%Y-%m-%d"), phone_number, h_id)
+            self.conn.execute(query)
+            self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def insert_nurse(self, name, started_working, phone_number, h_name):
+        try:
+            h_id = """
+                select h_id
+                from Hospital
+                where name = "{}"
+                """.format(h_name)
+            self.cursor.execute(h_id)
+            h_id = self.cursor.fetchall()[0][0]
+            n_id = str(uuid.uuid4())
+            
+            query = """
+                INSERT INTO Nurse
+                VALUES("{}", "{}","{}",{}, "{}")
+            """.format(n_id, name, datetime.strftime(started_working, f"%Y-%m-%d"), phone_number, h_id)
+            self.conn.execute(query)
+            self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def insert_maint(self, name, started_working, phone_number, duty):
+        try:
+            maint_id = str(uuid.uuid4())
+            
+            query = """
+                INSERT INTO Maintenance
+                VALUES("{}", "{}","{}","{}", {})
+            """.format(maint_id, name, datetime.strftime(started_working, f"%Y-%m-%d"), duty, phone_number)
+            self.conn.execute(query)
+            self.conn.commit()
         except Error as e:
             self.conn.rollback()
             print(e)

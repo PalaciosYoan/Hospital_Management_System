@@ -1,3 +1,4 @@
+from numpy import delete
 from db_packages.Data_Base_Manager import Data_Base_Manager
 from flask import Flask, render_template, jsonify, request, redirect, session, g
 from flask_restful import Api, Resource
@@ -44,19 +45,31 @@ class MaintenceAPI(Resource):
             df = db_manager.get_maintenance_given_hospital(hospital_name)
             df = df.to_dict('records')
             return df
-        elif action == 'post':
+        elif action == 'post-junction-table':
             data = json.loads(request.data)
             h_name = data['hospital_name']
             maint_name = data['maintenance_name']
-            db_manager.insert_specific_maintenance(h_name, maint_name)
+            db_manager.insert_specific_maintenance_hos_junct(h_name, maint_name)
             return 'status: 200'
+        elif action =='insert-maintenance' # easily be able to add more queries to doctor
+            data = json.loads(request.data)
+            name = data['maint_name']
+            started_working = data['start_date']
+            phone_number = data['phone_number']
+            duty = data['duty']
+            db_manager.insert_maint(name, started_working, phone_number, duty)
 
     def delete(self):
-        data = json.loads(request.data)
-        h_name = data['hospital_name']
-        maint_name = data['maintenance_name']
-        db_manager.delete_specific_maintenance(h_name, maint_name)
-        return
+        given = json.loads(request.data)
+        if given['queryType'] == "junctionTable":
+            h_name = given['hospital_name']
+            maint_name = given['maintenance_name']
+            db_manager.delete_specific_maintenance_junc_hos(h_name, maint_name)
+            return
+        if given['queryType'] == "maintTable":
+            maint_name = given['maintenance_name']
+            db_manager.delete_specific_maintenance(maint_name=maint_name)
+            return
     
 class doctorAPI(Resource):
     def post(self):
@@ -66,7 +79,18 @@ class doctorAPI(Resource):
             df = db_manager.get_doctors_given_hospital(hospital_name)
             df = df.to_dict('records')
             return df
-        #elif action =='' # easily be able to add more queries to doctor
+        elif action =='insert-doctor' # easily be able to add more queries to doctor
+            data = json.loads(request.data)
+            name = data['doctor_name']
+            started_working = data['start_date']
+            phone_number = data['phone_number']
+            h_name = data['hospital_name']
+            db_manager.insert_doctor(name, started_working, phone_number, h_name)
+        
+    def delete(self):
+        data = json.loads(request.data)
+        doc_name = data['doctor_name']
+        db_manager.delete_doctor(doc_name=doc_name)
 
 class nurseAPI(Resource):
     def post(self):
@@ -76,12 +100,24 @@ class nurseAPI(Resource):
             df = db_manager.get_nurses_given_hospital(hospital_name)
             df = df.to_dict('records')
             return df
-        if action == "room":
+        elif action == "room":
             r_number = json.loads(request.data)["room_number"]
             h_name = json.loads(request.data)["hospital_name"]
             df = db_manager.get_nurses_given_rooms(r_number=r_number, h_name=h_name)
             df = df.to_dict('records')
             return df
+        elif action =='insert-nurse' # easily be able to add more queries to doctor
+            data = json.loads(request.data)
+            name = data['nurse_name']
+            started_working = data['start_date']
+            phone_number = data['phone_number']
+            h_name = data['hospital_name']
+            db_manager.insert_nurse(name, started_working, phone_number, h_name)
+    
+    def delete(self):
+        data = json.loads(request.data)
+        n_name = data['nurse_name']
+        db_manager.delete_nurse(n_name=n_name)
 
 class patientAPI(Resource):
     def post(self):
@@ -121,7 +157,11 @@ class patientAPI(Resource):
             df = db_manager.get_patients_given_room(r_number, h_name)
             df = df.to_dict('records')
             return df
-        
+    def delete(self):
+        data = json.loads(request.data)
+        p_name = data['patient_name']
+        dob = data['dob']
+        db_manager.delete_patient(p_name=p_name, dob=dob)
         
     def put(self):
         action = json.loads(request.data)['queryType']
@@ -208,12 +248,17 @@ class prescribedMedsAPI(Resource):
             p_name = data['patient_name']
             m_name = data['medication_name']
             h_name = data['hospital_name']
-            db_manager.insert_specific_prescribed_med(assigned_date, p_name, m_name, h_name)
+            dob = data['dob']
+            db_manager.insert_specific_prescribed_med(assigned_date, p_name, dob, m_name, h_name)
             return 'status: 200'
     
     def delete(self):
-        patient_name = json.loads(request.data)['patient_name']
-        db_manager.delete_specific_prescribed_med(patient_name)
+        data = json.loads(request.data)
+        patient_name = data['patient_name']
+        dob = data['dob']
+        hospital_name = data['hospital_name']
+        med_name = data['medication_name']
+        db_manager.delete_specific_prescribed_med(dob=dob, p_name=patient_name, med_name=med_name, h_name = hospital_name)
         return 'status: 200'
     
     
