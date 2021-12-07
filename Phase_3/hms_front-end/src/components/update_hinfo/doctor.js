@@ -14,21 +14,24 @@ const cardStyles = makeStyles({
 
 function MaterialUIFormSubmit(props) {
   const [doctor, setDoctor] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => getDoctor(), []);
   const getDoctor = () => {
     axios
-    .post("http://127.0.0.1:5000/getDoctors", {
-      queryType: "hospital-doctor",
-      doctor_name: localStorage.getItem("hospital_name"),
-      hospital_name: localStorage.getItem("doctor_name"),
-    })
-    .then(function (response) {
-     console.log(response.data);
-      setDoctor(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .post("http://127.0.0.1:5000/getDoctors", {
+        queryType: "hospital-doctor",
+        doctor_name: localStorage.getItem("hospital_name"),
+        hospital_name: localStorage.getItem("doctor_name"),
+      })
+      .then(function (response) {
+        //console.log(response.data);
+        setDoctor(response.data);
+        setLoading(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
   };
 
   const cards = cardStyles();
@@ -56,13 +59,12 @@ function MaterialUIFormSubmit(props) {
       name: "",
       phone_number: "",
       started_working: "",
-      h_id: ""
+      h_id: "",
     }
   );
   const handleSubmit = (evt) => {
     evt.preventDefault();
     console.log(formInput);
-
   };
 
   const handleInput = (evt) => {
@@ -73,85 +75,90 @@ function MaterialUIFormSubmit(props) {
 
   const classes = useStyles();
 
-  return (
-    <div>
+  function renderItems() {
+    return (
       <div>
-        <center>
-          <Card className={cards.root} variant="outlined">
-            <CardContent>
-              <Typography
-                className="Hospital"
-                color="textSecondary"
-                gutterBottom
-              ></Typography>
-              <Typography variant="h5" component="h2">
-                {localStorage.getItem("hospital_name")}
-              </Typography>
-              <Typography variant="body2" component="p">
-                {localStorage.getItem("hospital_address")}
-              </Typography>
-            </CardContent>
-          </Card>
-        </center>
-        &nbsp;
-      </div>
-      <Paper className={classes.root} justifycontent="center">
-        <center>
-          <Typography variant="h5" component="h3">
-            {props.formName}
-          </Typography>
-          <Typography component="p">{props.formDescription}</Typography>
+        <div>
+          <center>
+            <Card className={cards.root} variant="outlined">
+              <CardContent>
+                <Typography
+                  className="Hospital"
+                  color="textSecondary"
+                  gutterBottom
+                ></Typography>
+                <Typography variant="h5" component="h2">
+                  {localStorage.getItem("hospital_name")}
+                </Typography>
+                <Typography variant="body2" component="p">
+                  {localStorage.getItem("hospital_address")}
+                </Typography>
+              </CardContent>
+            </Card>
+          </center>
+          &nbsp;
+        </div>
+        <Paper className={classes.root} justifycontent="center">
+          <center>
+            <Typography variant="h5" component="h3">
+              {props.formName}
+            </Typography>
+            <Typography component="p">{props.formDescription}</Typography>
 
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Name"
-              id="margin-normal"
-              name="name"
-              defaultValue={formInput.name}
-              className={classes.textField}
-              helperText="Enter hospital name"
-              onChange={handleInput}
-            />
-            <TextField
-              label="Phone Number"
-              id="margin-normal"
-              name="Phone Number"
-              defaultValue={formInput.phone_number}
-              className={classes.textField}
-              helperText="Enter phone number"
-              onChange={handleInput}
-            />
-            <TextField
-              label="Started Working"
-              id="margin-normal"
-              name="Started Working"
-              defaultValue={formInput.started_working}
-              className={classes.textField}
-              helperText="Enter started working"
-              onChange={handleInput}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className={classes.button}
-            >
-              Submit
-            </Button>
-            <Button style={{backgroundColor: 'red', color: '#FFFFFF'}}
-              onClick={() => {
-                console.log("delete button pressed!");
-              }}
-              variant="contained"
-              className={classes.button}
-            >
-              Delete
-            </Button>
-          </form>
-        </center>
-      </Paper>
-    </div>
-  );
+            <form onSubmit={handleSubmit}>
+              <TextField
+                label="Name"
+                id="margin-normal"
+                name="name"
+                defaultValue={doctor[0]['name']}
+                className={classes.textField}
+                helperText="Enter doctor name"
+                onChange={handleInput}
+              />
+              <TextField
+                label="Phone Number"
+                id="margin-normal"
+                name="Phone Number"
+                defaultValue={doctor[0]['phone_number']}
+                className={classes.textField}
+                helperText="Enter phone number"
+                onChange={handleInput}
+              />
+              <TextField
+                label="Started Working"
+                id="margin-normal"
+                name="Started Working"
+                defaultValue={doctor[0]['started_working']}
+                className={classes.textField}
+                helperText="Enter started working"
+                onChange={handleInput}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.button}
+              >
+                Submit
+              </Button>
+              <Button
+                style={{ backgroundColor: "red", color: "#FFFFFF" }}
+                onClick={() => {
+                  console.log("delete button pressed!");
+                }}
+                variant="contained"
+                className={classes.button}
+              >
+                Delete
+              </Button>
+            </form>
+          </center>
+        </Paper>
+      </div>
+    );
+  }
+
+  return loading ? <div>{renderItems()}</div> : <div>loading...</div>;
 }
 
 export default MaterialUIFormSubmit;
