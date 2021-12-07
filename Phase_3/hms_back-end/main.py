@@ -261,6 +261,11 @@ class getRooms(Resource):
             h_name = json.loads(request.data)['hospital_name']
             return db_manager.get_rooms_not_filled(h_name)
         
+    def delete(self):
+        data = json.loads(request.data)
+        r_num = data['room_number']
+        n_name = data['nurse_name']
+        db_manager.delete_specific_nurse_junc_room(r_num=r_num, n_name=n_name)
 class getMaintenanceListForAHospital(Resource):
     def post(self):
         hospital_name = json.loads(request.data)['hospital_name']
