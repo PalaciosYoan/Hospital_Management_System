@@ -236,7 +236,7 @@ class medicationAPI(Resource):
         hospital_name = json.loads(request.data)['hospital_name']
         m_name = json.loads(request.data)['medication_name']
         db_manager.delete_specific_medication(m_name, hospital_name)
-        return 'status: 2000'
+        return 'status: 200'
 class getRooms(Resource):
     def get(self):
         return db_manager.get_rooms_not_filled()
