@@ -238,8 +238,6 @@ class medicationAPI(Resource):
         db_manager.delete_specific_medication(m_name, hospital_name)
         return 'status: 200'
 class getRooms(Resource):
-    def get(self):
-        return db_manager.get_rooms_not_filled()
     
     def post(self):
         action = json.loads(request.data)['queryType']
