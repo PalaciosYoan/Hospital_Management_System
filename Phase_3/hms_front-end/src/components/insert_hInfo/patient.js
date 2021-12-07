@@ -3,6 +3,10 @@ import { Button, TextField, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
 const cardStyles = makeStyles({
   gridContainer: {
@@ -12,7 +16,30 @@ const cardStyles = makeStyles({
 });
 
 function MaterialUIFormSubmit(props) {
+  const [values, setValues] = React.useState([]);
+  const [selected, setSelected] = useState(" ");
+  useEffect(() => getDoctor(), []);
   const cards = cardStyles();
+
+  function handleChange(event) {
+    setSelected(event.target.value);
+  }
+  const navigate = useNavigate();
+  const getDoctor = () => {
+    axios
+      .post("http://127.0.0.1:5000/getDoctors", {
+        queryType: "hospital",
+        hospital_name: localStorage.getItem("hospital_name"),
+      })
+      .then(function (response) {
+        console.log(response.data);
+        setValues(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const useStyles = makeStyles((theme) => ({
     button: {
       margin: theme.spacing(1),
@@ -43,6 +70,7 @@ function MaterialUIFormSubmit(props) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     formInput["h_name"] = localStorage.getItem("hospital_name");
+    formInput["d_name"] = selected.name;
     let data = { formInput };
     console.log(data);
   };
@@ -51,6 +79,7 @@ function MaterialUIFormSubmit(props) {
     const name = evt.target.name;
     const newValue = evt.target.value;
     setFormInput({ [name]: newValue });
+    
   };
 
   const classes = useStyles();
@@ -77,7 +106,7 @@ function MaterialUIFormSubmit(props) {
         </center>
         &nbsp;
       </div>
-      <Paper className={classes.root} justifyContent="center">
+      <Paper className={classes.root} justifyontent="center">
         <center>
           <Typography variant="h5" component="h3">
             {props.formName}
@@ -112,6 +141,21 @@ function MaterialUIFormSubmit(props) {
               helperText="Enter started working date"
               onChange={handleInput}
             />
+            <FormControl>
+              <InputLabel htmlFor="choose-doctor">Doctor</InputLabel>
+              <Select
+                value={selected}
+                onChange={handleChange}
+                inputProps={{
+                  doctor_name: "doctor",
+                  id: "name",
+                }}
+              >
+                {values.map((value, index) => {
+                  return <MenuItem key = {index} value={value}>{value.name}</MenuItem>;
+                })}
+              </Select>
+            </FormControl>
             <Button
               type="submit"
               variant="contained"
