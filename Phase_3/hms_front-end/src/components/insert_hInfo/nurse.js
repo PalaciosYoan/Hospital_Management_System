@@ -25,20 +25,7 @@ function MaterialUIFormSubmit(props) {
     setSelected(event.target.value);
   }
   const navigate = useNavigate();
-  const getRoom = () => {
-    axios
-      .post("http://127.0.0.1:5000/getRooms", {
-        queryType: "hospital",
-        hospital_name: localStorage.getItem("hospital_name"),
-      })
-      .then(function (response) {
-        console.log(response.data);
-        setValues(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+
 
   const useStyles = makeStyles((theme) => ({
     button: {
