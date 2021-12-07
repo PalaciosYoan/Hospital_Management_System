@@ -131,12 +131,12 @@ function MaterialUIFormSubmit(props) {
               onChange={handleInput}
             />
             <FormControl>
-              <InputLabel htmlFor="choose-doctor">Room</InputLabel>
+              <InputLabel htmlFor="choose-room">Room</InputLabel>
               <Select
                 value={selected}
                 onChange={handleChange}
                 inputProps={{
-                  doctor_name: "doctor",
+                  doctor_name: "room",
                   id: "name",
                 }}
               >
