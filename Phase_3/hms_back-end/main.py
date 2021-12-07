@@ -258,8 +258,8 @@ class getRooms(Resource):
             df = df.to_dict('records')
             return df
         elif action == 'room_not_filled':
-            hospital_id = json.loads(request.data)['hospital_id']
-            return db_manager.get_rooms_not_filled(hospital_id)
+            h_name = json.loads(request.data)['hospital_name']
+            return db_manager.get_rooms_not_filled(h_name)
         
 class getMaintenanceListForAHospital(Resource):
     def post(self):
