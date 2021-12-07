@@ -34,9 +34,9 @@ function MaterialUIFormSubmit(props) {
   const [formInput, setFormInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      room_number: "",
       person_allowed: "",
       type: "",
+      cost: "",
     }
   );
 
@@ -86,15 +86,6 @@ function MaterialUIFormSubmit(props) {
 
           <form onSubmit={handleSubmit}>
             <TextField
-              label="Room Number"
-              id="margin-normal"
-              name="room_number"
-              defaultValue={formInput.room_number}
-              className={classes.textField}
-              helperText="Enter room number"
-              onChange={handleInput}
-            />
-            <TextField
               label="Person Allowed"
               id="margin-normal"
               name="person_allowed"
@@ -110,6 +101,15 @@ function MaterialUIFormSubmit(props) {
               defaultValue={formInput.type}
               className={classes.textField}
               helperText="Enter type"
+              onChange={handleInput}
+            />
+            <TextField
+              label="Cost"
+              id="margin-normal"
+              name="cost"
+              defaultValue={formInput.cost}
+              className={classes.textField}
+              helperText="Enter cost"
               onChange={handleInput}
             />
             <Button
