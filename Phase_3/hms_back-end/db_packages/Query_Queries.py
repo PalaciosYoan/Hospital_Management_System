@@ -124,6 +124,25 @@ class Query_Queries(object):
             self.conn.rollback()
             print(e)
     
+    def get_doctors_given_hospital_doc_name(self, h_name, d_name):
+        try:
+            query = """
+                select * 
+                from Doctor,
+                (
+                    select h_id
+                    from Hospital
+                    where name = "{}"
+                ) t1
+                where Doctor.h_id=t1.h_id and
+                    Doctor.name = "{}";
+            """.format(h_name, d_name)
+            df = pd.read_sql_query(query, con=self.conn)
+            return df
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
     #not using nurse h_id since we need a lot of complex queries
     #complex querie 2
     def get_nurses_given_hospital(self, h_name):
@@ -145,6 +164,22 @@ class Query_Queries(object):
                     and t1.n_id=Nurse.n_id;
                 
             """.format(h_name)
+            df = pd.read_sql_query(query, con=self.conn)
+            return df
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def get_nurse_given_hospital_nurse_name(self, h_name, n_nurse):
+        try:
+            query = """
+                select *
+                from Nurse, Hospital
+                where
+                    Nurse.h_id = Hospital.h_id and
+                    Hospital.name = "{}" and
+                    Nurse.name = "{}";
+            """.format(h_name, n_nurse)
             df = pd.read_sql_query(query, con=self.conn)
             return df
         except Error as e:
@@ -222,6 +257,22 @@ class Query_Queries(object):
             self.conn.rollback()
             print(e)
 
+
+    def get_rooms_not_filled(self):
+        try:
+            q = """
+                select *
+                from Room
+                where
+                    p_id IS NULL;
+            """
+            df = pd.read_sql_query(q, con=self.conn)
+            df = df.to_dict('records')
+            return df
+        
+        except Error as e:
+            self.conn.rollback()
+            print(e)
     
     def get_medication_given_hospital(self, h_name):
         try:
@@ -238,6 +289,20 @@ class Query_Queries(object):
             """.format(h_name)
             df = pd.read_sql_query(query, con=self.conn)
             return df
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def get_medication_given_hospital_med_name(self,h_name, m_name):
+        try:
+            q = """
+                select *
+                from Medication, Hospital
+                where
+                    Medication.h_id = Hospital.h_id and
+                    Medication.name = "{}" and
+                    Hospital.name = "{}"
+            """.format(h_name, m_name)
         except Error as e:
             self.conn.rollback()
             print(e)

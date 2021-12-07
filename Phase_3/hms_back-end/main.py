@@ -86,6 +86,13 @@ class doctorAPI(Resource):
             phone_number = data['phone_number']
             h_name = data['hospital_name']
             db_manager.insert_doctor(name, started_working, phone_number, h_name)
+        elif action =='hospital-doctor': # easily be able to add more queries to doctor
+            data = json.loads(request.data)
+            hos_name = data['doctor_name']
+            doc_name = data['hospital_name']
+            df = db_manager.get_doctors_given_hospital_doc_name(hos_name, doc_name)
+            df = df.to_dict('records')
+            return df
         
     def delete(self):
         data = json.loads(request.data)
@@ -113,6 +120,13 @@ class nurseAPI(Resource):
             phone_number = data['phone_number']
             h_name = data['hospital_name']
             db_manager.insert_nurse(name, started_working, phone_number, h_name)
+        elif action == 'nurse-hospital':
+            data = json.loads(request.data)
+            hospital_name = data['hospital_name']
+            nurse_name = data['nurse_name']
+            df = db_manager.get_nurse_given_hospital_nurse_name(hospital_name, nurse_name)
+            df = df.to_dict('records')
+            return df
     
     def delete(self):
         data = json.loads(request.data)
@@ -200,13 +214,23 @@ class medicationAPI(Resource):
             treament_for = json_data['treament_for']
             db_manager.insert_specific_medication(m_name, h_name, cost, type, side_effect, treament_for)
             return 'status: 200'
-
+        elif action == 'hospital-med':
+            json_data = json.loads(request.data)
+            m_name = json_data['medication_name']
+            h_name = json_data['hospital_name']
+            df = db_manager.get_medication_given_hospital_med_name(h_name, m_name)
+            df = df.to_dict('records')
+            return df
+        
     def delete(self):
         hospital_name = json.loads(request.data)['hospital_name']
         m_name = json.loads(request.data)['medication_name']
         db_manager.delete_specific_medication(m_name, hospital_name)
         return 'status: 2000'
 class getRooms(Resource):
+    def get(self):
+        return db_manager.get_rooms_not_filled()
+    
     def post(self):
         action = json.loads(request.data)['queryType']
         if action == 'hospital':
@@ -225,6 +249,7 @@ class getRooms(Resource):
             df = db_manager.get_rooms_given_room(r_number, hospital_name)
             df = df.to_dict('records')
             return df
+        
 class getMaintenanceListForAHospital(Resource):
     def post(self):
         hospital_name = json.loads(request.data)['hospital_name']
