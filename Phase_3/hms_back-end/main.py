@@ -23,10 +23,18 @@ class hospitalAPI(Resource):
         return df
 
     def post(self):
-        maint_name = json.loads(request.data)['maint_name']
-        df = db_manager.get_hospital_given_maintence(maint_name=maint_name)
-        df = df.to_dict('records')
-        return df
+        action = json.loads(request.data)['queryType']
+        if action == 'maint_name':
+            maint_name = json.loads(request.data)['maint_name']
+            df = db_manager.get_hospital_given_maintence(maint_name=maint_name)
+            df = df.to_dict('records')
+            return df
+        elif action == 'post':
+            data = json.loads(request.data)
+            h_name = data['name']
+            address = data['address']
+            db_manager.insert_hospital(h_name, address)
+            
 
 class avaliableMaintenceAPI(Resource):
     def post(self):
@@ -126,7 +134,7 @@ class nurseAPI(Resource):
             nurse_name = data['nurse_name']
             df = db_manager.get_nurse_given_hospital_nurse_name(hospital_name, nurse_name)
             df = df.to_dict('records')
-            return df
+            return df 
     
     def delete(self):
         data = json.loads(request.data)
@@ -286,6 +294,13 @@ class prescribedMedsAPI(Resource):
         db_manager.delete_specific_prescribed_med(dob=dob, p_name=patient_name, med_name=med_name, h_name = hospital_name)
         return 'status: 200'
     
+class nuresRoomJunc(Resource):
+    def post(self):
+        data = json.loads(request.data)
+        n_id = data['n_id']
+        r_id = data['r_id']
+        assign_date = data['assigned_date']
+        db_manager.insert_nurse_room_junction(n_id, r_id, assign_date)
     
 api.add_resource(hospitalAPI, '/gethospital')
 api.add_resource(allMaintenceAPI, '/getallMaintence')
@@ -297,6 +312,7 @@ api.add_resource(medicationAPI, '/getMedications')
 api.add_resource(prescribedMedsAPI, '/getprescribedmeds')
 api.add_resource(MaintenceAPI, '/maintenceAPI_given_h_name')
 api.add_resource(getRooms, '/getRooms')
+api.add_resource(nuresRoomJunc, '/nurse_room_junc')
 
 @app.route('/')
 def home():

@@ -83,6 +83,69 @@ class Inserting_Queries(object):
             self.conn.rollback()
             print(e)
     
+    def insert_nurse_room_junction(self, n_id, r_id, assigned_date):
+        try:
+            #get p_id given p_name
+            pmed_id = str(uuid.uuid4())
+            query = """
+                    INSERT INTO Prescribed_Med(
+                    pmed_id, assigned_date, p_id, m_id
+                    ) 
+                    VALUES 
+                    (
+                        "{}",
+                        "{}",
+                        "{}",
+                        "{}"
+                    );
+            
+            """.format(pmed_id, datetime.strftime(assigned_date, f"%Y-%m-%d"), n_id, r_id)
+            self.conn.execute(query)
+            self.conn.commit()
+        
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def insert_hospital(self, name, address):
+        try:
+            #get p_id given p_name
+            h_id = str(uuid.uuid4())
+            query = """
+                    INSERT INTO Hospital(
+                    h_id, address, name
+                    ) 
+                    VALUES 
+                    (
+                        "{}",
+                        "{}",
+                        "{}"
+                    );
+            """.format(h_id, address,name)
+            self.conn.execute(query)
+            self.conn.commit()
+            
+            df = pd.read_excel('./rooms/roomsTemplate.xlsx')
+            for index, row in df.iterrows():
+                room_number = row['room_number']
+                cost = row['cost']
+                type = row['type']
+                person_allowed = row['person_allowed']
+                h_id = h_id
+                r_id = row['r_id']
+                p_id = row['p_id']
+                query = """
+                    INSERT INTO Room (r_id,room_number,person_allowed,cost,type,h_id,p_id)
+                    VALUES ('{}',{},'{}',{},'{}','{}','{}');
+                    """.format(r_id, room_number, person_allowed, cost, type, h_id, p_id)
+                self.conn.execute(query)
+                self.conn.commit()
+        
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    
     #complex query number 7
     def insert_specific_maintenance_hos_junct(self, h_name, maint_name):
         try:
