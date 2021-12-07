@@ -42,6 +42,7 @@ function OutlinedCard() {
   const getHospital_Maintenance = () => {
 
     axios.post('http://127.0.0.1:5000/gethospital', {
+      queryType: "maint_name",
       maint_name: localStorage.getItem("maintenance_name")
     })
     .then(function (response) {
