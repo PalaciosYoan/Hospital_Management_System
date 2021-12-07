@@ -89,6 +89,7 @@ function OutlinedCard() {
               onClick={() => {
                 console.log(nurse.name);
                 localStorage.setItem("nurse_name", nurse.name);
+                navigate('/update_nurse')
               }}
               size="small"
             >

@@ -17,6 +17,10 @@ import Nurse_Room_Menu from "./components/get_hInfo/nurse_room_menu";
 import Room_Menu from "./components/get_hInfo/room_menu";
 import Update_Hospital from "./components/update_hInfo/hospital";
 import Update_Doctor from "./components/update_hInfo/doctor";
+import Update_Nurse from "./components/update_hInfo/nurse";
+
+
+
 import Nurse_Room_Patient from "./components/get_hInfo/nurse_room_patient";
 import Nurse_Room_Nurse from "./components/get_hInfo/nurse_room_nurse";
 import Room_Menu_Patient from "./components/get_hInfo/room_menu_patient";
@@ -64,6 +68,7 @@ export default function App() {
         <Route path="/insert_patient" element={<Insert_Patient />} />
         <Route path="/insert_room" element={<Insert_Room />} />
         <Route path="/insert_doctor" element={<Insert_Doctor />} />
+        <Route path="/update_nurse" element={<Update_Nurse />} />
       </Routes>
     </Router>
   );

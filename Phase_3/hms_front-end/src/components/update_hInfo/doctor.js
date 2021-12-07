@@ -24,7 +24,7 @@ function MaterialUIFormSubmit(props) {
         hospital_name: localStorage.getItem("doctor_name"),
       })
       .then(function (response) {
-        //console.log(response.data);
+        console.log(response.data);
         setDoctor(response.data);
         setLoading(true);
       })
