@@ -264,7 +264,7 @@ class Query_Queries(object):
                 select *
                 from Room, Hospital
                 where
-                    p_id IS NULL
+                    Room.p_id = 'nan'
                     and Room.h_id = Hospital.h_id and
                     Hospital.name = "{}";
             """.format(h_name)

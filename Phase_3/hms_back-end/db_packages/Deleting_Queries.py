@@ -109,24 +109,24 @@ class Deleting_Queries(object):
             self.conn.rollback()
             print(e)
     
-    def delete_specific_nurse_junc_room(self, n_id, r_id):
+    def delete_specific_nurse_junc_room(self, r_num, n_name):
         try:
-            #deletes specific maintennance given h_name and maint_name
-            # h_id = """
-            #     select h_id
-            #     from Hospital
-            #     where name="{}"
-            # """.format(h_name)
-            # self.cursor.execute(h_id)
-            # h_id = self.cursor.fetchall()[0][0]
             
-            # maint_id = """
-            #     select maint_id
-            #     from Maintenance
-            #     where maint_name ="{}"
-            # """.format(maint_name)
-            # self.cursor.execute(maint_id)
-            # maint_id = self.cursor.fetchall()[0][0]
+            r_id = """
+                select r_id
+                from Room
+                where room_number={}
+            """.format(r_num)
+            self.cursor.execute(r_id)
+            r_id = self.cursor.fetchall()[0][0]
+            
+            n_id = """
+                select n_id
+                from Nurse
+                where name ="{}"
+            """.format(n_name)
+            self.cursor.execute(n_id)
+            n_id = self.cursor.fetchall()[0][0]
             
             query = """
                     DELETE

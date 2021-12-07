@@ -112,3 +112,13 @@ from Medication,
             where p1.p_id = Prescribed_Med.p_id
         ) h1
 where Medication.m_id=h1.med_id;
+
+
+
+
+select *
+from Room, Hospital
+where
+    Room.p_id = 'nan' AND
+    Room.h_id = Hospital.h_id and
+    Hospital.name = "MARSHALL MEDICAL CENTER SOUTH";
