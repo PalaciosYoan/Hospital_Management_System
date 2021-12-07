@@ -18,11 +18,29 @@ const cardStyles = makeStyles({
 function MaterialUIFormSubmit(props) {
   const [values, setValues] = React.useState([]);
   const [selected, setSelected] = useState(" ");
+
+  const [values_2, setValues_2] = React.useState([]);
+  const [selected_2, setSelected_2] = useState(" ");
+
+  const [values_3, setValues_3] = React.useState([]);
+  const [selected_3, setSelected_3] = useState(" ");
+
   useEffect(() => getDoctor(), []);
+  useEffect(() => getRooms(), []);
+  useEffect(() => getMedicine(), []);
+
   const cards = cardStyles();
 
   function handleChange(event) {
     setSelected(event.target.value);
+  }
+
+  function handleChange_2(event) {
+    setSelected_2(event.target.value);
+  }
+
+  function handleChange_3(event) {
+    setSelected_3(event.target.value);
   }
   const navigate = useNavigate();
   const getDoctor = () => {
@@ -34,6 +52,36 @@ function MaterialUIFormSubmit(props) {
       .then(function (response) {
         console.log(response.data);
         setValues(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const getRooms = () => {
+    axios
+      .post("http://127.0.0.1:5000/getRooms", {
+        queryType: "room_not_filled",
+        hospital_name: localStorage.getItem("hospital_name"),
+      })
+      .then(function (response) {
+        console.log(response.data);
+        setValues_2(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const getMedicine = () => {
+    axios
+      .post("http://127.0.0.1:5000/getMedications", {
+        queryType: "get",
+        hospital_name: localStorage.getItem("hospital_name"),
+      })
+      .then(function (response) {
+        console.log(response.data);
+        setValues_3(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -71,6 +119,8 @@ function MaterialUIFormSubmit(props) {
     evt.preventDefault();
     formInput["h_name"] = localStorage.getItem("hospital_name");
     formInput["d_name"] = selected.name;
+    formInput["room_number"] = selected_2.room_number;
+    formInput["medicine_name"] = selected_3.name;
     let data = { formInput };
     console.log(data);
   };
@@ -79,7 +129,6 @@ function MaterialUIFormSubmit(props) {
     const name = evt.target.name;
     const newValue = evt.target.value;
     setFormInput({ [name]: newValue });
-    
   };
 
   const classes = useStyles();
@@ -152,10 +201,55 @@ function MaterialUIFormSubmit(props) {
                 }}
               >
                 {values.map((value, index) => {
-                  return <MenuItem key = {index} value={value}>{value.name}</MenuItem>;
+                  return (
+                    <MenuItem key={index} value={value}>
+                      {value.name}
+                    </MenuItem>
+                  );
                 })}
               </Select>
             </FormControl>
+            &nbsp;&nbsp;&nbsp;
+            <FormControl>
+              <InputLabel htmlFor="choose-doctor">Room</InputLabel>
+              <Select
+                value={selected_2}
+                onChange={handleChange_2}
+                inputProps={{
+                  room_number: "room",
+                  id: "name",
+                }}
+              >
+                {values_2.map((value_2, index_2) => {
+                  return (
+                    <MenuItem key={index_2} value={value_2}>
+                      {value_2.room_number}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            &nbsp;&nbsp;&nbsp;
+            <FormControl>
+              <InputLabel htmlFor="choose-doctor">Medicine</InputLabel>
+              <Select
+                value={selected_3}
+                onChange={handleChange_3}
+                inputProps={{
+                  medicine: "medicine",
+                  id: "name",
+                }}
+              >
+                {values_3.map((value_3, index_3) => {
+                  return (
+                    <MenuItem key={index_3} value={value_3}>
+                      {value_3.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+            &nbsp;&nbsp;&nbsp;
             <Button
               type="submit"
               variant="contained"
