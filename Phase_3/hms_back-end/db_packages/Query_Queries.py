@@ -258,14 +258,15 @@ class Query_Queries(object):
             print(e)
 
 
-    def get_rooms_not_filled(self):
+    def get_rooms_not_filled(self, h_id):
         try:
             q = """
                 select *
                 from Room
                 where
-                    p_id IS NULL;
-            """
+                    p_id IS NULL
+                    and h_id = "{}";
+            """.format(h_id)
             df = pd.read_sql_query(q, con=self.conn)
             df = df.to_dict('records')
             return df

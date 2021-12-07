@@ -1,4 +1,5 @@
 from sqlite3 import Error
+import pandas as pd
 class Deleting_Queries(object):
     def delete_specific_medication(self, m_name, h_name):
         try:
@@ -101,6 +102,39 @@ class Deleting_Queries(object):
                         h_id = "{}" and maint_id = "{}"
                     ;
             """.format(h_id, maint_id)
+            self.conn.execute(query)
+            self.conn.commit()
+
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def delete_specific_nurse_junc_room(self, n_id, r_id):
+        try:
+            #deletes specific maintennance given h_name and maint_name
+            # h_id = """
+            #     select h_id
+            #     from Hospital
+            #     where name="{}"
+            # """.format(h_name)
+            # self.cursor.execute(h_id)
+            # h_id = self.cursor.fetchall()[0][0]
+            
+            # maint_id = """
+            #     select maint_id
+            #     from Maintenance
+            #     where maint_name ="{}"
+            # """.format(maint_name)
+            # self.cursor.execute(maint_id)
+            # maint_id = self.cursor.fetchall()[0][0]
+            
+            query = """
+                    DELETE
+                    FROM Nurse_Room_Junction_Table
+                    where
+                        n_id = "{}" and r_id = "{}"
+                    ;
+            """.format(n_id, r_id)
             self.conn.execute(query)
             self.conn.commit()
 
@@ -210,6 +244,107 @@ class Deleting_Queries(object):
             self.conn.execute(q1)
             
             self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def delete_hospital(self, h_id):
+        try:
+            query = """
+                DELETE
+                from Hospital
+                where
+                    h_id = "{}"
+            """.format(h_id)
+            self.conn.execute(query)
+            self.conn.commit()
+            
+            query = """
+                DELETE
+                from Room
+                where
+                    h_id = "{}"
+            """.format(h_id)
+            self.conn.execute(query)
+            self.conn.commit()
+            
+            query = """
+                DELETE
+                from Hospital_Maintenance_Junction_Table
+                where
+                    h_id = "{}"
+            """.format(h_id)
+            self.conn.execute(query)
+            self.conn.commit()
+            
+            n_id = """
+                select n_id
+                from Nurse
+                where h_id ="{}"
+            """.format(h_id)
+            df = pd.read_sql_query(n_id, con=self.conn)
+            for index, row in df.iterrows():
+                query = """
+                    DELETE
+                    from Nurse_Room_Junction_Table
+                    where
+                        n_id = "{}"
+                """.format(row['n_id'])
+                self.conn.execute(query)
+                self.conn.commit()
+            
+            query = """
+                DELETE
+                from Nurse
+                where
+                    h_id = "{}"
+            """.format(h_id)
+            self.conn.execute(query)
+            self.conn.commit()
+            
+            query = """
+                DELETE
+                from Doctor
+                where
+                    h_id = "{}"
+            """.format(h_id)
+            self.conn.execute(query)
+            self.conn.commit()
+
+            p_id = """
+                select p_id
+                from Patient
+                where h_id ="{}"
+            """.format(h_id)
+            df = pd.read_sql_query(p_id, con=self.conn)
+            for index, row in df.iterrows():
+                query = """
+                    DELETE
+                    from Prescribed_Med
+                    where
+                        p_id = "{}"
+                """.format(row['p_id'])
+                self.conn.execute(query)
+                self.conn.commit()
+                
+            query = """
+                DELETE
+                from Patient
+                where
+                    h_id = "{}"
+            """.format(h_id)
+            self.conn.execute(query)
+            self.conn.commit()
+            
+            query = """
+                DELETE
+                from Medication
+                where
+                    h_id = "{}"
+            """.format(h_id)
+            self.conn.execute(query)
+            self.conn.commit()
+            
         except Error as e:
             self.conn.rollback()
             print(e)

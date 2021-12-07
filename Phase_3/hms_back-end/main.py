@@ -35,7 +35,9 @@ class hospitalAPI(Resource):
             address = data['address']
             db_manager.insert_hospital(h_name, address)
             
-
+    def delete(self):
+        h_id = json.loads(request.data)['h_id']
+        db_manager.delete_hospital(h_id=h_id)
 class avaliableMaintenceAPI(Resource):
     def post(self):
         #must send a json format {'hospital_name':hospital_name}
@@ -257,6 +259,9 @@ class getRooms(Resource):
             df = db_manager.get_rooms_given_room(r_number, hospital_name)
             df = df.to_dict('records')
             return df
+        elif action == 'room_not_filled':
+            hospital_id = json.loads(request.data)['hospital_id']
+            return db_manager.get_rooms_not_filled(hospital_id)
         
 class getMaintenanceListForAHospital(Resource):
     def post(self):
