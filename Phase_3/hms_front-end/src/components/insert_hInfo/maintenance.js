@@ -26,9 +26,17 @@ function MaterialUIFormSubmit(props) {
   }
   const navigate = useNavigate();
   const getMaintenance = () => {
-    axios.get("http://127.0.0.1:5000/getallMaintence").then((response) => {
-      setValues(response.data);
-    });
+    axios
+      .post("http://127.0.0.1:5000/getavaliableMaintence", {
+        hospital_name: localStorage.getItem("hospital_name"),
+      })
+      .then(function (response) {
+        console.log(response.data);
+        setValues(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   const useStyles = makeStyles((theme) => ({
