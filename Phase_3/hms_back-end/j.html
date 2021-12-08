@@ -1,0 +1,21 @@
+<button>hi</button>
+<script>
+    function addStop() {
+        let dis = document.getElementById("Distance").value;
+        let wait = document.getElementById("waittime2").value;
+        const json_data = {
+            queryType: "maintenance",
+            maintenance_name: "company plummerv2",
+        };
+        const xhttp = new XMLHttpRequest();
+        const method = "POST"; //GET
+        const url = "http://127.0.0.1:5000/maintenceAPI_given_h_name"; //getTotalRuntime
+        const async = true;
+        xhttp.open(method, url, async);
+        xhttp.send(JSON.stringify(json_data));
+
+        xhttp.onload = function() {
+            console.log(JSON.parse(this.responseText));
+        };
+    }
+</script>

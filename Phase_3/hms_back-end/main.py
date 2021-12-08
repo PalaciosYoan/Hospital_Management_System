@@ -89,7 +89,9 @@ class MaintenceAPI(Resource):
             db_manager.insert_maint(name, started_working, phone_number, duty)
         elif action == 'maintenance':
             name = json.loads(request.data)['maintenance_name']
-            db_manager.get_maintenance(name)
+            df =db_manager.get_maintenance(name)
+            df = df.to_dict('records')
+            return df
     
     def put(self):
         data = json.loads(request.data)
