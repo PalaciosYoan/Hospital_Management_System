@@ -38,6 +38,13 @@ class hospitalAPI(Resource):
     def delete(self):
         h_id = json.loads(request.data)['h_id']
         db_manager.delete_hospital(h_id=h_id)
+    
+    def put(self):
+        data = json.loads(request.data)
+        h_id = data['h_id']
+        address = data['address']
+        name = data['name']
+        db_manager.update_hospital(h_id, address, name)
 class avaliableMaintenceAPI(Resource):
     def post(self):
         #must send a json format {'hospital_name':hospital_name}
@@ -68,6 +75,21 @@ class MaintenceAPI(Resource):
             phone_number = data['phone_number']
             duty = data['duty']
             db_manager.insert_maint(name, started_working, phone_number, duty)
+    
+    def put(self):
+        data = json.loads(request.data)
+        maint_id = data['maint_id']
+        name = data['name']
+        started_working = data['started_working']
+        duty = data['duty']
+        phone_number = data['phone_number']
+        db_manager.update_maintenance(
+            maint_id, 
+            name,
+            started_working,
+            duty,
+            phone_number
+        )
 
     def delete(self):
         given = json.loads(request.data)
@@ -108,6 +130,20 @@ class doctorAPI(Resource):
         data = json.loads(request.data)
         doc_name = data['doctor_name']
         db_manager.delete_doctor(doc_name=doc_name)
+    
+    def put(self):
+        data = json.loads(request.data)
+        d_id = data['d_id']
+        name = data['doctor_name']
+        started_working = data['started_working_date']
+        phone_number = data['phone_number']
+        h_id = data['h_id']
+        db_manager.update_doctor(
+                    d_id,
+                    name,
+                    started_working,
+                    phone_number,
+                    h_id)
 
 class nurseAPI(Resource):
     def post(self):
@@ -188,15 +224,31 @@ class patientAPI(Resource):
         db_manager.delete_patient(p_name=p_name, dob=dob)
         
     def put(self):
-        action = json.loads(request.data)['queryType']
-        if action == 'released_date':
-            data = json.loads(request.data)
-            db_manager.update_released_date(data['released_date'], data['patient_name'], data['dob'])
-            
-        elif action == 'update_doctor':
-            data = json.loads(request.data)
-            db_manager.update_released_date(data['doctor_name'], data['patient_name'], data['dob'])
-            
+        data = json.loads(request.data)
+        p_id = data['p_id']
+        dob = data['dob']
+        admit_date = data['admit_date']
+        released_date = data['released_date']
+        problem = data['reason_for_visit']
+        address = data['address']
+        name = data['name']
+        phone_number = data['phone_number']
+        h_id = data['h_id']
+        d_id = data['d_id']
+        r_id = data['r_id']
+        db_manager.update_patient(
+                            p_id,
+                            dob,
+                            admit_date,
+                            problem,
+                            address,
+                            released_date,
+                            name,
+                            phone_number,
+                            h_id,
+                            d_id,
+                            r_id
+                        )
         return "Success 200"
 
 
@@ -237,6 +289,25 @@ class medicationAPI(Resource):
         m_name = json.loads(request.data)['medication_name']
         db_manager.delete_specific_medication(m_name, hospital_name)
         return 'status: 200'
+
+    def put(self):
+        data = json.loads(request.data)
+        m_id = data['m_id']
+        cost = data['cost']
+        name = data['name'] 
+        type = data['type']
+        side_effect = data['side_effect'] 
+        h_id = data['h_id'] 
+        treatment_for = data['treatment_for']
+        db_manager.update_medication(
+            m_id, 
+            cost, 
+            name, 
+            type, 
+            side_effect, 
+            h_id, 
+            treatment_for
+        )
 class getRooms(Resource):
     
     def post(self):
