@@ -29,6 +29,17 @@ class Query_Queries(object):
             self.conn.rollback()
             print(e)
     
+    def get_maintenance(self, name):
+        try:
+            query = """
+                select * from Maintenance where name = "{}";
+            """.format(name)
+            df = pd.read_sql_query(query, con=self.conn)
+            return df
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
     def get_hospital_given_maintence(self, maint_name):
         #Yoan
         try:
