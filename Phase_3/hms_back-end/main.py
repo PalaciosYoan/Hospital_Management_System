@@ -36,11 +36,11 @@ class hospitalAPI(Resource):
             db_manager.insert_hospital(h_name, address)
             
     def delete(self):
-        h_id = json.loads(request.data)['h_id']
+        h_id = json.loads(request.data)['formInput']['h_id']
         db_manager.delete_hospital(h_id=h_id)
     
     def put(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         h_id = data['h_id']
         address = data['address']
         name = data['name']
@@ -54,7 +54,7 @@ class avaliableMaintenceAPI(Resource):
         return df
     
     def put(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         new_h_id = data['new_h_id']
         new_maint_id = data['new_maint_id']
         old_h_id = data['old_h_id'] 
@@ -94,7 +94,7 @@ class MaintenceAPI(Resource):
             return df
     
     def put(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         maint_id = data['maint_id']
         name = data['name']
         started_working = data['started_working']
@@ -109,7 +109,7 @@ class MaintenceAPI(Resource):
         )
 
     def delete(self):
-        given = json.loads(request.data)
+        given = json.loads(request.data)['formInput']
         if given['queryType'] == "junctionTable":
             h_name = given['hospital_name']
             maint_name = given['maintenance_name']
@@ -144,12 +144,12 @@ class doctorAPI(Resource):
             return df
         
     def delete(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         doc_name = data['doctor_name']
         db_manager.delete_doctor(doc_name=doc_name)
     
     def put(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         d_id = data['d_id']
         name = data['doctor_name']
         started_working = data['started_working_date']
@@ -192,12 +192,12 @@ class nurseAPI(Resource):
             return df 
     
     def delete(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         n_name = data['nurse_name']
         db_manager.delete_nurse(n_name=n_name)
     
     def put(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         n_id = data['n_id']
         name = data['nurse_name']
         started_working = data['started_working_date']
@@ -271,13 +271,13 @@ class patientAPI(Resource):
                                     r_number)
         
     def delete(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         p_name = data['patient_name']
         dob = data['dob']
         db_manager.delete_patient(p_name=p_name, dob=dob)
         
     def put(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         p_id = data['p_id']
         dob = data['dob']
         admit_date = data['admit_date']
@@ -338,13 +338,13 @@ class medicationAPI(Resource):
             return df
         
     def delete(self):
-        hospital_name = json.loads(request.data)['hospital_name']
-        m_name = json.loads(request.data)['medication_name']
+        hospital_name = json.loads(request.data)['formInput']['hospital_name']
+        m_name = json.loads(request.data)['formInput']['medication_name']
         db_manager.delete_specific_medication(m_name, hospital_name)
         return 'status: 200'
 
     def put(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         m_id = data['m_id']
         cost = data['cost']
         name = data['name'] 
@@ -386,7 +386,7 @@ class getRooms(Resource):
             return db_manager.get_rooms_not_filled(h_name)
         
     def delete(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         r_num = data['room_number']
         n_name = data['nurse_name']
         db_manager.delete_specific_nurse_junc_room(r_num=r_num, n_name=n_name)
@@ -418,7 +418,7 @@ class prescribedMedsAPI(Resource):
             return 'status: 200'
     
     def put(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         p_id = data['p_id'] 
         m_id = data['m_id']
         pmed_id = data['pmed_id']
@@ -426,7 +426,7 @@ class prescribedMedsAPI(Resource):
         db_manager.update_prescribed_med(p_id, m_id, pmed_id, assigned_date)
     
     def delete(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         patient_name = data['patient_name']
         dob = data['dob']
         hospital_name = data['hospital_name']
@@ -443,7 +443,7 @@ class nuresRoomJunc(Resource):
         db_manager.insert_nurse_room_junction(n_id, r_id, assign_date)
     
     def put(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         new_n_id = data['new_n_id']
         new_r_id = data['new_r_id']
         old_n_id = data['old_n_id'] 
