@@ -19,6 +19,7 @@ import Update_Hospital from "./components/update_hInfo/hospital";
 import Update_Doctor from "./components/update_hInfo/doctor";
 import Update_Nurse from "./components/update_hInfo/nurse";
 import Update_Medicine from "./components/update_hInfo/medicine";
+import Update_Room from "./components/update_hInfo/room";
 
 
 
@@ -73,6 +74,7 @@ export default function App() {
         <Route path="/insert_doctor" element={<Insert_Doctor />} />
         <Route path="/update_nurse" element={<Update_Nurse />} />
         <Route path="/update_medicine" element={<Update_Medicine />} />
+        <Route path="/update_room" element={<Update_Room />} />
       </Routes>
     </Router>
   );
