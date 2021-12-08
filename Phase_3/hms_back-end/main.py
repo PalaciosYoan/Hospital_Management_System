@@ -132,8 +132,8 @@ class doctorAPI(Resource):
             db_manager.insert_doctor(name, started_working, phone_number, h_name)
         elif action =='hospital-doctor': # easily be able to add more queries to doctor
             data = json.loads(request.data)
-            hos_name = data['doctor_name']
-            doc_name = data['hospital_name']
+            hos_name = data['hospital_name']
+            doc_name = data['doctor_name']
             df = db_manager.get_doctors_given_hospital_doc_name(hos_name, doc_name)
             df = df.to_dict('records')
             return df
