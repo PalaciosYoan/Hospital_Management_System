@@ -99,6 +99,16 @@ function OutlinedCard() {
             >
               show nurse(s)
             </Button>
+            <Button
+              onClick={() => {
+                console.log(room_menu.room_number);
+                localStorage.setItem("room_number", room_menu.room_number);
+                navigate('/update_room')
+              }}
+              size="small"
+            >
+              Edit room
+            </Button>
           </CardActions>
         </Card>
       </Grid>
