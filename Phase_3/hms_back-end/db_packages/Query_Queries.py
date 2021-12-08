@@ -167,7 +167,7 @@ class Query_Queries(object):
     def get_nurses_given_hospital(self, h_name):
         try:
             query = """
-                select Nurse.name, Nurse.started_working
+                select Nurse.n_id, Nurse.name, Nurse.started_working
                 from Nurse, 
                     (select r_id 
                     from Room,
