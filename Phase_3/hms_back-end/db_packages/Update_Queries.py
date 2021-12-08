@@ -227,3 +227,60 @@ class Update_Queries(object):
         except Error as e:
             self.conn.rollback()
             print(e)
+    
+    def update_hos_maint_junc(self, 
+                              new_h_id, 
+                              new_maint_id, 
+                              old_h_id, 
+                              old_maint_id):
+        try:
+            q = """
+            UPDATE Hospital_Maintenance_Junction_Table
+            SET h_id = "{}", maint_id ="{}"
+            WHERE
+                h_id = "{}", maint_id ="{}"
+            """.format(new_h_id, new_maint_id, old_h_id, old_maint_id)
+            self.conn.execute(q)
+            self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def update_nurse_room_junc(self, 
+                              new_n_id, 
+                              new_r_id, 
+                              old_n_id, 
+                              old_r_id):
+        try:
+            q = """
+            UPDATE Hospital_Maintenance_Junction_Table
+            SET n_id = "{}", r_id ="{}"
+            WHERE
+                n_id = "{}", r_id ="{}"
+            """.format(new_n_id, new_r_id, old_n_id, old_r_id)
+            self.conn.execute(q)
+            self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def update_prescribed_med(self, 
+                              p_id, 
+                              m_id, 
+                              pmed_id, 
+                              assigned_date):
+        try:
+            q = """
+            UPDATE Prescribed_Med
+            SET 
+                assigned_date = "{}",
+                p_id = "{}",
+                m_id = "{}"
+            WHERE
+                pmed_id = "{}"
+            """.format(assigned_date, p_id, m_id, pmed_id)
+            self.conn.execute(q)
+            self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)

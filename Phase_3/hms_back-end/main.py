@@ -52,6 +52,18 @@ class avaliableMaintenceAPI(Resource):
         df = db_manager.get_avaliable_maintence(hospital_name)
         df = df.to_dict('records')
         return df
+    
+    def put(self):
+        data = json.loads(request.data)
+        new_h_id = data['new_h_id']
+        new_maint_id = data['new_maint_id']
+        old_h_id = data['old_h_id'] 
+        old_maint_id = data['old_maint_id']
+        db_manager.update_hos_maint_junc( 
+                            new_h_id, 
+                            new_maint_id, 
+                            old_h_id, 
+                            old_maint_id)
 
 class MaintenceAPI(Resource):
     def post(self):
@@ -376,6 +388,14 @@ class prescribedMedsAPI(Resource):
             db_manager.insert_specific_prescribed_med(assigned_date, p_name, dob, m_name, h_name)
             return 'status: 200'
     
+    def put(self):
+        data = json.loads(request.data)
+        p_id = data['p_id'] 
+        m_id = data['m_id']
+        pmed_id = data['pmed_id']
+        assigned_date = data['assigned_date']
+        db_manager.update_prescribed_med(p_id, m_id, pmed_id, assigned_date)
+    
     def delete(self):
         data = json.loads(request.data)
         patient_name = data['patient_name']
@@ -392,6 +412,18 @@ class nuresRoomJunc(Resource):
         r_id = data['r_id']
         assign_date = data['assigned_date']
         db_manager.insert_nurse_room_junction(n_id, r_id, assign_date)
+    
+    def put(self):
+        data = json.loads(request.data)
+        new_n_id = data['new_n_id']
+        new_r_id = data['new_r_id']
+        old_n_id = data['old_n_id'] 
+        old_r_id = data['old_r_id']
+        db_manager.update_nurse_room_junc( 
+                            new_n_id, 
+                            new_r_id, 
+                            old_n_id, 
+                            old_r_id)
     
 api.add_resource(hospitalAPI, '/gethospital')
 api.add_resource(allMaintenceAPI, '/getallMaintence')
