@@ -111,7 +111,11 @@ function MaterialUIFormSubmit(props) {
     {
       name: "",
       phone_number: "",
-      started_working: "",
+      admit_date: "",
+      dob: "",
+      problem: "",
+      released_date: "",
+      address: "",
     }
   );
 
@@ -167,7 +171,7 @@ function MaterialUIFormSubmit(props) {
               label="Name"
               id="margin-normal"
               name="name"
-              defaultValue={formInput.name}
+              defaultValue={""}
               className={classes.textField}
               helperText="Enter doctor name"
               onChange={handleInput}
@@ -176,20 +180,61 @@ function MaterialUIFormSubmit(props) {
               label="Phone Number"
               id="margin-normal"
               name="phone_number"
-              defaultValue={formInput.phone_number}
+              defaultValue={""}
               className={classes.textField}
               helperText="Enter phone number"
               onChange={handleInput}
             />
             <TextField
-              label="Started Working"
+              label="Admit Date"
               id="margin-normal"
-              name="started_working"
-              defaultValue={formInput.started_working}
+              name="admit_date"
+              defaultValue={""}
               className={classes.textField}
-              helperText="Enter started working date"
+              helperText="Enter admit date"
               onChange={handleInput}
             />
+
+            <TextField
+              label="DOB"
+              id="margin-normal"
+              name="dob"
+              defaultValue={""}
+              className={classes.textField}
+              helperText="Enter dob date"
+              onChange={handleInput}
+            />
+
+            <TextField
+              label="Problem"
+              id="margin-normal"
+              name="problem"
+              defaultValue={""}
+              className={classes.textField}
+              helperText="Enter problem date"
+              onChange={handleInput}
+            />
+
+            <TextField
+              label="Released Date"
+              id="margin-normal"
+              name="released_date"
+              defaultValue={""}
+              className={classes.textField}
+              helperText="Enter released date"
+              onChange={handleInput}
+            />
+
+            <TextField
+              label="Address"
+              id="margin-normal"
+              name="address"
+              defaultValue={""}
+              className={classes.textField}
+              helperText="Enter address"
+              onChange={handleInput}
+            />
+
             <FormControl>
               <InputLabel htmlFor="choose-doctor">Doctor</InputLabel>
               <Select

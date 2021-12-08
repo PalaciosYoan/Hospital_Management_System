@@ -122,12 +122,12 @@ function OutlinedCard() {
             </Button>
             <Button
               onClick={() => {
-                navigate("/insert_maintenance_menu");
+                navigate("/all_maintenance");
               }}
               size="small"
               variant="outlined"
             >
-              Add Maintenance
+              Maintenance
             </Button>
               </Typography>
             </CardContent>
