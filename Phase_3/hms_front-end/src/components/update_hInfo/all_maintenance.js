@@ -21,7 +21,7 @@ function MaterialUIFormSubmit(props) {
     axios
       .post("http://127.0.0.1:5000/maintenceAPI_given_h_name", {
         queryType: "maintenance",
-        maintenance_name: localStorage.getItem("maintenance_id"),
+        maint_id: localStorage.getItem("maintenance_id"),
       })
       .then(function (response) {
         console.log(response.data);
