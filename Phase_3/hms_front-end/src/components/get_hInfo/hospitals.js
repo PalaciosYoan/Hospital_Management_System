@@ -120,6 +120,15 @@ function OutlinedCard() {
             >
               Add Hospital
             </Button>
+            <Button
+              onClick={() => {
+                navigate("/insert_maintenance_menu");
+              }}
+              size="small"
+              variant="outlined"
+            >
+              Add Maintenance
+            </Button>
               </Typography>
             </CardContent>
           </Card>
