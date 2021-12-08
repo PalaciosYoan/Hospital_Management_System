@@ -3,6 +3,7 @@ import { Button, TextField, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import axios from "axios";
 
 const cardStyles = makeStyles({
   gridContainer: {
@@ -44,8 +45,17 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["h_name"] = localStorage.getItem("hospital_name");
+    formInput["m_id"] = localStorage.getItem("m_id");
     let data = { formInput };
+    
+    axios.post('INSERT HERE', data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
     console.log(data);
   };
 

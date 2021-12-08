@@ -79,6 +79,7 @@ function OutlinedCard() {
               onClick={() => {
                 console.log(room.room_number);
                 localStorage.setItem("room_number", room.room_number);
+                localStorage.setItem("r_id", room.r_id);
                 navigate('/room_menu')
               }}
               size="small"

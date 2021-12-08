@@ -121,11 +121,20 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["h_name"] = localStorage.getItem("hospital_name");
     formInput["d_name"] = selected.name;
     formInput["room_number"] = selected_2.room_number;
     formInput["medicine_name"] = selected_3.name;
+    formInput["h_id"] = localStorage.getItem("h_id");
     let data = { formInput };
+    
+    axios.post('INSERT HERE', data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
     console.log(data);
   };
 

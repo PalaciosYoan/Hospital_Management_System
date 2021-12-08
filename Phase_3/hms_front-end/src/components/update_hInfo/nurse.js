@@ -49,7 +49,7 @@ function MaterialUIFormSubmit(props) {
     axios
       .post("http://127.0.0.1:5000/getRooms", {
         queryType: "hospital",
-        hospital_name: localStorage.getItem("hospital_name"),
+        n_id: localStorage.getItem("n_id"),
       })
       .then(function (response) {
         console.log(response.data);
@@ -86,16 +86,37 @@ function MaterialUIFormSubmit(props) {
     {
       name: "",
       started_working: "",
-      h_id: "",
     }
   );
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["h_name"] = localStorage.getItem("hospital_name");
     formInput["room_number"] = selected.room_number;
     let data = { formInput };
+
+    axios.post('INSERT HERE', data)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     console.log(data);
   };
+
+  function deleteInfo() {
+    formInput["room_number"] = selected.room_number;
+    let data = { formInput };
+    axios.post('INSERT HERE', data)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log(data);
+  }
+
 
   const handleInput = (evt) => {
 
@@ -187,7 +208,7 @@ function MaterialUIFormSubmit(props) {
               <Button
                 style={{ backgroundColor: "red", color: "#FFFFFF" }}
                 onClick={() => {
-                  console.log("delete button pressed!");
+                  deleteInfo();
                 }}
                 variant="contained"
                 className={classes.button}
