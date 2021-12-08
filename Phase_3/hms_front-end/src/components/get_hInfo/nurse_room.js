@@ -56,6 +56,21 @@ function OutlinedCard() {
   const classes = useStyles();
   const cards = cardStyles();
 
+  function deleteInfo(){
+    const formInput = {};
+    formInput["n_id"] = localStorage.getItem("n_id");
+    formInput["r_id"] = localStorage.getItem("r_id");
+    let data = { formInput };
+    axios.post('INSERT HERE', data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    console.log(data);
+  }
+
   function mapCards(nurse, index) {
     return (
       <Grid item xs={12} sm={6} md={4} key={index}>
@@ -83,6 +98,18 @@ function OutlinedCard() {
             >
               Select room
             </Button>
+            <Button
+                style={{ backgroundColor: "red", color: "#FFFFFF" }}
+                onClick={() => {
+                localStorage.setItem("r_id", nurse.r_id);
+                deleteInfo();
+                }}
+                variant="contained"
+                className={classes.button}
+              >
+                Delete
+              </Button>
+            
           </CardActions>
         </Card>
       </Grid>
@@ -105,6 +132,15 @@ function OutlinedCard() {
               <Typography variant="body2" component="p">
                 {localStorage.getItem("hospital_address")}
               </Typography>
+              <Button
+              onClick={() => {
+                navigate("/insert_nurse_room");
+              }}
+              size="small"
+              variant="outlined"
+            >
+              Add Room
+            </Button>
             </CardContent>
           </Card>
         </center>

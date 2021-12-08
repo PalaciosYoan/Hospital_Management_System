@@ -38,6 +38,8 @@ import Insert_Nurse from "./components/insert_hInfo/nurse";
 import Insert_Patient from "./components/insert_hInfo/patient";
 import Insert_Room from "./components/insert_hInfo/room";
 import Insert_Doctor from "./components/insert_hInfo/doctor";
+import Insert_Nurse_Room from "./components/insert_hInfo/nurse_room";
+
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 export default function App() {
@@ -80,6 +82,7 @@ export default function App() {
         <Route path="/all_maintenance" element={<All_Maintenance />} />
         <Route path="/update_all_maintenance" element={<Update_All_Maintenance />} />
         <Route path="/update_patient" element={<Update_Patient />} />
+        <Route path="/insert_nurse_room" element={<Insert_Nurse_Room />} />
       </Routes>
     </Router>
   );

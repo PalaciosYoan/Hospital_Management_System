@@ -61,14 +61,14 @@ function MaterialUIFormSubmit(props) {
   const [formInput, setFormInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      name: "",
-      started_working: "",
+
     }
   );
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["h_id"] = localStorage.getItem("h_id");
+    formInput["n_id"] = localStorage.getItem("n_id");
+    formInput["room_number"] = selected.room_number;
     let data = { formInput };
     console.log(data);
   };
@@ -111,24 +111,25 @@ function MaterialUIFormSubmit(props) {
           <Typography component="p">{props.formDescription}</Typography>
 
           <form onSubmit={handleSubmit}>
-            <TextField
-              label="Name"
-              id="margin-normal"
-              name="name"
-              defaultValue={formInput.name}
-              className={classes.textField}
-              helperText="Enter doctor name"
-              onChange={handleInput}
-            />
-            <TextField
-              label="Started Working"
-              id="margin-normal"
-              name="started_working"
-              defaultValue={formInput.started_working}
-              className={classes.textField}
-              helperText="Enter started working date"
-              onChange={handleInput}
-            />
+            <FormControl>
+              <InputLabel htmlFor="choose-room">Room</InputLabel>
+              <Select
+                value={selected}
+                onChange={handleChange}
+                inputProps={{
+                  doctor_name: "room",
+                  id: "name",
+                }}
+              >
+                {values.map((value, index) => {
+                  return (
+                    <MenuItem key={index} value={value}>
+                      {value.room_number}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
             <Button
               type="submit"
               variant="contained"

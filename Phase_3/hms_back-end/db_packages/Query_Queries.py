@@ -469,7 +469,7 @@ class Query_Queries(object):
     def get_rooms_given_nurse(self, n_name):
         try:
             query = """
-                select Room.room_number, Room.person_allowed, Room.cost, Room.type
+                select Room.r_id, Room.room_number, Room.person_allowed, Room.cost, Room.type
                 from Room,
                 (
                     select *
