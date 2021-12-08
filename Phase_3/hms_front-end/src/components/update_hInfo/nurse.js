@@ -49,7 +49,7 @@ function MaterialUIFormSubmit(props) {
     axios
       .post("http://127.0.0.1:5000/getRooms", {
         queryType: "hospital",
-        n_id: localStorage.getItem("n_id"),
+        hospital_name: localStorage.getItem("hospital_name"),
       })
       .then(function (response) {
         console.log(response.data);
