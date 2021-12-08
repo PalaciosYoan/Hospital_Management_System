@@ -299,11 +299,13 @@ class Query_Queries(object):
         try:
             q = """
                 select *
-                from Medication, Hospital
+                from Medication, 
+                    (
+                        select h_id from Hospital where name = "{}"
+                    )h1
                 where
-                    Medication.h_id = Hospital.h_id and
-                    Medication.name = "{}" and
-                    Hospital.name = "{}"
+                    Medication.h_id = h1.h_id AND
+                    Medication.name = "{}";
             """.format(h_name, m_name)
             df = pd.read_sql_query(q, con=self.conn)
             return df

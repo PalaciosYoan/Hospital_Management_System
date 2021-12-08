@@ -122,3 +122,13 @@ where
     Room.p_id = 'nan' AND
     Room.h_id = Hospital.h_id and
     Hospital.name = "MARSHALL MEDICAL CENTER SOUTH";
+
+
+select *
+from Medication, 
+    (
+        select h_id from Hospital where name = "SOUTHEAST ALABAMA MEDICAL CENTER"
+    )h1
+where
+    Medication.h_id = h1.h_id AND
+    Medication.name = "Cephalosporins";
