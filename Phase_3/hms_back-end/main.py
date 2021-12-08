@@ -241,6 +241,30 @@ class patientAPI(Resource):
             df = db_manager.get_patients_given_room(r_number, h_name)
             df = df.to_dict('records')
             return df
+        elif action == 'post-patient':
+            data = json.loads(request.data)
+            dob = data['dob']
+            admit_date = data['admit_date'] 
+            released_date = data['released_date'] 
+            problem = data['problem'] 
+            address = data['address'] 
+            name = data['name'] 
+            phone_number = data['phone_number'] 
+            h_name = data['h_name'] 
+            d_name = data['d_name'] 
+            r_number = data['r_number'] 
+            db_manager.insert_patient(
+                                    dob, 
+                                    admit_date, 
+                                    released_date, 
+                                    problem, 
+                                    address, 
+                                    name, 
+                                    phone_number, 
+                                    h_name, 
+                                    d_name, 
+                                    r_number)
+        
     def delete(self):
         data = json.loads(request.data)
         p_name = data['patient_name']
