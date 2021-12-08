@@ -305,6 +305,8 @@ class Query_Queries(object):
                     Medication.name = "{}" and
                     Hospital.name = "{}"
             """.format(h_name, m_name)
+            df = pd.read_sql_query(q, con=self.conn)
+            return df
         except Error as e:
             self.conn.rollback()
             print(e)
