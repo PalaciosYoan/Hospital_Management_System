@@ -30,7 +30,7 @@ class hospitalAPI(Resource):
             df = df.to_dict('records')
             return df
         elif action == 'post':
-            data = json.loads(request.data)
+            data = json.loads(request.data)['formInput']
             h_name = data['name']
             address = data['address']
             db_manager.insert_hospital(h_name, address)
@@ -75,13 +75,13 @@ class MaintenceAPI(Resource):
             df = df.to_dict('records')
             return df
         elif action == 'post-junction-table':
-            data = json.loads(request.data)
+            data = json.loads(request.data)['formInput']
             h_name = data['hospital_name']
             maint_name = data['maintenance_name']
             db_manager.insert_specific_maintenance_hos_junct(h_name, maint_name)
             return 'status: 200'
         elif action =='insert-maintenance': # easily be able to add more queries to doctor
-            data = json.loads(request.data)
+            data = json.loads(request.data)['formInput']
             name = data['maint_name']
             started_working = data['start_date']
             phone_number = data['phone_number']
@@ -129,7 +129,7 @@ class doctorAPI(Resource):
             df = df.to_dict('records')
             return df
         elif action =='insert-doctor': # easily be able to add more queries to doctor
-            data = json.loads(request.data)
+            data = json.loads(request.data)['formInput']
             name = data['doctor_name']
             started_working = data['start_date']
             phone_number = data['phone_number']
@@ -177,7 +177,7 @@ class nurseAPI(Resource):
             df = df.to_dict('records')
             return df
         elif action =='insert-nurse': # easily be able to add more queries to doctor
-            data = json.loads(request.data)
+            data = json.loads(request.data)['formInput']
             name = data['nurse_name']
             started_working = data['start_date']
             phone_number = data['phone_number']
@@ -247,7 +247,7 @@ class patientAPI(Resource):
             df = df.to_dict('records')
             return df
         elif action == 'post-patient':
-            data = json.loads(request.data)
+            data = json.loads(request.data)['formInput']
             dob = data['dob']
             admit_date = data['admit_date'] 
             released_date = data['released_date'] 
@@ -320,7 +320,7 @@ class medicationAPI(Resource):
             df = df.to_dict('records')
             return df
         elif action =='post':
-            json_data = json.loads(request.data)
+            json_data = json.loads(request.data)['formInput']
             m_name = json_data['medication_name']
             h_name = json_data['hospital_name']
             cost = json_data['cost']
@@ -408,7 +408,7 @@ class prescribedMedsAPI(Resource):
             df = df.to_dict('records')
             return df
         elif action == 'post':
-            data = json.loads(request.data)
+            data = json.loads(request.data)['formInput']
             assigned_date = data['assigned_date']
             p_name = data['patient_name']
             m_name = data['medication_name']
@@ -436,7 +436,7 @@ class prescribedMedsAPI(Resource):
     
 class nuresRoomJunc(Resource):
     def post(self):
-        data = json.loads(request.data)
+        data = json.loads(request.data)['formInput']
         n_id = data['n_id']
         r_id = data['r_id']
         assign_date = data['assigned_date']
