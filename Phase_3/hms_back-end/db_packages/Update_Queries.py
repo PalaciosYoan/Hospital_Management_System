@@ -85,6 +85,33 @@ class Update_Queries(object):
             self.conn.rollback()
             print(e)
     
+    def update_nurse(self,
+                    n_id,
+                    name,
+                    started_working,
+                    h_id):
+        
+        try:
+            q = """
+                UPDATE Doctor
+                SET
+                    name = "{}",
+                    started_working = "{}",
+                    h_id = "{}"
+                Where
+                    n_id = "{}"
+            """.format(
+                    name,
+                    started_working,
+                    h_id,
+                    n_id
+                )
+            self.conn.execute(q)
+            self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
     def update_hospital(self, h_id, address, name):
         try:
             q = """
@@ -158,6 +185,42 @@ class Update_Queries(object):
                     h_id, 
                     treatment_for,
                     m_id
+                )
+            self.conn.execute(q)
+            self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def update_room(self,
+                       r_id, 
+                       room_number, 
+                       person_allowed, 
+                       cost, 
+                       type, 
+                       h_id, 
+                       p_id):
+        try:
+            q = """
+                Update
+                    Patient
+                SET 
+                    room_number = {},
+                    person_allowed = {},
+                    cost = {},
+                    type = "{}" ,
+                    h_id = "{}",
+                    p_id = "{}"
+                WHERE
+                    r_id = "{}"
+            """.format(
+                    room_number, 
+                    person_allowed, 
+                    cost, 
+                    type, 
+                    h_id, 
+                    p_id,
+                    r_id
                 )
             self.conn.execute(q)
             self.conn.commit()

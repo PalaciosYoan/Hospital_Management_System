@@ -178,6 +178,18 @@ class nurseAPI(Resource):
         data = json.loads(request.data)
         n_name = data['nurse_name']
         db_manager.delete_nurse(n_name=n_name)
+    
+    def put(self):
+        data = json.loads(request.data)
+        n_id = data['n_id']
+        name = data['nurse_name']
+        started_working = data['started_working_date']
+        h_id = data['h_id']
+        db_manager.update_nurse(
+                    n_id,
+                    name,
+                    started_working,
+                    h_id)
 
 class patientAPI(Resource):
     def post(self):
