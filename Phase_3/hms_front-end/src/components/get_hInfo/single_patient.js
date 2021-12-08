@@ -110,7 +110,7 @@ function OutlinedCard() {
               onClick={() => {
                 console.log(patient.name);
                 localStorage.setItem("patient_name", patient.name);
-                navigate("/patient");
+                navigate("/update_patient");
               }}
               size="small"
             >

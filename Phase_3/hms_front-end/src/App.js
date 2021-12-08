@@ -20,7 +20,9 @@ import Update_Doctor from "./components/update_hInfo/doctor";
 import Update_Nurse from "./components/update_hInfo/nurse";
 import Update_Medicine from "./components/update_hInfo/medicine";
 import Update_Room from "./components/update_hInfo/room";
-
+import All_Maintenance from "./components/get_hInfo/all_maintenance";
+import Update_All_Maintenance from "./components/update_hInfo/all_maintenance";
+import Update_Patient from "./components/update_hInfo/patient";
 
 
 import Nurse_Room_Patient from "./components/get_hInfo/nurse_room_patient";
@@ -75,6 +77,9 @@ export default function App() {
         <Route path="/update_nurse" element={<Update_Nurse />} />
         <Route path="/update_medicine" element={<Update_Medicine />} />
         <Route path="/update_room" element={<Update_Room />} />
+        <Route path="/all_maintenance" element={<All_Maintenance />} />
+        <Route path="/update_all_maintenance" element={<Update_All_Maintenance />} />
+        <Route path="/update_patient" element={<Update_Patient />} />
       </Routes>
     </Router>
   );

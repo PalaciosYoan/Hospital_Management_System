@@ -3,6 +3,8 @@ import { Button, TextField, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const cardStyles = makeStyles({
   gridContainer: {
@@ -12,7 +14,28 @@ const cardStyles = makeStyles({
 });
 
 function MaterialUIFormSubmit(props) {
+  const [maintenance, setMaintenance] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => getMaintenance(), []);
+  const getMaintenance = () => {
+    axios
+      .post("http://127.0.0.1:5000/maintenceAPI_given_h_name", {
+        queryType: "maintenance",
+        maintenance_name: localStorage.getItem("maintenance_id"),
+      })
+      .then(function (response) {
+        console.log(response.data);
+        setMaintenance(response.data);
+        setLoading(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
+  };
+
   const cards = cardStyles();
+
   const useStyles = makeStyles((theme) => ({
     button: {
       margin: theme.spacing(1),
@@ -56,6 +79,7 @@ function MaterialUIFormSubmit(props) {
 
   const classes = useStyles();
 
+function renderItems(){
   return (
     <div>
       <div>
@@ -90,7 +114,7 @@ function MaterialUIFormSubmit(props) {
               label="Name"
               id="margin-normal"
               name="name"
-              defaultValue={""}
+              defaultValue={maintenance[0]['name']}
               className={classes.textField}
               helperText="Enter maintenance name"
               onChange={handleInput}
@@ -99,7 +123,7 @@ function MaterialUIFormSubmit(props) {
               label="Duty"
               id="margin-normal"
               name="duty"
-              defaultValue={""}
+              defaultValue={maintenance[0]['duty']}
               className={classes.textField}
               helperText="Enter duty"
               onChange={handleInput}
@@ -108,7 +132,7 @@ function MaterialUIFormSubmit(props) {
               label="Started Working"
               id="margin-normal"
               name="started_working"
-              defaultValue={""}
+              defaultValue={maintenance[0]['started_working']}
               className={classes.textField}
               helperText="Enter founded date"
               onChange={handleInput}
@@ -117,7 +141,7 @@ function MaterialUIFormSubmit(props) {
               label="Phone Number"
               id="margin-normal"
               name="phone_number"
-              defaultValue={""}
+              defaultValue={maintenance[0]['phone_number']}
               className={classes.textField}
               helperText="Enter phone number"
               onChange={handleInput}
@@ -135,6 +159,8 @@ function MaterialUIFormSubmit(props) {
       </Paper>
     </div>
   );
+}
+return loading ? <div>{renderItems()}</div> : <div>loading...</div>;
 }
 
 export default MaterialUIFormSubmit;
