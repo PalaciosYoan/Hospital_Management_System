@@ -1,8 +1,6 @@
-<button>hi</button>
+<button onclick="addStop()">hi</button>
 <script>
     function addStop() {
-        let dis = document.getElementById("Distance").value;
-        let wait = document.getElementById("waittime2").value;
         const json_data = {
             queryType: "maintenance",
             maintenance_name: "company plummerv2",
@@ -15,7 +13,7 @@
         xhttp.send(JSON.stringify(json_data));
 
         xhttp.onload = function() {
-            console.log(JSON.parse(this.responseText));
+            console.log(this.responseText);
         };
     }
 </script>
