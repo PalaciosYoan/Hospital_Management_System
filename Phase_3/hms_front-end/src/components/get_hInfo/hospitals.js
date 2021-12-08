@@ -110,9 +110,6 @@ function OutlinedCard() {
                 Hospital Management System
               </Typography>
               <Typography variant="body2" component="p">
-                1.1
-              </Typography>
-              <Typography variant="body2" component="p">
               <Button
               onClick={() => {
                 navigate("/insert_hospital");
@@ -129,7 +126,7 @@ function OutlinedCard() {
               size="small"
               variant="outlined"
             >
-              Maintenance
+              Show Maintenance
             </Button>
               </Typography>
             </CardContent>
