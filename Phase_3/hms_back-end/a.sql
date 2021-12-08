@@ -132,3 +132,6 @@ from Medication,
 where
     Medication.h_id = h1.h_id AND
     Medication.name = "Cephalosporins";
+
+
+select * from Maintenance where name = "company plummerv2"
