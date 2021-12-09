@@ -195,14 +195,20 @@ class nurseAPI(Resource):
             action = json.loads(request.data)['formInput']['queryType']
             if action =='insert-nurse': # easily be able to add more queries to doctor
                 data = json.loads(request.data)['formInput']
-                name = data['nurse_name']
-                started_working = data['start_date']
+                name = data['name']
+                started_working = data['started_working']
                 phone_number = data['phone_number']
                 h_name = data['hospital_name']
+                db_manager.insert_nurse(
+                    name,
+                    started_working,
+                    phone_number,
+                    h_name
+                )
             elif action == 'delete':
                 data = json.loads(request.data)['formInput']
-                n_name = data['nurse_name']
-                db_manager.delete_nurse(n_name=n_name)
+                n_id = data['n_id']
+                db_manager.delete_nurse(n_name=n_id)
     
     def put(self):
         data = json.loads(request.data)['formInput']
