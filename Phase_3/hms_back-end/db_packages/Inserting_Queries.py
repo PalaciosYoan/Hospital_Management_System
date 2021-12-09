@@ -4,18 +4,9 @@ from sqlite3 import Error
 from numpy import ma
 import pandas as pd
 class Inserting_Queries(object):
-    def insert_specific_medication(self, m_name, h_name, cost, type, side_effect, treament_for):
+    def insert_specific_medication(self, m_name, h_id, cost, type, side_effect, treament_for):
         try:
-            #gets h_id first given h_name
-            q1 = """
-                select h_id
-                from Hospital
-                where name = '{}'
-                limit 1;
-            """.format(h_name)
-            self.cursor.execute(q1)
-            
-            h_id = self.cursor.fetchall()[0][0]
+
             m_id = str(uuid.uuid4())
             query = """
                     insert into Medication(m_id, cost, name, type, side_effect, h_id, treament_for)

@@ -340,13 +340,13 @@ class medicationAPI(Resource):
                 return df
             elif action =='post':
                 json_data = json.loads(request.data)['formInput']
-                m_name = json_data['medication_name']
-                h_name = json_data['hospital_name']
+                m_name = json_data['name']
+                h_id = json_data['h_id']
                 cost = json_data['cost']
                 type = json_data['type']
                 side_effect = json_data['side_effect']
                 treament_for = json_data['treament_for']
-                db_manager.insert_specific_medication(m_name, h_name, cost, type, side_effect, treament_for)
+                db_manager.insert_specific_medication(m_name, h_id, cost, type, side_effect, treament_for)
                 return 'status: 200'
             elif action == 'hospital-med':
                 json_data = json.loads(request.data)
