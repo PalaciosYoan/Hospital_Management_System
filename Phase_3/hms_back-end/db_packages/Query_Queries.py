@@ -302,18 +302,14 @@ class Query_Queries(object):
             self.conn.rollback()
             print(e)
     
-    def get_medication_given_hospital_med_name(self,h_name, m_name):
+    def get_medication_given_hospital_med_name(self,m_id):
         try:
             q = """
                 select *
-                from Medication, 
-                    (
-                        select h_id from Hospital where name = "{}"
-                    )h1
+                from Medication
                 where
-                    Medication.h_id = h1.h_id AND
-                    Medication.name = "{}";
-            """.format(h_name, m_name)
+                    m_id = "{}";
+            """.format(m_id)
             df = pd.read_sql_query(q, con=self.conn)
             return df
         except Error as e:

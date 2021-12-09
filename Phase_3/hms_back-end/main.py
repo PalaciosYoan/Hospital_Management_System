@@ -340,9 +340,9 @@ class medicationAPI(Resource):
                 return df
             elif action == 'hospital-med':
                 json_data = json.loads(request.data)
-                m_name = json_data['medication_name']
-                h_name = json_data['hospital_name']
-                df = db_manager.get_medication_given_hospital_med_name(h_name, m_name)
+                m_id = json_data['m_id']
+                
+                df = db_manager.get_medication_given_hospital_med_name(m_id)
                 df = df.to_dict('records')
                 return df
         except:
