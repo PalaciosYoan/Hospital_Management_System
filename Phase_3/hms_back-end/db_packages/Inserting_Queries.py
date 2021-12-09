@@ -218,10 +218,10 @@ class Inserting_Queries(object):
             h_id = self.cursor.fetchall()[0][0]
             d_id = str(uuid.uuid4())
             
-            query = """
+            query = f"""
                 INSERT INTO Doctor
-                VALUES("{}", "{}","{}",{}, "{}")
-            """.format(d_id, name, datetime(started_working), int(phone_number), h_id)
+                VALUES("{d_id}", "{name}","{started_working}",{int(phone_number)}, "{h_id}")
+            """#.format(d_id, name, datetime(started_working), int(phone_number), h_id)
             self.conn.execute(query)
             self.conn.commit()
         except Error as e:
