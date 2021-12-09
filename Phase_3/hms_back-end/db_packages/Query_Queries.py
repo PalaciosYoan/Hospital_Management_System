@@ -96,14 +96,12 @@ class Query_Queries(object):
             # """.format(h_name)
             query = """
                 select distinct s.maint_id, s.name, s.started_working, s.duty, s.phone_number
-                from Maintenance s,
-                (
-                    select maint_id as t_id
-                    from Hospital_Maintenance_Junction_Table t1
+                from Maintenance s
+                where maint_id NOT IN (
+                    select maint_id
+                    from Hospital_Maintenance_Junction_Table
                     where h_id = "{}"
-                ) t2
-                where s.maint_id != t2.t_id
-                group by s.maint_id
+                )
                 ;
             """.format(h_id)
             
