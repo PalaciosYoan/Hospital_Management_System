@@ -164,25 +164,13 @@ class Query_Queries(object):
     
     #not using nurse h_id since we need a lot of complex queries
     #complex querie 2
-    def get_nurses_given_hospital(self, h_name):
+    def get_nurses_given_hospital(self, h_id):
         try:
             query = """
                 select Nurse.n_id, Nurse.name, Nurse.started_working
                 from Nurse, 
-                    (select r_id 
-                    from Room,
-                        (
-                            select h_id
-                            from Hospital
-                            where name = "{}"
-                        ) h1
-                    where Room.h_id = h1.h_id 
-                    ) t2
-                , Nurse_Room_Junction_Table t1
-                where t2.r_id = t1.r_id 
-                    and t1.n_id=Nurse.n_id;
-                
-            """.format(h_name)
+                where h_id="{}";
+            """.format(h_id)
             df = pd.read_sql_query(query, con=self.conn)
             return df
         except Error as e:

@@ -172,8 +172,8 @@ class nurseAPI(Resource):
         try:
             action = json.loads(request.data)['queryType']
             if action == 'hospital':
-                hospital_name = json.loads(request.data)['hospital_name']
-                df = db_manager.get_nurses_given_hospital(hospital_name)
+                h_id = json.loads(request.data)['h_id']
+                df = db_manager.get_nurses_given_hospital(h_id)
                 df = df.to_dict('records')
                 return df
             elif action == "room":
