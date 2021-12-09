@@ -90,27 +90,11 @@ class Deleting_Queries(object):
             self.conn.rollback()
             print(e)
 
-    def delete_specific_maintenance(self, maint_name):
+    def delete_specific_maintenance(self, maint_id):
         try:
-            #deletes the relation between the hospital if any
-            query = """
-                select maint_id
-                from Maintenance
-                where name = "{}"
-                """.format(maint_name)
-            self.cursor.execute(query)
-            maint_id = self.cursor.fetchall()[0][0]
-            
-            query  = """
-                DELETE 
-                FROM Maintenance
-                WHERE maint_id = "{}";
-                """.format(maint_id)
-            self.conn.execute(query)
-            
             query1  = """
                 DELETE 
-                FROM Hospital_Maintenance_Junction_Table
+                FROM Maintenance
                 WHERE maint_id = "{}";
                 """.format(maint_id)
             self.conn.execute(query1)
