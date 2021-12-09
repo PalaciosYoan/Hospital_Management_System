@@ -58,25 +58,8 @@ class Deleting_Queries(object):
             print(e)
     
     
-    def delete_specific_maintenance_junc_hos(self, h_name, maint_name):
+    def delete_specific_maintenance_junc_hos(self, h_id, maint_id):
         try:
-            #deletes specific maintennance given h_name and maint_name
-            h_id = """
-                select h_id
-                from Hospital
-                where name="{}"
-            """.format(h_name)
-            self.cursor.execute(h_id)
-            h_id = self.cursor.fetchall()[0][0]
-            
-            maint_id = """
-                select maint_id
-                from Maintenance
-                where maint_name ="{}"
-            """.format(maint_name)
-            self.cursor.execute(maint_id)
-            maint_id = self.cursor.fetchall()[0][0]
-            
             query = """
                     DELETE
                     FROM Hospital_Maintenance_Junction_Table

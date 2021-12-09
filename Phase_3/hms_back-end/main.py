@@ -88,9 +88,9 @@ class MaintenceAPI(Resource):
             given = json.loads(request.data)['formInput']
             action = json.loads(request.data)['formInput']['queryType']
             if action == "junctionTable":
-                h_name = given['hospital_name']
-                maint_name = given['maintenance_name']
-                db_manager.delete_specific_maintenance_junc_hos(h_name, maint_name)
+                h_id = given['h_id']
+                maint_id = given['maint_id']
+                db_manager.delete_specific_maintenance_junc_hos(h_id, maint_id)
                 return
             elif action == "maintTable":
                 maint_name = given['maintenance_name']
