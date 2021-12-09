@@ -60,8 +60,10 @@ function OutlinedCard() {
     const formInput = {};
     formInput["n_id"] = localStorage.getItem("n_id");
     formInput["r_id"] = localStorage.getItem("r_id");
+    formInput["queryType"] = "delete";
+
     let data = { formInput };
-    axios.post('INSERT HERE', data)
+    axios.post('http://127.0.0.1:5000/nurse_room_junc', data)
     .then(function (response) {
       console.log(response.data);
     })
@@ -91,8 +93,10 @@ function OutlinedCard() {
           <CardActions style={{ justifyContent: "center" }}>
             <Button
               onClick={() => {
-                localStorage.setItem("nurse", nurse.name);
-                navigate("/nurse_room_menu");
+                console.log(nurse.type)
+                localStorage.setItem("room_number", nurse.room_number);
+                localStorage.setItem("r_id", nurse.r_id);
+                navigate("/room_menu");
               }}
               size="small"
             >

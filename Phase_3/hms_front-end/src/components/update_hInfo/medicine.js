@@ -21,8 +21,7 @@ function MaterialUIFormSubmit(props) {
     axios
       .post("http://127.0.0.1:5000/getMedications", {
         queryType: "hospital-med",
-        medication_name: localStorage.getItem("medicine_name"),
-        hospital_name: localStorage.getItem("hospital_name"),
+        m_id: localStorage.getItem("m_id"),
       })
       .then(function (response) {
         console.log(response.data);
@@ -68,10 +67,11 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    formInput["h_id"] = localStorage.getItem("h_id");
     formInput["m_id"] = localStorage.getItem("m_id");
     let data = { formInput };
 
-    axios.post('INSERT HERE', data)
+    axios.put('http://127.0.0.1:5000/getMedications', data)
       .then(function (response) {
         console.log(response.data);
       })
@@ -84,8 +84,9 @@ function MaterialUIFormSubmit(props) {
 
   function deleteInfo() {
     formInput["m_id"] = localStorage.getItem("m_id");
+    formInput["queryType"] = "delete";
     let data = { formInput };
-    axios.post('INSERT HERE', data)
+    axios.post('http://127.0.0.1:5000/getMedications', data)
       .then(function (response) {
         console.log(response.data);
       })
