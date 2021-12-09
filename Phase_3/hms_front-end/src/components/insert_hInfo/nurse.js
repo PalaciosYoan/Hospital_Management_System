@@ -16,29 +16,9 @@ const cardStyles = makeStyles({
 });
 
 function MaterialUIFormSubmit(props) {
-  const [values, setValues] = React.useState([]);
-  const [selected, setSelected] = useState(" ");
-  useEffect(() => getRoom(), []);
   const cards = cardStyles();
-
-  function handleChange(event) {
-    setSelected(event.target.value);
-  }
   const navigate = useNavigate();
-  const getRoom = () => {
-    axios
-      .post("http://127.0.0.1:5000/getRooms", {
-        queryType: "hospital",
-        hospital_name: localStorage.getItem("hospital_name"),
-      })
-      .then(function (response) {
-        console.log(response.data);
-        setValues(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+
 
   const useStyles = makeStyles((theme) => ({
     button: {
@@ -68,8 +48,18 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["h_id"] = localStorage.getItem("h_id");
+    formInput["hospital_name"] = localStorage.getItem("hospital_name");
+    formInput["queryType"] = "insert-nurse";
     let data = { formInput };
+    
+    axios.post('http://127.0.0.1:5000/getNurses', data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
     console.log(data);
   };
 

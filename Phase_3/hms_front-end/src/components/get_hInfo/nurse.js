@@ -43,7 +43,7 @@ function OutlinedCard() {
 
     axios.post('http://127.0.0.1:5000/getNurses', {
       queryType: 'hospital',
-      hospital_name: localStorage.getItem("hospital_name")
+      h_id: localStorage.getItem("h_id")
     })
     .then(function (response) {
       console.log(response.data);

@@ -147,13 +147,14 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["d_name"] = selected.name;
-    formInput["room_number"] = selected_2.room_number;
-    formInput["medicine_name"] = selected_3.name;
+    formInput["d_id"] = selected.d_id;
+    formInput["r_id"] = selected_2.r_id;
+    formInput["m_id"] = selected_3.m_id;
+    formInput["h_id"] = localStorage.getItem("h_id");
     formInput["p_id"] = localStorage.getItem("p_id");
+
     let data = { formInput };
-    
-    axios.post('INSERT HERE', data)
+    axios.put('http://127.0.0.1:5000/getPatients', data)
     .then(function (response) {
       console.log(response.data);
     })
@@ -166,8 +167,10 @@ function MaterialUIFormSubmit(props) {
 
   function deleteInfo() {
     formInput["p_id"] = localStorage.getItem("p_id");
+    formInput["queryType"] = "delete";
+
     let data = { formInput };
-    axios.post('INSERT HERE', data)
+    axios.post('http://127.0.0.1:5000/getPatients', data)
       .then(function (response) {
         console.log(response.data);
       })

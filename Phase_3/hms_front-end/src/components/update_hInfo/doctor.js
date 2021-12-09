@@ -65,9 +65,9 @@ function MaterialUIFormSubmit(props) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     formInput["d_id"] = localStorage.getItem("d_id");
+    formInput["h_id"] = localStorage.getItem("h_id");
     let data = { formInput };
-
-    axios.post('INSERT HERE', data)
+    axios.put('http://127.0.0.1:5000/getDoctors', data)
       .then(function (response) {
         console.log(response.data);
       })
@@ -80,8 +80,10 @@ function MaterialUIFormSubmit(props) {
 
   function deleteInfo() {
     formInput["d_id"] = localStorage.getItem("d_id");
+    formInput["queryType"] = "delete";
+    
     let data = { formInput };
-    axios.delete('http://127.0.0.1:5000/getDoctors', data)
+    axios.post('http://127.0.0.1:5000/getDoctors', data)
       .then(function (response) {
         console.log(response.data);
       })
@@ -141,7 +143,7 @@ function MaterialUIFormSubmit(props) {
               <TextField
                 label="Phone Number"
                 id="margin-normal"
-                name="Phone Number"
+                name="phone_number"
                 defaultValue={doctor[0]['phone_number']}
                 className={classes.textField}
                 helperText="Enter phone number"
@@ -150,7 +152,7 @@ function MaterialUIFormSubmit(props) {
               <TextField
                 label="Started Working"
                 id="margin-normal"
-                name="Started Working"
+                name="started_working"
                 defaultValue={doctor[0]['started_working']}
                 className={classes.textField}
                 helperText="Enter started working"
