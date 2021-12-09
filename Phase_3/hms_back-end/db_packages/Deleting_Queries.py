@@ -5,7 +5,7 @@ class Deleting_Queries(object):
         try:
             query = """
                     DELETE 
-                    FROM Medication,
+                    FROM Medication
                     WHERE 
                         m_id = "{}";
             """.format(m_id)
@@ -13,7 +13,7 @@ class Deleting_Queries(object):
             
             query1 = """
                     DELETE 
-                    FROM Prescribed_Med,
+                    FROM Prescribed_Med
                     WHERE 
                         m_id = "{}";
             """.format(m_id)
