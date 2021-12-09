@@ -75,25 +75,37 @@ class Query_Queries(object):
             self.conn.rollback()
             print(e)
     #complex 1
-    def get_avaliable_maintence(self, h_name):
+    def get_avaliable_maintence(self, h_id):
         """This will retrieved any avaliable company that can be assigned to the given hospital"""
         try:
             #select h_id given hospital name
             #filtered maintenance junction table given h_id
             #filtered maintenance table given maint_id
+            # query = """
+            #     select *
+            #     from Maintenance,
+            #     (select t1.maint_id 
+            #         from Hospital_Maintenance_Junction_Table t1,
+            #         (
+            #             select h_id from Hospital where name = "{}"
+            #         ) t5
+            #         where t1.h_id=t5.h_id
+            #     ) t2
+            #     where Maintenance.maint_id <> t2.maint_id
+            #     ;
+            # """.format(h_name)
             query = """
                 select *
                 from Maintenance,
-                (select t1.maint_id 
-                    from Hospital_Maintenance_Junction_Table t1,
-                    (
-                        select h_id from Hospital where name = "{}"
-                    ) t5
-                    where t1.h_id=t5.h_id
+                (
+                    select maint_id 
+                    from Hospital_Maintenance_Junction_Table t1
+                    where h_id = "{}"
                 ) t2
                 where Maintenance.maint_id <> t2.maint_id
                 ;
-            """.format(h_name)
+            """.format(h_id)
+            
             df = pd.read_sql_query(query, con=self.conn)
             return df
         except Error as e:
