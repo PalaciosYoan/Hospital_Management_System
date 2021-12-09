@@ -387,51 +387,50 @@ class medicationAPI(Resource):
 class getRooms(Resource):
     
     def post(self):
-        # try:
-        action = json.loads(request.data)['queryType']
-        if action == 'hospital':
-            hospital_name = json.loads(request.data)['hospital_name']
-            df = db_manager.get_rooms_given_hospital(hospital_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'nurse':
-            nurse_name = json.loads(request.data)['nurse_name']
-            df = db_manager.get_rooms_given_nurse(nurse_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'room':
-            r_number = json.loads(request.data)['room_number']
-            hospital_name = json.loads(request.data)['hospital_name']
-            df = db_manager.get_rooms_given_room(r_number, hospital_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'room_not_filled':
-            h_name = json.loads(request.data)['hospital_name']
-            return db_manager.get_rooms_not_filled(h_name)
-        elif action == 'room_nurse_not_fill':
-            n_id = json.loads(request.data)['n_id']
-            h_id = json.loads(request.data)['h_id']
-            df = db_manager.get_rooms_not_filled_by_nurse(n_id, h_id)
-            df = df.to_dict('records')
-            return df
-        # except:
-        #     action = json.loads(request.data)['formInput']['queryType']
-        #     if action == 'delete':
-        #         data = json.loads(request.data)['formInput']
-        #         r_num = data['room_number']
-        #         n_name = data['nurse_name']
-        #         db_manager.delete_specific_nurse_junc_room(r_num=r_num, n_name=n_name)
-        #     elif action == 'delete-room':
-        #         data = json.loads(request.data)['formInput']
-        #         r_id = data['r_id']
-        #         db_manager.delete_room(r_id)
-        #     elif action == 'insert':
-        #         data = json.loads(request.data)['formInput']
-        #         h_id = data['h_id']
-        #         person_allowed = data['person_allowed']
-        #         cost = data['cost']
-        #         type = data['type']
-        #         db_manager.insert_room(person_allowed, cost, type, h_id)
+        try:
+            action = json.loads(request.data)['queryType']
+            if action == 'hospital':
+                hospital_name = json.loads(request.data)['hospital_name']
+                df = db_manager.get_rooms_given_hospital(hospital_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'nurse':
+                nurse_name = json.loads(request.data)['nurse_name']
+                df = db_manager.get_rooms_given_nurse(nurse_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'room':
+                r_number = json.loads(request.data)['room_number']
+                hospital_name = json.loads(request.data)['hospital_name']
+                df = db_manager.get_rooms_given_room(r_number, hospital_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'room_not_filled':
+                h_name = json.loads(request.data)['hospital_name']
+                return db_manager.get_rooms_not_filled(h_name)
+            elif action == 'room_nurse_not_fill':
+                n_id = json.loads(request.data)['n_id']
+                h_id = json.loads(request.data)['h_id']
+                df = db_manager.get_rooms_not_filled_by_nurse(n_id, h_id)
+                return df
+        except:
+            action = json.loads(request.data)['formInput']['queryType']
+            if action == 'delete':
+                data = json.loads(request.data)['formInput']
+                r_num = data['room_number']
+                n_name = data['nurse_name']
+                db_manager.delete_specific_nurse_junc_room(r_num=r_num, n_name=n_name)
+            elif action == 'delete-room':
+                data = json.loads(request.data)['formInput']
+                r_id = data['r_id']
+                db_manager.delete_room(r_id)
+            elif action == 'insert':
+                data = json.loads(request.data)['formInput']
+                h_id = data['h_id']
+                person_allowed = data['person_allowed']
+                cost = data['cost']
+                type = data['type']
+                db_manager.insert_room(person_allowed, cost, type, h_id)
                 
     def put(self):
         data = json.loads(request.data)['formInput']
