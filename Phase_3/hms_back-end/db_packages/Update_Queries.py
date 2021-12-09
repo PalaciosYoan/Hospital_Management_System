@@ -17,7 +17,8 @@ class Update_Queries(object):
                        phone_number, 
                        h_id, 
                        d_id, 
-                       r_id):
+                       r_id,
+                       m_id):
         try:
             q = """
                 Update
@@ -50,6 +51,9 @@ class Update_Queries(object):
                 )
             self.conn.execute(q)
             self.conn.commit()
+            self.update_prescribed_med(p_id, 
+                                       m_id,
+                                       admit_date)
         except Error as e:
             self.conn.rollback()
             print(e)
@@ -266,19 +270,16 @@ class Update_Queries(object):
     
     def update_prescribed_med(self, 
                               p_id, 
-                              m_id, 
-                              pmed_id, 
+                              m_id,
                               assigned_date):
         try:
             q = """
             UPDATE Prescribed_Med
             SET 
-                assigned_date = "{}",
-                p_id = "{}",
                 m_id = "{}"
             WHERE
-                pmed_id = "{}"
-            """.format(assigned_date, p_id, m_id, pmed_id)
+                p_id = "{}"
+            """.format(m_id, p_id)
             self.conn.execute(q)
             self.conn.commit()
         except Error as e:

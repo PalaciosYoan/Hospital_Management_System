@@ -306,6 +306,7 @@ class patientAPI(Resource):
         h_id = data['h_id']
         d_id = data['d_id']
         r_id = data['r_id']
+        m_id = data['m_id']
         db_manager.update_patient(
                             p_id,
                             dob,
@@ -317,7 +318,8 @@ class patientAPI(Resource):
                             phone_number,
                             h_id,
                             d_id,
-                            r_id
+                            r_id,
+                            m_id
                         )
         return "Success 200"
 
