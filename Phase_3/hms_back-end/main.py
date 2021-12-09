@@ -39,9 +39,10 @@ class hospitalAPI(Resource):
                 db_manager.insert_hospital(h_name, address)
             
     def delete(self):
+        print(json.loads(request.data))
         h_id = json.loads(request.data)['formInput']['h_id']
         db_manager.delete_hospital(h_id=h_id)
-    
+        
     def put(self):
         data = json.loads(request.data)['formInput']
         h_id = data['h_id']

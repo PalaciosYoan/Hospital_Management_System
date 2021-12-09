@@ -43,8 +43,7 @@ function MaterialUIFormSubmit(props) {
     evt.preventDefault();
     formInput["h_id"] = localStorage.getItem("h_id");
     let data = { formInput };
-    
-    axios.post('INSERT HERE', data)
+    axios.put('http://127.0.0.1:5000/gethospital', data)
     .then(function (response) {
       console.log(response.data);
     })
@@ -59,7 +58,7 @@ function MaterialUIFormSubmit(props) {
   function deleteInfo(){
     formInput["h_id"] = localStorage.getItem("h_id");
     let data = { formInput };
-    axios.post('INSERT HERE', data)
+    axios.delete('http://127.0.0.1:5000/gethospital', data)
     .then(function (response) {
       console.log(response.data);
     })

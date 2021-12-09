@@ -41,9 +41,9 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    formInput["queryType"] = "post";
     let data = { formInput };
-
-    axios.post('INSERT HERE', data)
+    axios.post('http://127.0.0.1:5000/gethospital', data)
     .then(function (response) {
       console.log(response.data);
     })
