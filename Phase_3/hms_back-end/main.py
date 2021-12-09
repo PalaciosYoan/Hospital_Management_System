@@ -338,7 +338,16 @@ class medicationAPI(Resource):
                 df = db_manager.get_medication_given_patient(patient_name, dob)
                 df = df.to_dict('records')
                 return df
-            elif action =='post':
+            elif action == 'hospital-med':
+                json_data = json.loads(request.data)
+                m_name = json_data['medication_name']
+                h_name = json_data['hospital_name']
+                df = db_manager.get_medication_given_hospital_med_name(h_name, m_name)
+                df = df.to_dict('records')
+                return df
+        except:
+            action = json.loads(request.data)['formInput']['queryType']
+            if action =='post':
                 json_data = json.loads(request.data)['formInput']
                 m_name = json_data['name']
                 h_id = json_data['h_id']
@@ -348,18 +357,11 @@ class medicationAPI(Resource):
                 treament_for = json_data['treament_for']
                 db_manager.insert_specific_medication(m_name, h_id, cost, type, side_effect, treament_for)
                 return 'status: 200'
-            elif action == 'hospital-med':
-                json_data = json.loads(request.data)
-                m_name = json_data['medication_name']
-                h_name = json_data['hospital_name']
-                df = db_manager.get_medication_given_hospital_med_name(h_name, m_name)
-                df = df.to_dict('records')
-                return df
-        except:
-            hospital_name = json.loads(request.data)['formInput']['hospital_name']
-            m_name = json.loads(request.data)['formInput']['medication_name']
-            db_manager.delete_specific_medication(m_name, hospital_name)
-            return 'status: 200'
+            elif action == 'delete':
+                hospital_name = json.loads(request.data)['formInput']['hospital_name']
+                m_name = json.loads(request.data)['formInput']['medication_name']
+                db_manager.delete_specific_medication(m_name, hospital_name)
+                return 'status: 200'
         
 
     def put(self):
