@@ -93,9 +93,9 @@ class MaintenceAPI(Resource):
                 maint_id = given['maint_id']
                 db_manager.delete_specific_maintenance_junc_hos(h_id, maint_id)
                 return
-            elif action == "maintTable":
-                maint_name = given['maintenance_name']
-                db_manager.delete_specific_maintenance(maint_name=maint_name)
+            elif action == "delete-maintenance":
+                maint_id = given['maint_id']
+                db_manager.delete_specific_maintenance(maint_id=maint_id)
                 return
             elif action == 'post-junction-table':
                 data = json.loads(request.data)['formInput']
