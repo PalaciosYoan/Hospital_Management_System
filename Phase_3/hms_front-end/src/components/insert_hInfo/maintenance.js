@@ -28,7 +28,7 @@ function MaterialUIFormSubmit(props) {
   const getMaintenance = () => {
     axios
       .post("http://127.0.0.1:5000/getavaliableMaintence", {
-        hospital_name: localStorage.getItem("hospital_name"),
+        h_id: localStorage.getItem("h_id"),
       })
       .then(function (response) {
         console.log(response.data);
@@ -66,7 +66,18 @@ function MaterialUIFormSubmit(props) {
     evt.preventDefault();
     formInput["h_id"] = localStorage.getItem("h_id");
     formInput["maint_id"] = selected.maint_id;
+    formInput["queryType"] = "post-junction-table";
+    
     let data = { formInput };
+
+    axios.post('http://127.0.0.1:5000/maintenceAPI_given_h_name', data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
     console.log(data);
   };
 

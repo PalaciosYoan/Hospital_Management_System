@@ -65,7 +65,7 @@ function MaterialUIFormSubmit(props) {
   return (
     <div>
       <div>
-        <center>
+      <center>
           <Card className={cards.root} variant="outlined">
             <CardContent>
               <Typography
@@ -74,10 +74,7 @@ function MaterialUIFormSubmit(props) {
                 gutterBottom
               ></Typography>
               <Typography variant="h5" component="h2">
-                {localStorage.getItem("hospital_name")}
-              </Typography>
-              <Typography variant="body2" component="p">
-                {localStorage.getItem("hospital_address")}
+                Hospital Management System
               </Typography>
             </CardContent>
           </Card>

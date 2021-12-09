@@ -67,7 +67,7 @@ function MaterialUIFormSubmit(props) {
     formInput["r_id"] = localStorage.getItem("r_id");
     let data = { formInput };
 
-    axios.post('INSERT HERE', data)
+    axios.put('http://127.0.0.1:5000/getRooms', data)
       .then(function (response) {
         console.log(response.data);
       })
@@ -80,8 +80,9 @@ function MaterialUIFormSubmit(props) {
 
   function deleteInfo() {
     formInput["r_id"] = localStorage.getItem("r_id");
+    formInput["queryType"] = "delete-room";
     let data = { formInput };
-    axios.post('INSERT HERE', data)
+    axios.post('http://127.0.0.1:5000/getRooms', data)
       .then(function (response) {
         console.log(response.data);
       })
@@ -143,7 +144,7 @@ function MaterialUIFormSubmit(props) {
                 label="Type"
                 id="margin-normal"
                 name="type"
-                defaultValue={room[0]['person_allowed']}
+                defaultValue={room[0]['type']}
                 className={classes.textField}
                 helperText="Enter type"
                 onChange={handleInput}
