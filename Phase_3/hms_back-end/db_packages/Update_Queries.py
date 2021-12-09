@@ -7,23 +7,24 @@ class Update_Queries(object):
     ########Patient updates################
     #release date
     def update_patient(self,
-                       p_id, 
-                       dob, 
-                       admit_date, 
-                       released_date, 
-                       problem, 
-                       address, 
-                       name, 
-                       phone_number, 
-                       h_id, 
-                       d_id, 
-                       r_id,
-                       m_id):
+                        p_id,
+                        dob,
+                        admit_date,
+                        problem,
+                        address,
+                        released_date,
+                        name,
+                        phone_number,
+                        h_id,
+                        d_id,
+                        r_id,
+                        m_id):
         try:
             q = """
                 Update
                     Patient
                 SET 
+                    p_id = "{}",
                     dob = "{}",
                     admit_date = "{}",
                     released_date = "{}",
@@ -37,6 +38,7 @@ class Update_Queries(object):
                 WHERE
                     p_id = "{}"
             """.format(
+                    p_id,
                     dob, 
                     admit_date, 
                     released_date, 
