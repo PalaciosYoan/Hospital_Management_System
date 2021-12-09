@@ -1,26 +1,8 @@
 from sqlite3 import Error
 import pandas as pd
 class Deleting_Queries(object):
-    def delete_specific_medication(self, m_name, h_name):
+    def delete_specific_medication(self, m_id):
         try:
-            #deletes medication from specific hospital
-            #gets h id
-            q = """
-                select h_id
-                from Hospital
-                where name = "{}"
-            """.format(h_name)
-            self.cursor.execute(q)
-            h_id = self.cursor.fetchall()[0][0]
-            
-            q = """
-                select m_id 
-                from Medication
-                where name = "{}" and h_id = "{}"
-                """.format(m_name, h_id)
-            self.cursor.execute(q)
-            m_id = self.cursor.fetchall()[0][0]
-            
             query = """
                     DELETE 
                     FROM Medication,

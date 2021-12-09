@@ -358,9 +358,8 @@ class medicationAPI(Resource):
                 db_manager.insert_specific_medication(m_name, h_id, cost, type, side_effect, treament_for)
                 return 'status: 200'
             elif action == 'delete':
-                hospital_name = json.loads(request.data)['formInput']['hospital_name']
-                m_name = json.loads(request.data)['formInput']['medication_name']
-                db_manager.delete_specific_medication(m_name, hospital_name)
+                m_id = json.loads(request.data)['formInput']['m_id']
+                db_manager.delete_specific_medication(m_id)
                 return 'status: 200'
         
 
