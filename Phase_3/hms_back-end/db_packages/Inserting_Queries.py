@@ -151,7 +151,10 @@ class Inserting_Queries(object):
                 where h_id = "{}";
             """.format(h_id)
             df = pd.read_sql_query(query, con=self.conn)
-            max_room = df['room_number'].max()
+            if df.empty:
+                max_room = 0
+            else:
+                max_room = df['room_number'].max()
             r_id = str(uuid.uuid4())
             print("testing:")
             print(df)
