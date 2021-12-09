@@ -273,35 +273,11 @@ class Inserting_Queries(object):
                        address, 
                        name, 
                        phone_number, 
-                       h_name, 
-                       d_name, 
-                       r_number,
+                       h_id, 
+                       d_id, 
+                       r_id,
                        m_id):
         try:
-            h_id = """
-                select h_id
-                from Hospital
-                where name = "{}"
-            """.format(h_name)
-            self.cursor.execute(h_id)
-            h_id = self.cursor.fetchall()[0][0]
-            
-            r_id = """
-                select r_id
-                from Room
-                where name = "{}" and h_id = "{}"
-            """.format(r_number, h_id)
-            self.cursor.execute(r_id)
-            r_id = self.cursor.fetchall()[0][0]
-            
-            
-            d_id = """
-                select d_id
-                from Doctor
-                where name = "{}" and h_id = "{}"
-            """.format(d_name, h_id)
-            self.cursor.execute(d_id)
-            d_id = self.cursor.fetchall()[0][0]
             
             p_id = str(uuid.uuid4())
             q = """

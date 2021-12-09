@@ -270,9 +270,9 @@ class patientAPI(Resource):
                 address = data['address'] 
                 name = data['name'] 
                 phone_number = data['phone_number'] 
-                h_name = data['h_name'] 
-                d_name = data['d_name'] 
-                r_number = data['r_number'] 
+                h_id = data['h_id'] 
+                d_id = data['d_id'] 
+                r_id = data['r_id'] 
                 m_id = data['m_id']
                 db_manager.insert_patient(
                                         dob, 
@@ -282,9 +282,9 @@ class patientAPI(Resource):
                                         address, 
                                         name, 
                                         phone_number, 
-                                        h_name, 
-                                        d_name, 
-                                        r_number,
+                                        h_id, 
+                                        d_id, 
+                                        r_id,
                                         m_id)
             elif action == 'delete':
                 data = json.loads(request.data)['formInput']
