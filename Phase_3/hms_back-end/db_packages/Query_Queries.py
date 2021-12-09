@@ -294,6 +294,28 @@ class Query_Queries(object):
             self.conn.rollback()
             print(e)
     
+    def get_rooms_not_filled_by_nurse(self, n_id, h_id):
+        try:
+            q = """
+                select *
+                from Room
+                where
+                    h_id = "{}" and
+                    r_id NOT IN (
+                            select r_id
+                            from Nurse_Room_Junction_Table
+                            where
+                                n_id "{}"
+                        );
+            """.format(h_id, n_id)
+            df = pd.read_sql_query(q, con=self.conn)
+            df = df.to_dict('records')
+            return df
+        
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
     def get_medication_given_hospital(self, h_name):
         try:
             query = """
