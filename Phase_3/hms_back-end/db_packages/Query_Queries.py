@@ -305,7 +305,7 @@ class Query_Queries(object):
                             select r_id
                             from Nurse_Room_Junction_Table
                             where
-                                n_id "{}"
+                                n_id = "{}"
                         );
             """.format(h_id, n_id)
             df = pd.read_sql_query(q, con=self.conn)
