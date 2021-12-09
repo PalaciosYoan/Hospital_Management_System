@@ -416,6 +416,13 @@ class getRooms(Resource):
                 data = json.loads(request.data)['formInput']
                 r_id = data['r_id']
                 db_manager.delete_room(r_id)
+            elif action == 'insert':
+                data = json.loads(request.data)['formInput']
+                h_id = data['h_id']
+                person_allowed = data['person_allowed']
+                cost = data['cost']
+                type = data['type']
+                db_manager.insert_room(person_allowed, cost, type, h_id)
                 
     def put(self):
         data = json.loads(request.data)['formInput']
