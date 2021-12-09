@@ -87,7 +87,7 @@ class MaintenceAPI(Resource):
         except:
             given = json.loads(request.data)['formInput']
             action = json.loads(request.data)['formInput']['queryType']
-            if action == "junctionTable":
+            if action == "delete":
                 h_id = given['h_id']
                 maint_id = given['maint_id']
                 db_manager.delete_specific_maintenance_junc_hos(h_id, maint_id)
