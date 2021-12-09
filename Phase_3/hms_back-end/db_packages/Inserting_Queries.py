@@ -83,7 +83,7 @@ class Inserting_Queries(object):
     #         self.conn.rollback()
     #         print(e)
     
-    def insert_specific_prescribed_med(self, n_id, r_id, assigned_date):
+    def insert_specific_prescribed_med(self, p_id, m_id, assigned_date):
         try:
             #get p_id given p_name
             pmed_id = str(uuid.uuid4())
@@ -99,7 +99,7 @@ class Inserting_Queries(object):
                         "{}"
                     );
             
-            """.format(pmed_id, assigned_date, n_id, r_id)
+            """.format(pmed_id, assigned_date, p_id, m_id)
             self.conn.execute(query)
             self.conn.commit()
         
@@ -275,7 +275,8 @@ class Inserting_Queries(object):
                        phone_number, 
                        h_name, 
                        d_name, 
-                       r_number):
+                       r_number,
+                       m_id):
         try:
             h_id = """
                 select h_id
@@ -334,6 +335,8 @@ class Inserting_Queries(object):
                 )
             self.conn.execute(q)
             self.conn.commit()
+            self.insert_specific_prescribed_med(p_id,m_id, admit_date)
+            
         except Error as e:
             self.conn.rollback()
             print(e)
