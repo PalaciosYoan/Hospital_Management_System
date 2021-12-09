@@ -242,7 +242,7 @@ class Inserting_Queries(object):
             query = """
                 INSERT INTO Nurse
                 VALUES("{}", "{}","{}",{}, "{}")
-            """.format(n_id, name, datetime(started_working), phone_number, h_id)
+            """.format(n_id, name, datetime(started_working), int(phone_number), h_id)
             self.conn.execute(query)
             self.conn.commit()
         except Error as e:
