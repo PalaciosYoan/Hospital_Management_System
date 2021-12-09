@@ -28,8 +28,9 @@ function MaterialUIFormSubmit(props) {
   const getRoom = () => {
     axios
       .post("http://127.0.0.1:5000/getRooms", {
-        queryType: "hospital",
-        hospital_name: localStorage.getItem("hospital_name"),
+        queryType: "room_nurse_not_fill",
+        n_id: localStorage.getItem("n_id"),
+        h_id: localStorage.getItem("h_id"),
       })
       .then(function (response) {
         console.log(response.data);
@@ -129,7 +130,7 @@ function MaterialUIFormSubmit(props) {
                 value={selected}
                 onChange={handleChange}
                 inputProps={{
-                  doctor_name: "room",
+                  room_name: "room",
                   id: "name",
                 }}
               >
