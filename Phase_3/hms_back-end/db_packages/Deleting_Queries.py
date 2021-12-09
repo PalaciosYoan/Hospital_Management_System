@@ -69,7 +69,7 @@ class Deleting_Queries(object):
             """.format(h_id, maint_id)
             self.conn.execute(query)
             self.conn.commit()
-
+            print("success on deleteing")
         except Error as e:
             self.conn.rollback()
             print(e)
