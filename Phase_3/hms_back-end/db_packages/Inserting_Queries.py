@@ -242,7 +242,7 @@ class Inserting_Queries(object):
             query = """
                 INSERT INTO Nurse
                 VALUES("{}", "{}","{}", "{}")
-            """.format(n_id, name, started_working, h_id)
+            """.format(n_id,started_working, name, h_id)
             print(query)
             self.conn.execute(query)
             self.conn.commit()
