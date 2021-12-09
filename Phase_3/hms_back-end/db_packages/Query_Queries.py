@@ -102,7 +102,7 @@ class Query_Queries(object):
                     from Hospital_Maintenance_Junction_Table t1
                     where h_id = "{}"
                 ) t2
-                where s.maint_id <> t2.t_id
+                where s.maint_id != t2.t_id
                 group by s.maint_id
                 ;
             """.format(h_id)
