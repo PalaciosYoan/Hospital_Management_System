@@ -354,7 +354,7 @@ class medicationAPI(Resource):
                 cost = json_data['cost']
                 type = json_data['type']
                 side_effect = json_data['side_effect']
-                treament_for = json_data['treament_for']
+                treament_for = json_data['treatment_for']
                 db_manager.insert_specific_medication(m_name, h_id, cost, type, side_effect, treament_for)
                 return 'status: 200'
             elif action == 'delete':
