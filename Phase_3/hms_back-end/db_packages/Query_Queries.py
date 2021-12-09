@@ -377,22 +377,34 @@ class Query_Queries(object):
             print(e)
             
     #complex query #3
-    def get_maintenance_given_hospital(self, h_name):
+    def get_maintenance_given_hospital(self, h_id):
         try:
+            # query = """
+            #     select Maintenance.maint_id, Maintenance.name, Maintenance.started_working, Maintenance.duty, Maintenance.phone_number
+            #     from Maintenance,
+            #         (select *
+            #         from Hospital_Maintenance_Junction_Table j1,
+            #         (
+            #             select h_id
+            #             from Hospital
+            #             where name = "{}"
+            #         ) h1
+            #         where j1.h_id=h1.h_id) t1 
+            #         where
+            #             t1.maint_id = Maintenance.maint_id;
+            # """.format(h_name)
             query = """
-                select Maintenance.maint_id, Maintenance.name, Maintenance.started_working, Maintenance.duty, Maintenance.phone_number
+                select *
                 from Maintenance,
-                    (select *
-                    from Hospital_Maintenance_Junction_Table j1,
-                    (
-                        select h_id
-                        from Hospital
-                        where name = "{}"
-                    ) h1
-                    where j1.h_id=h1.h_id) t1 
+                (
+                    select maint_id
+                    from Hospital_Maintenance_Junction_Table
                     where
-                        t1.maint_id = Maintenance.maint_id;
-            """.format(h_name)
+                        h_id = "{}"
+                ) t1
+                where
+                    t1.maint_id = Maintenance.maint_id;
+            """.format(h_id)
             df = pd.read_sql_query(query, con=self.conn)
             return df
         except Error as e:
