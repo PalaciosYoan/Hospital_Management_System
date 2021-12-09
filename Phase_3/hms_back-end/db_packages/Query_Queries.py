@@ -95,7 +95,7 @@ class Query_Queries(object):
             #     ;
             # """.format(h_name)
             query = """
-                select s.maint_id, s.name, s.started_working, s.duty, s.phone_number
+                select distinct s.maint_id, s.name, s.started_working, s.duty, s.phone_number
                 from Maintenance s,
                 (
                     select maint_id as t_id
@@ -103,6 +103,7 @@ class Query_Queries(object):
                     where h_id = "{}"
                 ) t2
                 where s.maint_id <> t2.t_id
+                group by s.maint_id
                 ;
             """.format(h_id)
             
