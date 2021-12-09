@@ -414,13 +414,12 @@ class getRooms(Resource):
                 db_manager.delete_specific_nurse_junc_room(r_num=r_num, n_name=n_name)
             elif action == 'insert':
                 data = json.loads(request.data)['formInput']
-                room_number = data['room_number']
                 person_allowed = data['person_allowed']
                 cost = data['cost']
                 type = data['type']
                 h_id = data['h_id']
                 db_manager.insert_room(
-                    room_number, person_allowed, cost, type, h_id
+                    person_allowed, cost, type, h_id
                 )
 
 class getMaintenanceListForAHospital(Resource):

@@ -142,7 +142,7 @@ class Inserting_Queries(object):
             self.conn.rollback()
             print(e)
     
-    def insert_room(self, room_number, person_allowed, cost, type, h_id):
+    def insert_room(self, person_allowed, cost, type, h_id):
         try:
             #get p_id given p_name
             query = """
@@ -153,7 +153,9 @@ class Inserting_Queries(object):
             df = pd.read_sql_query(query, con=self.conn)
             max_room = df['room_number'].max()
             r_id = str(uuid.uuid4())
+            print("testing:")
             print(df)
+            print(max_room)
             query = """
                     INSERT INTO Room(
                     r_id, room_number, person_allowed, cost, type, h_id, p_id
