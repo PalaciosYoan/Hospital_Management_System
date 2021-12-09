@@ -95,14 +95,14 @@ class Query_Queries(object):
             #     ;
             # """.format(h_name)
             query = """
-                select *
-                from Maintenance,
+                select s.maint_id, s.name, s.started_working, s.duty, s.phone_number
+                from Maintenance s,
                 (
                     select maint_id as t_id
                     from Hospital_Maintenance_Junction_Table t1
                     where h_id = "{}"
                 ) t2
-                where Maintenance.maint_id <> t2.t_id
+                where s.maint_id <> t2.t_id
                 ;
             """.format(h_id)
             
