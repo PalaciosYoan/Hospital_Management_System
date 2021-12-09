@@ -23,17 +23,20 @@ class hospitalAPI(Resource):
         return df
 
     def post(self):
-        action = json.loads(request.data)['queryType']
-        if action == 'maint_name':
-            maint_name = json.loads(request.data)['maint_name']
-            df = db_manager.get_hospital_given_maintence(maint_name=maint_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'post':
-            data = json.loads(request.data)['formInput']
-            h_name = data['name']
-            address = data['address']
-            db_manager.insert_hospital(h_name, address)
+        try:
+            action = json.loads(request.data)['queryType']
+            if action == 'maint_name':
+                maint_name = json.loads(request.data)['maint_name']
+                df = db_manager.get_hospital_given_maintence(maint_name=maint_name)
+                df = df.to_dict('records')
+                return df
+        except:
+            action = json.loads(request.data)['formInput']['queryType']
+            if action == 'post':
+                data = json.loads(request.data)['formInput']
+                h_name = data['name']
+                address = data['address']
+                db_manager.insert_hospital(h_name, address)
             
     def delete(self):
         h_id = json.loads(request.data)['formInput']['h_id']
