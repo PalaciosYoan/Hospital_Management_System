@@ -105,8 +105,8 @@ class MaintenceAPI(Resource):
                 return 'status: 200'
             elif action =='insert-maintenance': # easily be able to add more queries to doctor
                 data = json.loads(request.data)['formInput']
-                name = data['maint_name']
-                started_working = data['start_date']
+                name = data['name']
+                started_working = data['started_working']
                 phone_number = data['phone_number']
                 duty = data['duty']
                 db_manager.insert_maint(name, started_working, phone_number, duty)
