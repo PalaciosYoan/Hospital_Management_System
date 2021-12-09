@@ -156,8 +156,8 @@ class doctorAPI(Resource):
     def put(self):
         data = json.loads(request.data)['formInput']
         d_id = data['d_id']
-        name = data['doctor_name']
-        started_working = data['started_working_date']
+        name = data['name']
+        started_working = data['started_working']
         phone_number = data['phone_number']
         h_id = data['h_id']
         db_manager.update_doctor(
