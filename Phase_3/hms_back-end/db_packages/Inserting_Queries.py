@@ -153,6 +153,7 @@ class Inserting_Queries(object):
             df = pd.read_sql_query(query, con=self.conn)
             max_room = df['room_number'].max()
             r_id = str(uuid.uuid4())
+            print(df)
             query = """
                     INSERT INTO Room(
                     r_id, room_number, person_allowed, cost, type, h_id, p_id
