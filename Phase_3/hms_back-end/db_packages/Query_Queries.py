@@ -168,7 +168,7 @@ class Query_Queries(object):
         try:
             query = """
                 select Nurse.n_id, Nurse.name, Nurse.started_working
-                from Nurse, 
+                from Nurse
                 where h_id="{}";
             """.format(h_id)
             df = pd.read_sql_query(query, con=self.conn)
