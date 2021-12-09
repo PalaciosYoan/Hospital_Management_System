@@ -135,3 +135,7 @@ where
 
 
 select * from Maintenance where name = "company plummerv2"
+
+
+INSERT INTO Nurse
+                VALUES("1", "2020-08-24","potato", "three");
