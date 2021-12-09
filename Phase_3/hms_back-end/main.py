@@ -211,8 +211,8 @@ class nurseAPI(Resource):
     def put(self):
         data = json.loads(request.data)['formInput']
         n_id = data['n_id']
-        name = data['nurse_name']
-        started_working = data['started_working_date']
+        name = data['name']
+        started_working = data['started_working']
         h_id = data['h_id']
         db_manager.update_nurse(
                     n_id,
