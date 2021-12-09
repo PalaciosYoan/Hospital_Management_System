@@ -79,6 +79,23 @@ class MaintenceAPI(Resource):
                 df = db_manager.get_maintenance_given_hospital(h_id)
                 df = df.to_dict('records')
                 return df
+            elif action == 'maintenance':
+                maint_id = json.loads(request.data)['maint_id']
+                df =db_manager.get_maintenance(maint_id)
+                df = df.to_dict('records')
+                return df
+        except:
+            given = json.loads(request.data)['formInput']
+            action = json.loads(request.data)['formInput']['queryType']
+            if action == "junctionTable":
+                h_name = given['hospital_name']
+                maint_name = given['maintenance_name']
+                db_manager.delete_specific_maintenance_junc_hos(h_name, maint_name)
+                return
+            elif action == "maintTable":
+                maint_name = given['maintenance_name']
+                db_manager.delete_specific_maintenance(maint_name=maint_name)
+                return
             elif action == 'post-junction-table':
                 data = json.loads(request.data)['formInput']
                 h_id = data['h_id']
@@ -92,22 +109,6 @@ class MaintenceAPI(Resource):
                 phone_number = data['phone_number']
                 duty = data['duty']
                 db_manager.insert_maint(name, started_working, phone_number, duty)
-            elif action == 'maintenance':
-                maint_id = json.loads(request.data)['maint_id']
-                df =db_manager.get_maintenance(maint_id)
-                df = df.to_dict('records')
-                return df
-        except:
-            given = json.loads(request.data)['formInput']
-            if given['queryType'] == "junctionTable":
-                h_name = given['hospital_name']
-                maint_name = given['maintenance_name']
-                db_manager.delete_specific_maintenance_junc_hos(h_name, maint_name)
-                return
-            if given['queryType'] == "maintTable":
-                maint_name = given['maintenance_name']
-                db_manager.delete_specific_maintenance(maint_name=maint_name)
-                return
     def put(self):
         data = json.loads(request.data)['formInput']
         maint_id = data['maint_id']

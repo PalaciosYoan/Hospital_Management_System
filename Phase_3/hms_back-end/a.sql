@@ -145,3 +145,13 @@ from Maintenance m1, Hospital_Maintenance_Junction_Table h1
 where
     m1.maint_id = h1.maint_id and
     h1.h_id = "{}";
+
+
+INSERT INTO Hospital_Maintenance_Junction_Table(
+                    h_id, maint_id
+                    ) 
+                    VALUES 
+                    (
+                        "b2bcc1e7-e3a6-495e-a494-8ea1e47473bf", 
+                        "6f7b72ee-4149-4832-8c23-6f5fbc2a8772"
+                    );
