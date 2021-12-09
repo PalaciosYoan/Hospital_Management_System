@@ -98,11 +98,11 @@ class Query_Queries(object):
                 select *
                 from Maintenance,
                 (
-                    select maint_id 
+                    select maint_id as t_id
                     from Hospital_Maintenance_Junction_Table t1
                     where h_id = "{}"
                 ) t2
-                where Maintenance.maint_id <> t2.maint_id
+                where Maintenance.maint_id <> t2.t_id
                 ;
             """.format(h_id)
             
