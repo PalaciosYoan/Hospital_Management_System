@@ -228,7 +228,7 @@ class Inserting_Queries(object):
             self.conn.rollback()
             print(e)
     
-    def insert_nurse(self, name, started_working, phone_number, h_name):
+    def insert_nurse(self, name, started_working, h_name):
         try:
             h_id = """
                 select h_id
@@ -241,8 +241,8 @@ class Inserting_Queries(object):
             
             query = """
                 INSERT INTO Nurse
-                VALUES("{}", "{}","{}",{}, "{}")
-            """.format(n_id, name, started_working, int(phone_number), h_id)
+                VALUES("{}", "{}","{}", "{}")
+            """.format(n_id, name, started_working, h_id)
             print(query)
             self.conn.execute(query)
             self.conn.commit()
