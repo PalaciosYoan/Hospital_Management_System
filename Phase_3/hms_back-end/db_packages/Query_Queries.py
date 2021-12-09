@@ -300,7 +300,7 @@ class Query_Queries(object):
                 select *
                 from Room
                 where
-                    
+                    h_id = "{}" and
                     r_id NOT IN (
                             select r_id
                             from Nurse_Room_Junction_Table
