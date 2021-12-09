@@ -72,31 +72,42 @@ class avaliableMaintenceAPI(Resource):
 class MaintenceAPI(Resource):
     def post(self):
         #must send a json format {'hospital_name':hospital_name}
-        action = json.loads(request.data)['queryType']
-        if action == 'get':
-            hospital_name = json.loads(request.data)['hospital_name']
-            df = db_manager.get_maintenance_given_hospital(hospital_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'post-junction-table':
-            data = json.loads(request.data)['formInput']
-            h_name = data['hospital_name']
-            maint_name = data['maintenance_name']
-            db_manager.insert_specific_maintenance_hos_junct(h_name, maint_name)
-            return 'status: 200'
-        elif action =='insert-maintenance': # easily be able to add more queries to doctor
-            data = json.loads(request.data)['formInput']
-            name = data['maint_name']
-            started_working = data['start_date']
-            phone_number = data['phone_number']
-            duty = data['duty']
-            db_manager.insert_maint(name, started_working, phone_number, duty)
-        elif action == 'maintenance':
-            maint_id = json.loads(request.data)['maint_id']
-            df =db_manager.get_maintenance(maint_id)
-            df = df.to_dict('records')
-            return df
-    
+        try:
+            action = json.loads(request.data)['queryType']
+            if action == 'get':
+                hospital_name = json.loads(request.data)['hospital_name']
+                df = db_manager.get_maintenance_given_hospital(hospital_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'post-junction-table':
+                data = json.loads(request.data)['formInput']
+                h_name = data['hospital_name']
+                maint_name = data['maintenance_name']
+                db_manager.insert_specific_maintenance_hos_junct(h_name, maint_name)
+                return 'status: 200'
+            elif action =='insert-maintenance': # easily be able to add more queries to doctor
+                data = json.loads(request.data)['formInput']
+                name = data['maint_name']
+                started_working = data['start_date']
+                phone_number = data['phone_number']
+                duty = data['duty']
+                db_manager.insert_maint(name, started_working, phone_number, duty)
+            elif action == 'maintenance':
+                maint_id = json.loads(request.data)['maint_id']
+                df =db_manager.get_maintenance(maint_id)
+                df = df.to_dict('records')
+                return df
+        except:
+            given = json.loads(request.data)['formInput']
+            if given['queryType'] == "junctionTable":
+                h_name = given['hospital_name']
+                maint_name = given['maintenance_name']
+                db_manager.delete_specific_maintenance_junc_hos(h_name, maint_name)
+                return
+            if given['queryType'] == "maintTable":
+                maint_name = given['maintenance_name']
+                db_manager.delete_specific_maintenance(maint_name=maint_name)
+                return
     def put(self):
         data = json.loads(request.data)['formInput']
         maint_id = data['maint_id']
@@ -112,45 +123,35 @@ class MaintenceAPI(Resource):
             phone_number
         )
 
-    def delete(self):
-        given = json.loads(request.data)['formInput']
-        if given['queryType'] == "junctionTable":
-            h_name = given['hospital_name']
-            maint_name = given['maintenance_name']
-            db_manager.delete_specific_maintenance_junc_hos(h_name, maint_name)
-            return
-        if given['queryType'] == "maintTable":
-            maint_name = given['maintenance_name']
-            db_manager.delete_specific_maintenance(maint_name=maint_name)
-            return
-    
 class doctorAPI(Resource):
     def post(self):
-        action = json.loads(request.data)['queryType']
-        if action == 'hospital':
-            hospital_name = json.loads(request.data)['hospital_name']
-            df = db_manager.get_doctors_given_hospital(hospital_name)
-            df = df.to_dict('records')
-            return df
-        elif action =='insert-doctor': # easily be able to add more queries to doctor
-            data = json.loads(request.data)['formInput']
-            name = data['doctor_name']
-            started_working = data['start_date']
-            phone_number = data['phone_number']
-            h_name = data['hospital_name']
-            db_manager.insert_doctor(name, started_working, phone_number, h_name)
-        elif action =='hospital-doctor': # easily be able to add more queries to doctor
-            data = json.loads(request.data)
-            hos_name = data['hospital_name']
-            doc_name = data['doctor_name']
-            df = db_manager.get_doctors_given_hospital_doc_name(hos_name, doc_name)
-            df = df.to_dict('records')
-            return df
-        
-    def delete(self):
-        data = json.loads(request.data)['formInput']
-        doc_id = data['d_id']
-        db_manager.delete_doctor(d_id=doc_id)
+        try:
+            action = json.loads(request.data)['queryType']
+            if action == 'hospital':
+                hospital_name = json.loads(request.data)['hospital_name']
+                df = db_manager.get_doctors_given_hospital(hospital_name)
+                df = df.to_dict('records')
+                return df
+            elif action =='hospital-doctor': # easily be able to add more queries to doctor
+                data = json.loads(request.data)
+                hos_name = data['hospital_name']
+                doc_name = data['doctor_name']
+                df = db_manager.get_doctors_given_hospital_doc_name(hos_name, doc_name)
+                df = df.to_dict('records')
+                return df
+        except:
+            action = json.loads(request.data)['formInput']['queryType']
+            if action =='insert-doctor': # easily be able to add more queries to doctor
+                data = json.loads(request.data)['formInput']
+                name = data['name']
+                started_working = data['started_working']
+                phone_number = data['phone_number']
+                h_name = data['hospital_name']
+                db_manager.insert_doctor(name, started_working, phone_number, h_name)
+            elif action == 'delete_doctor':
+                data = json.loads(request.data)['formInput']
+                doc_id = data['d_id']
+                db_manager.delete_doctor(d_id=doc_id)
     
     def put(self):
         data = json.loads(request.data)['formInput']
@@ -168,37 +169,40 @@ class doctorAPI(Resource):
 
 class nurseAPI(Resource):
     def post(self):
-        action = json.loads(request.data)['queryType']
-        if action == 'hospital':
-            hospital_name = json.loads(request.data)['hospital_name']
-            df = db_manager.get_nurses_given_hospital(hospital_name)
-            df = df.to_dict('records')
-            return df
-        elif action == "room":
-            r_number = json.loads(request.data)["room_number"]
-            h_name = json.loads(request.data)["hospital_name"]
-            df = db_manager.get_nurses_given_rooms(r_number=r_number, h_name=h_name)
-            df = df.to_dict('records')
-            return df
-        elif action =='insert-nurse': # easily be able to add more queries to doctor
-            data = json.loads(request.data)['formInput']
-            name = data['nurse_name']
-            started_working = data['start_date']
-            phone_number = data['phone_number']
-            h_name = data['hospital_name']
-            db_manager.insert_nurse(name, started_working, phone_number, h_name)
-        elif action == 'nurse-hospital':
-            data = json.loads(request.data)
-            hospital_name = data['hospital_name']
-            nurse_name = data['nurse_name']
-            df = db_manager.get_nurse_given_hospital_nurse_name(hospital_name, nurse_name)
-            df = df.to_dict('records')
-            return df 
-    
-    def delete(self):
-        data = json.loads(request.data)['formInput']
-        n_name = data['nurse_name']
-        db_manager.delete_nurse(n_name=n_name)
+        try:
+            action = json.loads(request.data)['queryType']
+            if action == 'hospital':
+                hospital_name = json.loads(request.data)['hospital_name']
+                df = db_manager.get_nurses_given_hospital(hospital_name)
+                df = df.to_dict('records')
+                return df
+            elif action == "room":
+                r_number = json.loads(request.data)["room_number"]
+                h_name = json.loads(request.data)["hospital_name"]
+                df = db_manager.get_nurses_given_rooms(r_number=r_number, h_name=h_name)
+                df = df.to_dict('records')
+                return df
+
+                db_manager.insert_nurse(name, started_working, phone_number, h_name)
+            elif action == 'nurse-hospital':
+                data = json.loads(request.data)
+                hospital_name = data['hospital_name']
+                nurse_name = data['nurse_name']
+                df = db_manager.get_nurse_given_hospital_nurse_name(hospital_name, nurse_name)
+                df = df.to_dict('records')
+                return df 
+        except:
+            action = json.loads(request.data)['formInput']['queryType']
+            if action =='insert-nurse': # easily be able to add more queries to doctor
+                data = json.loads(request.data)['formInput']
+                name = data['nurse_name']
+                started_working = data['start_date']
+                phone_number = data['phone_number']
+                h_name = data['hospital_name']
+            elif action == 'delete_nurse':
+                data = json.loads(request.data)['formInput']
+                n_name = data['nurse_name']
+                db_manager.delete_nurse(n_name=n_name)
     
     def put(self):
         data = json.loads(request.data)['formInput']
