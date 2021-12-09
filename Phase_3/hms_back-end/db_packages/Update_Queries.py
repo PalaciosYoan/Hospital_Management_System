@@ -180,7 +180,7 @@ class Update_Queries(object):
                     type = "{}", 
                     side_effect = "{}", 
                     h_id = "{}", 
-                    treatment_for = "{}"
+                    treament_for = "{}"
                 WHERE
                     m_id = "{}"
             """.format(
