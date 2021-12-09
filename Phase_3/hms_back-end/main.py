@@ -31,17 +31,17 @@ class hospitalAPI(Resource):
                 df = df.to_dict('records')
                 return df
         except:
+            
             action = json.loads(request.data)['formInput']['queryType']
             if action == 'post':
                 data = json.loads(request.data)['formInput']
                 h_name = data['name']
                 address = data['address']
                 db_manager.insert_hospital(h_name, address)
+            elif action == 'delete':
+                h_id = json.loads(request.data)['formInput']['h_id']
+                db_manager.delete_hospital(h_id=h_id)
             
-    def delete(self):
-        print(json.loads(request.data))
-        h_id = json.loads(request.data)['formInput']['h_id']
-        db_manager.delete_hospital(h_id=h_id)
         
     def put(self):
         data = json.loads(request.data)['formInput']
