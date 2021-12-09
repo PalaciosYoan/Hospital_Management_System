@@ -466,8 +466,7 @@ class nuresRoomJunc(Resource):
             data = json.loads(request.data)['formInput']
             n_id = data['n_id']
             r_id = data['r_id']
-            assign_date = data['assigned_date']
-            db_manager.insert_nurse_room_junction(n_id, r_id, assign_date)
+            db_manager.insert_nurse_room_junction(n_id, r_id)
         elif action == 'delete':
             data = json.loads(request.data)['formInput']
             n_id = data['n_id']
