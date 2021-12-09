@@ -406,10 +406,22 @@ class getRooms(Resource):
                 h_name = json.loads(request.data)['hospital_name']
                 return db_manager.get_rooms_not_filled(h_name)
         except:
-            data = json.loads(request.data)['formInput']
-            r_num = data['room_number']
-            n_name = data['nurse_name']
-            db_manager.delete_specific_nurse_junc_room(r_num=r_num, n_name=n_name)
+            action = json.loads(request.data)['formInput']['queryType']
+            if action == 'delete':
+                data = json.loads(request.data)['formInput']
+                r_num = data['room_number']
+                n_name = data['nurse_name']
+                db_manager.delete_specific_nurse_junc_room(r_num=r_num, n_name=n_name)
+            elif action == 'insert':
+                data = json.loads(request.data)['formInput']
+                room_number = data['room_number']
+                person_allowed = data['person_allowed']
+                cost = data['cost']
+                type = data['type']
+                h_id = data['h_id']
+                db_manager.insert_room(
+                    room_number, person_allowed, cost, type, h_id
+                )
 
 class getMaintenanceListForAHospital(Resource):
     def post(self):

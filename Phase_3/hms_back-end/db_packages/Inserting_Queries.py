@@ -137,27 +137,36 @@ class Inserting_Queries(object):
             """.format(h_id, address,name)
             self.conn.execute(query)
             self.conn.commit()
-            
-            df = pd.read_excel('./rooms/roomsTemplate.xlsx')
-            for index, row in df.iterrows():
-                room_number = row['room_number']
-                cost = row['cost']
-                type = row['type']
-                person_allowed = row['person_allowed']
-                h_id = h_id
-                r_id = row['r_id']
-                p_id = row['p_id']
-                query = """
-                    INSERT INTO Room (r_id,room_number,person_allowed,cost,type,h_id,p_id)
-                    VALUES ('{}',{},'{}',{},'{}','{}','{}');
-                    """.format(r_id, room_number, person_allowed, cost, type, h_id, p_id)
-                self.conn.execute(query)
-                self.conn.commit()
         
         except Error as e:
             self.conn.rollback()
             print(e)
     
+    def insert_room(self, room_number, person_allowed, cost, type, h_id):
+        try:
+            #get p_id given p_name
+            r_id = str(uuid.uuid4())
+            query = """
+                    INSERT INTO Room(
+                    r_id, room_number, person_allowed, cost, type, h_id, p_id
+                    ) 
+                    VALUES 
+                    (
+                        "{}",
+                        {},
+                        {},
+                        {},
+                        "{}",
+                        "{}",
+                        "{}"
+                    );
+            """.format(r_id, room_number, person_allowed, cost, type, h_id, 'nan')
+            self.conn.execute(query)
+            self.conn.commit()
+        
+        except Error as e:
+            self.conn.rollback()
+            print(e)
     
     #complex query number 7
     def insert_specific_maintenance_hos_junct(self, h_name, maint_name):
