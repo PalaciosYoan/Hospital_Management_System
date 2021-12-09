@@ -288,9 +288,8 @@ class patientAPI(Resource):
                                         m_id)
             elif action == 'delete':
                 data = json.loads(request.data)['formInput']
-                p_name = data['patient_name']
-                dob = data['dob']
-                db_manager.delete_patient(p_name=p_name, dob=dob)
+                p_id = data['p_id']
+                db_manager.delete_patient(p_id=p_id)
         
         
     def put(self):

@@ -184,15 +184,9 @@ class Deleting_Queries(object):
             self.conn.rollback()
             print(e)
 
-    def delete_patient(self, p_name, dob):
+    def delete_patient(self, p_id):
         try:
-            query = """
-                select p_id
-                from Patient
-                where name = "{}" and dob="{}"
-                """.format(p_name, dob)
-            self.cursor.execute(query)
-            p_id = self.cursor.fetchall()[0][0]
+
             
             q = """
                 DELETE
