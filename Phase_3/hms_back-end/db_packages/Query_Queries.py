@@ -180,12 +180,12 @@ class Query_Queries(object):
     def get_nurse_given_hospital_nurse_name(self, h_name, n_nurse):
         try:
             query = """
-                select *
-                from Nurse, Hospital
+                select n.n_id, n.started_working, n.name, n.h_id
+                from Nurse n, Hospital
                 where
-                    Nurse.h_id = Hospital.h_id and
+                    n.h_id = Hospital.h_id and
                     Hospital.name = "{}" and
-                    Nurse.name = "{}";
+                    n.name = "{}";
             """.format(h_name, n_nurse)
             df = pd.read_sql_query(query, con=self.conn)
             return df
