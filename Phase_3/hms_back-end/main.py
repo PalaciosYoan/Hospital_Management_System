@@ -299,7 +299,7 @@ class patientAPI(Resource):
         dob = data['dob']
         admit_date = data['admit_date']
         released_date = data['released_date']
-        problem = data['reason_for_visit']
+        problem = data['problem']
         address = data['address']
         name = data['name']
         phone_number = data['phone_number']
