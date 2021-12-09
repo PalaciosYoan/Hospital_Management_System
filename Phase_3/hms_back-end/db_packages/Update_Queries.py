@@ -93,7 +93,7 @@ class Update_Queries(object):
         
         try:
             q = """
-                UPDATE Doctor
+                UPDATE Nurse
                 SET
                     name = "{}",
                     started_working = "{}",
