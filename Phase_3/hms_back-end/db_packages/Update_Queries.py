@@ -206,7 +206,7 @@ class Update_Queries(object):
         try:
             q = """
                 Update
-                    Patient
+                    Room
                 SET 
                     person_allowed = {},
                     cost = {},
