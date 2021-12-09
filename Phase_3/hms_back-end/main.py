@@ -197,12 +197,10 @@ class nurseAPI(Resource):
                 data = json.loads(request.data)['formInput']
                 name = data['name']
                 started_working = data['started_working']
-                phone_number = data['phone_number']
                 h_name = data['hospital_name']
                 db_manager.insert_nurse(
                     name,
                     started_working,
-                    phone_number,
                     h_name
                 )
             elif action == 'delete':
