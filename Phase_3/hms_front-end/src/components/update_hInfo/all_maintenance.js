@@ -21,7 +21,7 @@ function MaterialUIFormSubmit(props) {
     axios
       .post("http://127.0.0.1:5000/maintenceAPI_given_h_name", {
         queryType: "maintenance",
-        maint_id: localStorage.getItem("maintenance_id"),
+        maint_id: localStorage.getItem("maint_id"),
       })
       .then(function (response) {
         console.log(response.data);
@@ -69,7 +69,7 @@ function MaterialUIFormSubmit(props) {
     formInput["maint_id"] = localStorage.getItem("maint_id");
     let data = { formInput };
     
-    axios.post('INSERT HERE', data)
+    axios.put('http://127.0.0.1:5000/maintenceAPI_given_h_name', data)
     .then(function (response) {
       console.log(response.data);
     })
@@ -82,8 +82,10 @@ function MaterialUIFormSubmit(props) {
 
   function deleteInfo(){
     formInput["maint_id"] = localStorage.getItem("maint_id");
+    formInput["queryType"] = "delete-maintenance";
+
     let data = { formInput };
-    axios.post('INSERT HERE', data)
+    axios.post('http://127.0.0.1:5000/maintenceAPI_given_h_name', data)
     .then(function (response) {
       console.log(response.data);
     })

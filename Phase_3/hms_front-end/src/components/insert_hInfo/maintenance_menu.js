@@ -43,10 +43,10 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["h_id"] = localStorage.getItem("h_id");
+    formInput["queryType"] = "insert-maintenance";
     let data = { formInput };
     
-    axios.post('INSERT HERE', data)
+    axios.post('http://127.0.0.1:5000/maintenceAPI_given_h_name', data)
     .then(function (response) {
       console.log(response.data);
     })
