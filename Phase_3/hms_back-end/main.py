@@ -411,7 +411,9 @@ class getRooms(Resource):
             elif action == 'room_nurse_not_fill':
                 n_id = json.loads(request.data)['n_id']
                 h_id = json.loads(request.data)['h_id']
-                db_manager.get_rooms_not_filled_by_nurse(n_id, h_id)
+                df = db_manager.get_rooms_not_filled_by_nurse(n_id, h_id)
+                df = df.to_dict('records')
+                return df
         except:
             action = json.loads(request.data)['formInput']['queryType']
             if action == 'delete':
