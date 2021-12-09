@@ -149,8 +149,8 @@ class doctorAPI(Resource):
         
     def delete(self):
         data = json.loads(request.data)['formInput']
-        doc_name = data['doctor_name']
-        db_manager.delete_doctor(doc_name=doc_name)
+        doc_id = data['doc_id']
+        db_manager.delete_doctor(d_id=doc_id)
     
     def put(self):
         data = json.loads(request.data)['formInput']

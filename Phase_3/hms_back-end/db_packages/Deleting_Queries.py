@@ -172,14 +172,14 @@ class Deleting_Queries(object):
             self.conn.rollback()
             print(e)
     
-    def delete_doctor(self, doc_name):
+    def delete_doctor(self, d_id):
         try:
             q = """
                 DELETE
                 from Doctor
                 where 
-                    name = "{}"
-            """.format(doc_name)
+                    d_id = "{}"
+            """.format(d_id)
             self.conn.execute(q)
             self.conn.commit()
         except Error as e:
