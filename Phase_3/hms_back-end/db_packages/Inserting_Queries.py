@@ -182,27 +182,9 @@ class Inserting_Queries(object):
             print(e)
     
     #complex query number 7
-    def insert_specific_maintenance_hos_junct(self, h_name, maint_name):
+    def insert_specific_maintenance_hos_junct(self, h_id, maint_id):
         try:
-            #get h_id given h_name
-            q1 = """
-                select h_id
-                from Hospital
-                where name = '{}'
-                limit 1;
-            """.format(h_name)
-            self.cursor.execute(q1)
-            h_id = self.cursor.fetchall()[0][0]
-            
-            #get maint_id given maint_name
-            q1 = """
-                select maint_id
-                from Maintenance
-                where name = '{}'
-                limit 1;
-            """.format(maint_name)
-            self.cursor.execute(q1)
-            maint_id = self.cursor.fetchall()[0][0]
+
             query = """
                     INSERT INTO Hospital_Maintenance_Junction_Table(
                     h_id, maint_id
