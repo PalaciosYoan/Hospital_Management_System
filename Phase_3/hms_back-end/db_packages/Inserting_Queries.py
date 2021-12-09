@@ -99,7 +99,7 @@ class Inserting_Queries(object):
                         "{}"
                     );
             
-            """.format(pmed_id, datetime.strftime(assigned_date, f"%Y-%m-%d"), n_id, r_id)
+            """.format(pmed_id, datetime(assigned_date), n_id, r_id)
             self.conn.execute(query)
             self.conn.commit()
         
@@ -221,7 +221,7 @@ class Inserting_Queries(object):
             query = """
                 INSERT INTO Doctor
                 VALUES("{}", "{}","{}",{}, "{}")
-            """.format(d_id, name, datetime.strftime(started_working, f"%Y-%m-%d"), phone_number, h_id)
+            """.format(d_id, name, datetime(started_working), phone_number, h_id)
             self.conn.execute(query)
             self.conn.commit()
         except Error as e:
@@ -242,7 +242,7 @@ class Inserting_Queries(object):
             query = """
                 INSERT INTO Nurse
                 VALUES("{}", "{}","{}",{}, "{}")
-            """.format(n_id, name, datetime.strftime(started_working, f"%Y-%m-%d"), phone_number, h_id)
+            """.format(n_id, name, datetime(started_working), phone_number, h_id)
             self.conn.execute(query)
             self.conn.commit()
         except Error as e:
@@ -256,7 +256,7 @@ class Inserting_Queries(object):
             query = """
                 INSERT INTO Maintenance
                 VALUES("{}", "{}","{}","{}", {})
-            """.format(maint_id, name, datetime.strftime(started_working, f"%Y-%m-%d"), duty, phone_number)
+            """.format(maint_id, name, datetime(started_working), duty, phone_number)
             self.conn.execute(query)
             self.conn.commit()
         except Error as e:
