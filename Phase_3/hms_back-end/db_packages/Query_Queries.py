@@ -393,17 +393,24 @@ class Query_Queries(object):
             #         where
             #             t1.maint_id = Maintenance.maint_id;
             # """.format(h_name)
+            # query = """
+            #     select *
+            #     from Maintenance,
+            #     (
+            #         select maint_id
+            #         from Hospital_Maintenance_Junction_Table
+            #         where
+            #             h_id = "{}"
+            #     ) t1
+            #     where
+            #         t1.maint_id = Maintenance.maint_id;
+            # """.format(h_id)
             query = """
                 select *
-                from Maintenance,
-                (
-                    select maint_id
-                    from Hospital_Maintenance_Junction_Table
-                    where
-                        h_id = "{}"
-                ) t1
+                from Maintenance m1, Hospital_Maintenance_Junction_Table h1
                 where
-                    t1.maint_id = Maintenance.maint_id;
+                    m1.maint_id = h1.maint_id and
+                    h1.h_id = "{}";
             """.format(h_id)
             df = pd.read_sql_query(query, con=self.conn)
             return df
