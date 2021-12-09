@@ -421,6 +421,13 @@ class getRooms(Resource):
                 db_manager.insert_room(
                     person_allowed, cost, type, h_id
                 )
+    def put(self):
+        data = json.loads(request.data)['formInput']
+        person_allowed = data['person_allowed']
+        cost = data['cost']
+        type = data['type']
+        r_id = data['r_id']
+        db_manager.update_room(r_id, person_allowed, cost, type)
 
 class getMaintenanceListForAHospital(Resource):
     def post(self):

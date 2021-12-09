@@ -200,32 +200,23 @@ class Update_Queries(object):
     
     def update_room(self,
                        r_id, 
-                       room_number, 
                        person_allowed, 
                        cost, 
-                       type, 
-                       h_id, 
-                       p_id):
+                       type):
         try:
             q = """
                 Update
                     Patient
                 SET 
-                    room_number = {},
                     person_allowed = {},
                     cost = {},
-                    type = "{}" ,
-                    h_id = "{}",
-                    p_id = "{}"
+                    type = "{}"
                 WHERE
                     r_id = "{}"
             """.format(
-                    room_number, 
                     person_allowed, 
                     cost, 
-                    type, 
-                    h_id, 
-                    p_id,
+                    type,
                     r_id
                 )
             self.conn.execute(q)
