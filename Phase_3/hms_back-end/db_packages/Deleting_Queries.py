@@ -151,6 +151,20 @@ class Deleting_Queries(object):
             self.conn.rollback()
             print(e)
     
+    def delete_room(self, r_id):
+        try:
+            q = """
+                DELETE
+                from Room
+                where 
+                    r_id = "{}"
+            """.format(r_id)
+            self.conn.execute(q)
+            self.conn.commit()
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
     def delete_nurse(self, n_id):
         try:
             q1 = """

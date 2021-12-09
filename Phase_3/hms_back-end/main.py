@@ -412,15 +412,11 @@ class getRooms(Resource):
                 r_num = data['room_number']
                 n_name = data['nurse_name']
                 db_manager.delete_specific_nurse_junc_room(r_num=r_num, n_name=n_name)
-            elif action == 'insert':
+            elif action == 'delete-room':
                 data = json.loads(request.data)['formInput']
-                person_allowed = data['person_allowed']
-                cost = data['cost']
-                type = data['type']
-                h_id = data['h_id']
-                db_manager.insert_room(
-                    person_allowed, cost, type, h_id
-                )
+                r_id = data['r_id']
+                db_manager.delete_room(r_id)
+                
     def put(self):
         data = json.loads(request.data)['formInput']
         person_allowed = data['person_allowed']
