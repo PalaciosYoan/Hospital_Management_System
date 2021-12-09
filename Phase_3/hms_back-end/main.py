@@ -206,7 +206,7 @@ class nurseAPI(Resource):
             elif action == 'delete':
                 data = json.loads(request.data)['formInput']
                 n_id = data['n_id']
-                db_manager.delete_nurse(n_name=n_id)
+                db_manager.delete_nurse(n_id=n_id)
     
     def put(self):
         data = json.loads(request.data)['formInput']
