@@ -83,6 +83,7 @@ function OutlinedCard() {
                 console.log(patient.dob);
                 localStorage.setItem("patient_name", patient.name);
                 localStorage.setItem("patient_dob", patient.dob);
+                localStorage.setItem("p_id", patient.p_id);
                 navigate("/single_patient");
               }}
               size="small"

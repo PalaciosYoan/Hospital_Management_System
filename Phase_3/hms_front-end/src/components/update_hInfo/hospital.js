@@ -3,7 +3,7 @@ import { Button, TextField, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-
+import axios from "axios";
 const cardStyles = makeStyles({
   gridContainer: {
     paddingLeft: "20px",
@@ -35,16 +35,39 @@ function MaterialUIFormSubmit(props) {
     (state, newState) => ({ ...state, ...newState }),
     {
       name: localStorage.getItem("hospital_name"),
-      Address: localStorage.getItem("hospital_address"),
+      address: localStorage.getItem("hospital_address"),
     }
   );
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
+    formInput["h_id"] = localStorage.getItem("h_id");
     let data = { formInput };
+    
+    axios.post('INSERT HERE', data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
     console.log(data);
+
   };
+
+  function deleteInfo(){
+    formInput["h_id"] = localStorage.getItem("h_id");
+    let data = { formInput };
+    axios.post('INSERT HERE', data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    console.log(data);
+  }
 
   const handleInput = (evt) => {
     const name = evt.target.name;
@@ -96,8 +119,8 @@ function MaterialUIFormSubmit(props) {
             <TextField
               label="Address"
               id="margin-normal"
-              name="Address"
-              defaultValue={formInput.Address}
+              name="address"
+              defaultValue={formInput.address}
               className={classes.textField}
               helperText="Enter hospital address"
               onChange={handleInput}
@@ -112,7 +135,7 @@ function MaterialUIFormSubmit(props) {
             </Button>
             <Button style={{backgroundColor: 'red', color: '#FFFFFF'}}
               onClick={() => {
-                console.log(1);
+                deleteInfo();
               }}
               variant="contained"
               className={classes.button}

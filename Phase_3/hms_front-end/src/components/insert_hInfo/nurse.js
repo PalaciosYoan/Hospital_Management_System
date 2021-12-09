@@ -68,8 +68,7 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["h_name"] = localStorage.getItem("hospital_name");
-    formInput["room_number"] = selected.room_number;
+    formInput["h_id"] = localStorage.getItem("h_id");
     let data = { formInput };
     console.log(data);
   };
@@ -130,25 +129,6 @@ function MaterialUIFormSubmit(props) {
               helperText="Enter started working date"
               onChange={handleInput}
             />
-            <FormControl>
-              <InputLabel htmlFor="choose-room">Room</InputLabel>
-              <Select
-                value={selected}
-                onChange={handleChange}
-                inputProps={{
-                  doctor_name: "room",
-                  id: "name",
-                }}
-              >
-                {values.map((value, index) => {
-                  return (
-                    <MenuItem key={index} value={value}>
-                      {value.room_number}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
             <Button
               type="submit"
               variant="contained"

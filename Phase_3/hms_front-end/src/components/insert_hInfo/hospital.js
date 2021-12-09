@@ -3,7 +3,7 @@ import { Button, TextField, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-
+import axios from "axios";
 const cardStyles = makeStyles({
   gridContainer: {
     paddingLeft: "20px",
@@ -41,8 +41,16 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["h_name"] = localStorage.getItem("hospital_name");
     let data = { formInput };
+
+    axios.post('INSERT HERE', data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
     console.log(data);
   };
 
@@ -76,7 +84,7 @@ function MaterialUIFormSubmit(props) {
         </center>
         &nbsp;
       </div>
-      <Paper className={classes.root} justifyContent="center">
+      <Paper className={classes.root} justifycontent="center">
         <center>
           <Typography variant="h5" component="h3">
             {props.formName}
@@ -88,7 +96,7 @@ function MaterialUIFormSubmit(props) {
               label="Name"
               id="margin-normal"
               name="name"
-              defaultValue={formInput.name}
+              defaultValue={""}
               className={classes.textField}
               helperText="Enter hospital name"
               onChange={handleInput}
@@ -97,7 +105,7 @@ function MaterialUIFormSubmit(props) {
               label="Address"
               id="margin-normal"
               name="address"
-              defaultValue={formInput.address}
+              defaultValue={""}
               className={classes.textField}
               helperText="Enter hospital address"
               onChange={handleInput}

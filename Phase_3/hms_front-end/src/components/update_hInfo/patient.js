@@ -147,13 +147,35 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["h_name"] = localStorage.getItem("hospital_name");
     formInput["d_name"] = selected.name;
     formInput["room_number"] = selected_2.room_number;
     formInput["medicine_name"] = selected_3.name;
+    formInput["p_id"] = localStorage.getItem("p_id");
     let data = { formInput };
+    
+    axios.post('INSERT HERE', data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
     console.log(data);
   };
+
+  function deleteInfo() {
+    formInput["p_id"] = localStorage.getItem("p_id");
+    let data = { formInput };
+    axios.post('INSERT HERE', data)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log(data);
+  }
 
   const handleInput = (evt) => {
     const name = evt.target.name;
@@ -328,6 +350,16 @@ function MaterialUIFormSubmit(props) {
                 className={classes.button}
               >
                 Submit
+              </Button>
+              <Button
+                style={{ backgroundColor: "red", color: "#FFFFFF" }}
+                onClick={() => {
+                  deleteInfo();
+                }}
+                variant="contained"
+                className={classes.button}
+              >
+                Delete
               </Button>
             </form>
           </center>

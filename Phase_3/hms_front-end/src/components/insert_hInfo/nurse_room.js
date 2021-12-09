@@ -4,6 +4,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
 const cardStyles = makeStyles({
   gridContainer: {
@@ -13,7 +16,30 @@ const cardStyles = makeStyles({
 });
 
 function MaterialUIFormSubmit(props) {
+  const [values, setValues] = React.useState([]);
+  const [selected, setSelected] = useState(" ");
+  useEffect(() => getRoom(), []);
   const cards = cardStyles();
+
+  function handleChange(event) {
+    setSelected(event.target.value);
+  }
+  const navigate = useNavigate();
+  const getRoom = () => {
+    axios
+      .post("http://127.0.0.1:5000/getRooms", {
+        queryType: "hospital",
+        hospital_name: localStorage.getItem("hospital_name"),
+      })
+      .then(function (response) {
+        console.log(response.data);
+        setValues(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   const useStyles = makeStyles((theme) => ({
     button: {
       margin: theme.spacing(1),
@@ -35,27 +61,15 @@ function MaterialUIFormSubmit(props) {
   const [formInput, setFormInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
-      name: "",
-      side_effect: "",
-      treatment_for: "",
-      type: "",
-      cost: ""
+
     }
   );
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["m_id"] = localStorage.getItem("m_id");
+    formInput["n_id"] = localStorage.getItem("n_id");
+    formInput["room_number"] = selected.room_number;
     let data = { formInput };
-    
-    axios.post('INSERT HERE', data)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
     console.log(data);
   };
 
@@ -89,7 +103,7 @@ function MaterialUIFormSubmit(props) {
         </center>
         &nbsp;
       </div>
-      <Paper className={classes.root} justifycontent="center">
+      <Paper className={classes.root} justifyontent="center">
         <center>
           <Typography variant="h5" component="h3">
             {props.formName}
@@ -97,51 +111,25 @@ function MaterialUIFormSubmit(props) {
           <Typography component="p">{props.formDescription}</Typography>
 
           <form onSubmit={handleSubmit}>
-            <TextField
-              label="Name"
-              id="margin-normal"
-              name="name"
-              defaultValue={formInput.name}
-              className={classes.textField}
-              helperText="Enter medicine name"
-              onChange={handleInput}
-            />
-            <TextField
-              label="Side Effect"
-              id="margin-normal"
-              name="side_effect"
-              defaultValue={formInput.side_effect}
-              className={classes.textField}
-              helperText="Enter side effect"
-              onChange={handleInput}
-            />
-            <TextField
-              label="Treatment For"
-              id="margin-normal"
-              name="treatment_for"
-              defaultValue={formInput.treatment_for}
-              className={classes.textField}
-              helperText="Enter treatment for"
-              onChange={handleInput}
-            />
-              <TextField
-              label="Type"
-              id="margin-normal"
-              name="type"
-              defaultValue={formInput.type}
-              className={classes.textField}
-              helperText="Enter type"
-              onChange={handleInput}
-            />
-            <TextField
-              label="Cost"
-              id="margin-normal"
-              name="cost"
-              defaultValue={formInput.cost}
-              className={classes.textField}
-              helperText="Enter cost"
-              onChange={handleInput}
-            />
+            <FormControl>
+              <InputLabel htmlFor="choose-room">Room</InputLabel>
+              <Select
+                value={selected}
+                onChange={handleChange}
+                inputProps={{
+                  doctor_name: "room",
+                  id: "name",
+                }}
+              >
+                {values.map((value, index) => {
+                  return (
+                    <MenuItem key={index} value={value}>
+                      {value.room_number}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
             <Button
               type="submit"
               variant="contained"

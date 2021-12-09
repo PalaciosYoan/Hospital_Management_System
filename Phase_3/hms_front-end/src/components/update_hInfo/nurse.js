@@ -20,7 +20,6 @@ function MaterialUIFormSubmit(props) {
   const [selected, setSelected] = useState(" ");
 
   useEffect(() => getNurse(), []);
-  useEffect(() => getRoom(), []);
 
   function handleChange(event) {
     setSelected(event.target.value);
@@ -44,23 +43,6 @@ function MaterialUIFormSubmit(props) {
       });
       
   };
-
-  const getRoom = () => {
-    axios
-      .post("http://127.0.0.1:5000/getRooms", {
-        queryType: "hospital",
-        hospital_name: localStorage.getItem("hospital_name"),
-      })
-      .then(function (response) {
-        console.log(response.data);
-        setValues(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
-
 
   const cards = cardStyles();
   const useStyles = makeStyles((theme) => ({
@@ -86,16 +68,37 @@ function MaterialUIFormSubmit(props) {
     {
       name: "",
       started_working: "",
-      h_id: "",
     }
   );
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["h_name"] = localStorage.getItem("hospital_name");
-    formInput["room_number"] = selected.room_number;
+    formInput["n_id"] = selected.n_id;
     let data = { formInput };
+
+    axios.post('INSERT HERE', data)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     console.log(data);
   };
+
+  function deleteInfo() {
+    formInput["n_id"] = selected.n_id;
+    let data = { formInput };
+    axios.post('INSERT HERE', data)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log(data);
+  }
+
 
   const handleInput = (evt) => {
 
@@ -155,27 +158,6 @@ function MaterialUIFormSubmit(props) {
                 helperText="Enter started working"
                 onChange={handleInput}
               />
-
-<FormControl>
-              <InputLabel htmlFor="choose-room">Room</InputLabel>
-              <Select
-                value={selected}
-                onChange={handleChange}
-                inputProps={{
-                  doctor_name: "room",
-                  id: "name",
-                }}
-              >
-                {values.map((value, index) => {
-                  return (
-                    <MenuItem key={index} value={value}>
-                      {value.room_number}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-
               <Button
                 type="submit"
                 variant="contained"
@@ -187,7 +169,7 @@ function MaterialUIFormSubmit(props) {
               <Button
                 style={{ backgroundColor: "red", color: "#FFFFFF" }}
                 onClick={() => {
-                  console.log("delete button pressed!");
+                  deleteInfo();
                 }}
                 variant="contained"
                 className={classes.button}

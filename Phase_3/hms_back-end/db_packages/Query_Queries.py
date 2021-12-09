@@ -396,7 +396,7 @@ class Query_Queries(object):
     def get_maintenance_given_hospital(self, h_name):
         try:
             query = """
-                select Maintenance.name, Maintenance.started_working, Maintenance.duty, Maintenance.phone_number
+                select Maintenance.maint_id, Maintenance.name, Maintenance.started_working, Maintenance.duty, Maintenance.phone_number
                 from Maintenance,
                     (select *
                     from Hospital_Maintenance_Junction_Table j1,
@@ -469,7 +469,7 @@ class Query_Queries(object):
     def get_rooms_given_nurse(self, n_name):
         try:
             query = """
-                select Room.room_number, Room.person_allowed, Room.cost, Room.type
+                select Room.r_id, Room.room_number, Room.person_allowed, Room.cost, Room.type
                 from Room,
                 (
                     select *

@@ -71,6 +71,7 @@ function OutlinedCard() {
                 console.log(hospital);
                 localStorage.setItem("hospital_name", hospital.name);
                 localStorage.setItem("hospital_address", hospital.address);
+                localStorage.setItem("h_id", hospital.h_id);
                 navigate("/info");
               }}
               size="small"
@@ -82,6 +83,7 @@ function OutlinedCard() {
                 console.log(hospital.name);
                 localStorage.setItem("hospital_name", hospital.name);
                 localStorage.setItem("hospital_address", hospital.address);
+                localStorage.setItem("h_id", hospital.h_id);
                 navigate("/update_hospital");
               }}
               size="small"
@@ -108,9 +110,6 @@ function OutlinedCard() {
                 Hospital Management System
               </Typography>
               <Typography variant="body2" component="p">
-                1.1
-              </Typography>
-              <Typography variant="body2" component="p">
               <Button
               onClick={() => {
                 navigate("/insert_hospital");
@@ -127,7 +126,7 @@ function OutlinedCard() {
               size="small"
               variant="outlined"
             >
-              Maintenance
+              Show Maintenance
             </Button>
               </Typography>
             </CardContent>

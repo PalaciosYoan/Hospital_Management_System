@@ -82,6 +82,7 @@ function OutlinedCard() {
               onClick={() => {
                 console.log(doctor.name);
                 localStorage.setItem("doctor_name", doctor.name);
+                localStorage.setItem("d_id", doctor.d_id);
                 navigate('/doctor_patient')
               }}
               size="small"
@@ -91,6 +92,7 @@ function OutlinedCard() {
             <Button
               onClick={() => {
                 localStorage.setItem("doctor_name", doctor.name);
+                localStorage.setItem("d_id", doctor.d_id);
                 navigate('/update_doctor')
               }}
               size="small"

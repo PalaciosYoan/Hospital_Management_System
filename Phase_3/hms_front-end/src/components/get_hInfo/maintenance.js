@@ -57,6 +57,20 @@ function OutlinedCard() {
   const classes = useStyles();
   const cards = cardStyles();
 
+  function deleteInfo(){
+    const formInput = {};
+    formInput["maint_id"] = localStorage.getItem("maint_id");
+    let data = { formInput };
+    axios.post('INSERT HERE', data)
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    console.log(data);
+  }
+
   function mapCards(maintenance, index) {
     return (
       <Grid item xs={12} sm={6} md={4} key={index}>
@@ -94,6 +108,17 @@ function OutlinedCard() {
             >
               Show other hospitals they are maintaining
             </Button>
+            <Button
+                style={{ backgroundColor: "red", color: "#FFFFFF" }}
+                onClick={() => {
+                  localStorage.setItem("maint_id", maintenance.maint_id);
+                  deleteInfo();
+                }}
+                variant="contained"
+                className={classes.button}
+              >
+                Delete
+              </Button>
           </CardActions>
         </Card>
       </Grid>

@@ -85,7 +85,7 @@ function OutlinedCard() {
               onClick={() => {
                 console.log(maintenance.name);
                 localStorage.setItem("maintenance_name", maintenance.name);
-                localStorage.setItem("maintenance_id", maintenance.maint_id);
+                localStorage.setItem("maint_id", maintenance.maint_id);
                 navigate('/hospital_maintenance')
               }}
               size="small"
@@ -96,7 +96,7 @@ function OutlinedCard() {
               onClick={() => {
                 console.log(maintenance.name);
                 localStorage.setItem("maintenance_name", maintenance.name);
-                localStorage.setItem("maintenance_id", maintenance.maint_id);
+                localStorage.setItem("maint_id", maintenance.maint_id);
                 navigate('/update_all_maintenance')
               }}
               size="small"

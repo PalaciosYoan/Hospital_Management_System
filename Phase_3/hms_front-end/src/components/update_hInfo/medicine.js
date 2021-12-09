@@ -32,7 +32,7 @@ function MaterialUIFormSubmit(props) {
       .catch(function (error) {
         console.log(error);
       });
-      
+
   };
 
 
@@ -68,10 +68,32 @@ function MaterialUIFormSubmit(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    formInput["h_name"] = localStorage.getItem("hospital_name");
+    formInput["m_id"] = localStorage.getItem("m_id");
     let data = { formInput };
+
+    axios.post('INSERT HERE', data)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     console.log(data);
   };
+
+  function deleteInfo() {
+    formInput["m_id"] = localStorage.getItem("m_id");
+    let data = { formInput };
+    axios.post('INSERT HERE', data)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log(data);
+  }
 
   const handleInput = (evt) => {
     const name = evt.target.name;
@@ -109,7 +131,7 @@ function MaterialUIFormSubmit(props) {
               {props.formName}
             </Typography>
             <Typography component="p">{props.formDescription}</Typography>
-  
+
             <form onSubmit={handleSubmit}>
               <TextField
                 label="Name"
@@ -138,7 +160,7 @@ function MaterialUIFormSubmit(props) {
                 helperText="Enter treatment for"
                 onChange={handleInput}
               />
-                <TextField
+              <TextField
                 label="Type"
                 id="margin-normal"
                 name="type"
@@ -164,6 +186,16 @@ function MaterialUIFormSubmit(props) {
               >
                 Submit
               </Button>
+              <Button
+                style={{ backgroundColor: "red", color: "#FFFFFF" }}
+                onClick={() => {
+                  deleteInfo();
+                }}
+                variant="contained"
+                className={classes.button}
+              >
+                Delete
+              </Button>
             </form>
           </center>
         </Paper>
@@ -172,7 +204,7 @@ function MaterialUIFormSubmit(props) {
   }
 
   return loading ? <div>{renderItems()}</div> : <div>loading...</div>;
- 
+
 }
 
 export default MaterialUIFormSubmit;
