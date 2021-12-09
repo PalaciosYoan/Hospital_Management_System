@@ -57,8 +57,9 @@ function MaterialUIFormSubmit(props) {
 
   function deleteInfo(){
     formInput["h_id"] = localStorage.getItem("h_id");
+    formInput["queryType"] = "delete";
     let data = { formInput };
-    axios.delete('http://127.0.0.1:5000/gethospital', data)
+    axios.post('http://127.0.0.1:5000/gethospital', data)
     .then(function (response) {
       console.log(response.data);
     })
