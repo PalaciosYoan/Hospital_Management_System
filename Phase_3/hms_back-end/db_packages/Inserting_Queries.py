@@ -239,10 +239,10 @@ class Inserting_Queries(object):
             h_id = self.cursor.fetchall()[0][0]
             n_id = str(uuid.uuid4())
             
-            query = """
+            query = f"""
                 INSERT INTO Nurse
-                VALUES("{}", "{}","{}", "{}")
-            """.format(n_id,started_working, name, h_id)
+                VALUES("{n_id}", "{started_working}","{name}", "{h_id}")
+            """#.format(n_id,started_working, name, h_id)
             print(query)
             self.conn.execute(query)
             self.conn.commit()
