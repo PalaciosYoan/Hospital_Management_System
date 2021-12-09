@@ -145,6 +145,13 @@ class Inserting_Queries(object):
     def insert_room(self, room_number, person_allowed, cost, type, h_id):
         try:
             #get p_id given p_name
+            query = """
+                select room_number
+                from Room
+                where h_id = "{}";
+            """.format(h_id)
+            df = pd.read_sql_query(query, con=self.conn)
+            max_room = df['room_number'].max()
             r_id = str(uuid.uuid4())
             query = """
                     INSERT INTO Room(
@@ -160,7 +167,7 @@ class Inserting_Queries(object):
                         "{}",
                         "{}"
                     );
-            """.format(r_id, room_number, person_allowed, cost, type, h_id, 'nan')
+            """.format(r_id, max_room+1, person_allowed, cost, type, h_id, 'nan')
             self.conn.execute(query)
             self.conn.commit()
         
