@@ -221,7 +221,7 @@ class Inserting_Queries(object):
             query = """
                 INSERT INTO Doctor
                 VALUES("{}", "{}","{}",{}, "{}")
-            """.format(d_id, name, datetime(started_working), phone_number, h_id)
+            """.format(d_id, name, datetime(started_working), int(phone_number), h_id)
             self.conn.execute(query)
             self.conn.commit()
         except Error as e:
@@ -243,6 +243,7 @@ class Inserting_Queries(object):
                 INSERT INTO Nurse
                 VALUES("{}", "{}","{}",{}, "{}")
             """.format(n_id, name, datetime(started_working), int(phone_number), h_id)
+            print(query)
             self.conn.execute(query)
             self.conn.commit()
         except Error as e:
