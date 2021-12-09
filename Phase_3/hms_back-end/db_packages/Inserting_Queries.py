@@ -99,7 +99,7 @@ class Inserting_Queries(object):
                         "{}"
                     );
             
-            """.format(pmed_id, datetime(assigned_date), n_id, r_id)
+            """.format(pmed_id, assigned_date, n_id, r_id)
             self.conn.execute(query)
             self.conn.commit()
         
@@ -242,7 +242,7 @@ class Inserting_Queries(object):
             query = """
                 INSERT INTO Nurse
                 VALUES("{}", "{}","{}",{}, "{}")
-            """.format(n_id, name, datetime(started_working), int(phone_number), h_id)
+            """.format(n_id, name, started_working, int(phone_number), h_id)
             print(query)
             self.conn.execute(query)
             self.conn.commit()
@@ -257,7 +257,7 @@ class Inserting_Queries(object):
             query = """
                 INSERT INTO Maintenance
                 VALUES("{}", "{}","{}","{}", {})
-            """.format(maint_id, name, datetime(started_working), duty, phone_number)
+            """.format(maint_id, name, started_working, duty, phone_number)
             self.conn.execute(query)
             self.conn.commit()
         except Error as e:
