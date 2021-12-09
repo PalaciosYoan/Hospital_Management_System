@@ -28,62 +28,62 @@ class Inserting_Queries(object):
             self.conn.rollback()
             print(e)
     
-    def insert_specific_prescribed_med(self, assigned_date, p_name, dob, m_name, h_name):
-        try:
-            #get p_id given p_name
-            q1 = """
-                select p_id
-                from Patient
-                where name = "{}" and dob="{}"
-                limit 1;
-            """.format(p_name, dob)
-            self.cursor.execute(q1)
-            p_id = self.cursor.fetchall()[0][0]
+    # def insert_specific_prescribed_med(self, assigned_date, p_name, dob, m_name, h_name):
+    #     try:
+    #         #get p_id given p_name
+    #         q1 = """
+    #             select p_id
+    #             from Patient
+    #             where name = "{}" and dob="{}"
+    #             limit 1;
+    #         """.format(p_name, dob)
+    #         self.cursor.execute(q1)
+    #         p_id = self.cursor.fetchall()[0][0]
 
-            #get h_id given h_name
-            q1 = """
-                select h_id
-                from Hospital
-                where name = '{}'
-                limit 1;
-            """.format(h_name)
-            self.cursor.execute(q1)
-            h_id = self.cursor.fetchall()[0][0]
+    #         #get h_id given h_name
+    #         q1 = """
+    #             select h_id
+    #             from Hospital
+    #             where name = '{}'
+    #             limit 1;
+    #         """.format(h_name)
+    #         self.cursor.execute(q1)
+    #         h_id = self.cursor.fetchall()[0][0]
             
-            #get m_id given m_name and h_id
-            q1 = """
-                select m_id
-                from Medication
-                where name = '{}' and h_id='{}'
-                limit 1;
-            """.format(m_name, h_id)
-            self.cursor.execute(q1)
-            m_id = self.cursor.fetchall()[0][0]
+    #         #get m_id given m_name and h_id
+    #         q1 = """
+    #             select m_id
+    #             from Medication
+    #             where name = '{}' and h_id='{}'
+    #             limit 1;
+    #         """.format(m_name, h_id)
+    #         self.cursor.execute(q1)
+    #         m_id = self.cursor.fetchall()[0][0]
             
-            #format properly the date
-            assigned_date = datetime.strftime(assigned_date, f"%Y-%m-%d")
+    #         #format properly the date
+    #         assigned_date = datetime.strftime(assigned_date, f"%Y-%m-%d")
             
-            pmed_id = str(uuid.uuid4())
-            query = """
-                    INSERT INTO Prescribed_Med(
-                    pmed_id, assigned_date, p_id, m_id
-                    ) 
-                    VALUES 
-                    (
-                        "{}", 
-                        "{}", 
-                        "{}",
-                        "{}"
-                    );
-            """.format(pmed_id, assigned_date, p_id, m_id)
-            self.conn.execute(query)
-            self.conn.commit()
+    #         pmed_id = str(uuid.uuid4())
+    #         query = """
+    #                 INSERT INTO Prescribed_Med(
+    #                 pmed_id, assigned_date, p_id, m_id
+    #                 ) 
+    #                 VALUES 
+    #                 (
+    #                     "{}", 
+    #                     "{}", 
+    #                     "{}",
+    #                     "{}"
+    #                 );
+    #         """.format(pmed_id, assigned_date, p_id, m_id)
+    #         self.conn.execute(query)
+    #         self.conn.commit()
         
-        except Error as e:
-            self.conn.rollback()
-            print(e)
+    #     except Error as e:
+    #         self.conn.rollback()
+    #         print(e)
     
-    def insert_nurse_room_junction(self, n_id, r_id, assigned_date):
+    def insert_specific_prescribed_med(self, n_id, r_id, assigned_date):
         try:
             #get p_id given p_name
             pmed_id = str(uuid.uuid4())
@@ -100,6 +100,28 @@ class Inserting_Queries(object):
                     );
             
             """.format(pmed_id, datetime.strftime(assigned_date, f"%Y-%m-%d"), n_id, r_id)
+            self.conn.execute(query)
+            self.conn.commit()
+        
+        except Error as e:
+            self.conn.rollback()
+            print(e)
+    
+    def insert_nurse_room_junction(self, n_id, r_id):
+        try:
+            #get p_id given p_name
+            pmed_id = str(uuid.uuid4())
+            query = """
+                    INSERT INTO Nurse_Room_Junction_Table(
+                    r_id, n_id
+                    ) 
+                    VALUES 
+                    (
+                        "{}",
+                        "{}"
+                    );
+            
+            """.format(r_id, n_id)
             self.conn.execute(query)
             self.conn.commit()
         

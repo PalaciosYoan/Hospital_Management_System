@@ -148,7 +148,7 @@ class doctorAPI(Resource):
                 phone_number = data['phone_number']
                 h_name = data['hospital_name']
                 db_manager.insert_doctor(name, started_working, phone_number, h_name)
-            elif action == 'delete_doctor':
+            elif action == 'delete':
                 data = json.loads(request.data)['formInput']
                 doc_id = data['d_id']
                 db_manager.delete_doctor(d_id=doc_id)
@@ -199,7 +199,7 @@ class nurseAPI(Resource):
                 started_working = data['start_date']
                 phone_number = data['phone_number']
                 h_name = data['hospital_name']
-            elif action == 'delete_nurse':
+            elif action == 'delete':
                 data = json.loads(request.data)['formInput']
                 n_name = data['nurse_name']
                 db_manager.delete_nurse(n_name=n_name)
@@ -218,71 +218,74 @@ class nurseAPI(Resource):
 
 class patientAPI(Resource):
     def post(self):
-        action = json.loads(request.data)['queryType']
-        if action == 'hospital':
-            hospital_name = json.loads(request.data)['hospital_name']
-            df = db_manager.get_patients_given_hospital(hospital_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'doctor':
-            doctor_name = json.loads(request.data)['doctor_name']
-            df = db_manager.get_patients_given_doctor(doctor_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'nurse':
-            nurse_name = json.loads(request.data)['nurse_name']
-            df = db_manager.get_patients_given_nurse(nurse_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'patient':
-            patient_name = json.loads(request.data)['patient_name']
-            dob = json.loads(request.data)['dob']
-            df = db_manager.get_patients_given_patient(patient_name, dob)
-            df = df.to_dict('records')
-            return df
-        elif action == 'medication':
-            data = json.loads(request.data)
-            m_name = data['med_name']
-            h_name = data['hospital_name']
-            df = db_manager.get_patients_given_med(m_name, h_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'room':
-            data = json.loads(request.data)
-            r_number = data['room_number']
-            h_name = data['hospital_name']
-            df = db_manager.get_patients_given_room(r_number, h_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'post-patient':
-            data = json.loads(request.data)['formInput']
-            dob = data['dob']
-            admit_date = data['admit_date'] 
-            released_date = data['released_date'] 
-            problem = data['problem'] 
-            address = data['address'] 
-            name = data['name'] 
-            phone_number = data['phone_number'] 
-            h_name = data['h_name'] 
-            d_name = data['d_name'] 
-            r_number = data['r_number'] 
-            db_manager.insert_patient(
-                                    dob, 
-                                    admit_date, 
-                                    released_date, 
-                                    problem, 
-                                    address, 
-                                    name, 
-                                    phone_number, 
-                                    h_name, 
-                                    d_name, 
-                                    r_number)
+        try:
+            action = json.loads(request.data)['queryType']
+            if action == 'hospital':
+                hospital_name = json.loads(request.data)['hospital_name']
+                df = db_manager.get_patients_given_hospital(hospital_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'doctor':
+                doctor_name = json.loads(request.data)['doctor_name']
+                df = db_manager.get_patients_given_doctor(doctor_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'nurse':
+                nurse_name = json.loads(request.data)['nurse_name']
+                df = db_manager.get_patients_given_nurse(nurse_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'patient':
+                patient_name = json.loads(request.data)['patient_name']
+                dob = json.loads(request.data)['dob']
+                df = db_manager.get_patients_given_patient(patient_name, dob)
+                df = df.to_dict('records')
+                return df
+            elif action == 'medication':
+                data = json.loads(request.data)
+                m_name = data['med_name']
+                h_name = data['hospital_name']
+                df = db_manager.get_patients_given_med(m_name, h_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'room':
+                data = json.loads(request.data)
+                r_number = data['room_number']
+                h_name = data['hospital_name']
+                df = db_manager.get_patients_given_room(r_number, h_name)
+                df = df.to_dict('records')
+                return df
+        except:
+            action = json.loads(request.data)['formInput']['queryType']
+            if action == 'post-patient':
+                data = json.loads(request.data)['formInput']
+                dob = data['dob']
+                admit_date = data['admit_date'] 
+                released_date = data['released_date'] 
+                problem = data['problem'] 
+                address = data['address'] 
+                name = data['name'] 
+                phone_number = data['phone_number'] 
+                h_name = data['h_name'] 
+                d_name = data['d_name'] 
+                r_number = data['r_number'] 
+                db_manager.insert_patient(
+                                        dob, 
+                                        admit_date, 
+                                        released_date, 
+                                        problem, 
+                                        address, 
+                                        name, 
+                                        phone_number, 
+                                        h_name, 
+                                        d_name, 
+                                        r_number)
+            elif action == 'delete':
+                data = json.loads(request.data)['formInput']
+                p_name = data['patient_name']
+                dob = data['dob']
+                db_manager.delete_patient(p_name=p_name, dob=dob)
         
-    def delete(self):
-        data = json.loads(request.data)['formInput']
-        p_name = data['patient_name']
-        dob = data['dob']
-        db_manager.delete_patient(p_name=p_name, dob=dob)
         
     def put(self):
         data = json.loads(request.data)['formInput']
@@ -315,41 +318,42 @@ class patientAPI(Resource):
 
 class medicationAPI(Resource):
     def post(self):
-        action = json.loads(request.data)['queryType']
-        if action == 'get':
-            hospital_name = json.loads(request.data)['hospital_name']
-            df = db_manager.get_medication_given_hospital(hospital_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'patient':
-            patient_name = json.loads(request.data)['patient_name']
-            dob = json.loads(request.data)['dob']
-            df = db_manager.get_medication_given_patient(patient_name, dob)
-            df = df.to_dict('records')
-            return df
-        elif action =='post':
-            json_data = json.loads(request.data)['formInput']
-            m_name = json_data['medication_name']
-            h_name = json_data['hospital_name']
-            cost = json_data['cost']
-            type = json_data['type']
-            side_effect = json_data['side_effect']
-            treament_for = json_data['treament_for']
-            db_manager.insert_specific_medication(m_name, h_name, cost, type, side_effect, treament_for)
+        try:
+            action = json.loads(request.data)['queryType']
+            if action == 'get':
+                hospital_name = json.loads(request.data)['hospital_name']
+                df = db_manager.get_medication_given_hospital(hospital_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'patient':
+                patient_name = json.loads(request.data)['patient_name']
+                dob = json.loads(request.data)['dob']
+                df = db_manager.get_medication_given_patient(patient_name, dob)
+                df = df.to_dict('records')
+                return df
+            elif action =='post':
+                json_data = json.loads(request.data)['formInput']
+                m_name = json_data['medication_name']
+                h_name = json_data['hospital_name']
+                cost = json_data['cost']
+                type = json_data['type']
+                side_effect = json_data['side_effect']
+                treament_for = json_data['treament_for']
+                db_manager.insert_specific_medication(m_name, h_name, cost, type, side_effect, treament_for)
+                return 'status: 200'
+            elif action == 'hospital-med':
+                json_data = json.loads(request.data)
+                m_name = json_data['medication_name']
+                h_name = json_data['hospital_name']
+                df = db_manager.get_medication_given_hospital_med_name(h_name, m_name)
+                df = df.to_dict('records')
+                return df
+        except:
+            hospital_name = json.loads(request.data)['formInput']['hospital_name']
+            m_name = json.loads(request.data)['formInput']['medication_name']
+            db_manager.delete_specific_medication(m_name, hospital_name)
             return 'status: 200'
-        elif action == 'hospital-med':
-            json_data = json.loads(request.data)
-            m_name = json_data['medication_name']
-            h_name = json_data['hospital_name']
-            df = db_manager.get_medication_given_hospital_med_name(h_name, m_name)
-            df = df.to_dict('records')
-            return df
         
-    def delete(self):
-        hospital_name = json.loads(request.data)['formInput']['hospital_name']
-        m_name = json.loads(request.data)['formInput']['medication_name']
-        db_manager.delete_specific_medication(m_name, hospital_name)
-        return 'status: 200'
 
     def put(self):
         data = json.loads(request.data)['formInput']
@@ -372,32 +376,33 @@ class medicationAPI(Resource):
 class getRooms(Resource):
     
     def post(self):
-        action = json.loads(request.data)['queryType']
-        if action == 'hospital':
-            hospital_name = json.loads(request.data)['hospital_name']
-            df = db_manager.get_rooms_given_hospital(hospital_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'nurse':
-            nurse_name = json.loads(request.data)['nurse_name']
-            df = db_manager.get_rooms_given_nurse(nurse_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'room':
-            r_number = json.loads(request.data)['room_number']
-            hospital_name = json.loads(request.data)['hospital_name']
-            df = db_manager.get_rooms_given_room(r_number, hospital_name)
-            df = df.to_dict('records')
-            return df
-        elif action == 'room_not_filled':
-            h_name = json.loads(request.data)['hospital_name']
-            return db_manager.get_rooms_not_filled(h_name)
-        
-    def delete(self):
-        data = json.loads(request.data)['formInput']
-        r_num = data['room_number']
-        n_name = data['nurse_name']
-        db_manager.delete_specific_nurse_junc_room(r_num=r_num, n_name=n_name)
+        try:
+            action = json.loads(request.data)['queryType']
+            if action == 'hospital':
+                hospital_name = json.loads(request.data)['hospital_name']
+                df = db_manager.get_rooms_given_hospital(hospital_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'nurse':
+                nurse_name = json.loads(request.data)['nurse_name']
+                df = db_manager.get_rooms_given_nurse(nurse_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'room':
+                r_number = json.loads(request.data)['room_number']
+                hospital_name = json.loads(request.data)['hospital_name']
+                df = db_manager.get_rooms_given_room(r_number, hospital_name)
+                df = df.to_dict('records')
+                return df
+            elif action == 'room_not_filled':
+                h_name = json.loads(request.data)['hospital_name']
+                return db_manager.get_rooms_not_filled(h_name)
+        except:
+            data = json.loads(request.data)['formInput']
+            r_num = data['room_number']
+            n_name = data['nurse_name']
+            db_manager.delete_specific_nurse_junc_room(r_num=r_num, n_name=n_name)
+
 class getMaintenanceListForAHospital(Resource):
     def post(self):
         hospital_name = json.loads(request.data)['hospital_name']
@@ -408,22 +413,34 @@ class getMaintenanceListForAHospital(Resource):
 
 class prescribedMedsAPI(Resource):
     def post(self):
-        action = json.loads(request.data)['queryType']
-        if action == 'get':
-            patient_name = json.loads(request.data)['patient_name']
-            dob = json.loads(request.data)['dob']
-            df = db_manager.get_medication_given_patient(patient_name, dob)
-            df = df.to_dict('records')
-            return df
-        elif action == 'post':
-            data = json.loads(request.data)['formInput']
-            assigned_date = data['assigned_date']
-            p_name = data['patient_name']
-            m_name = data['medication_name']
-            h_name = data['hospital_name']
-            dob = data['dob']
-            db_manager.insert_specific_prescribed_med(assigned_date, p_name, dob, m_name, h_name)
-            return 'status: 200'
+        try:
+            action = json.loads(request.data)['queryType']
+            if action == 'get':
+                patient_name = json.loads(request.data)['patient_name']
+                dob = json.loads(request.data)['dob']
+                df = db_manager.get_medication_given_patient(patient_name, dob)
+                df = df.to_dict('records')
+                return df
+        except:
+            action = json.loads(request.data)['formInput']['queryType']
+            
+            if action == 'post':
+                data = json.loads(request.data)['formInput']
+                assigned_date = data['assigned_date']
+                p_name = data['patient_name']
+                m_name = data['medication_name']
+                h_name = data['hospital_name']
+                dob = data['dob']
+                db_manager.insert_specific_prescribed_med(assigned_date, p_name, dob, m_name, h_name)
+                return 'status: 200'
+            elif action=='delete':
+                data = json.loads(request.data)['formInput']
+                patient_name = data['patient_name']
+                dob = data['dob']
+                hospital_name = data['hospital_name']
+                med_name = data['medication_name']
+                db_manager.delete_specific_prescribed_med(dob=dob, p_name=patient_name, med_name=med_name, h_name = hospital_name)
+                return 'status: 200'
     
     def put(self):
         data = json.loads(request.data)['formInput']
@@ -433,22 +450,23 @@ class prescribedMedsAPI(Resource):
         assigned_date = data['assigned_date']
         db_manager.update_prescribed_med(p_id, m_id, pmed_id, assigned_date)
     
-    def delete(self):
-        data = json.loads(request.data)['formInput']
-        patient_name = data['patient_name']
-        dob = data['dob']
-        hospital_name = data['hospital_name']
-        med_name = data['medication_name']
-        db_manager.delete_specific_prescribed_med(dob=dob, p_name=patient_name, med_name=med_name, h_name = hospital_name)
-        return 'status: 200'
     
 class nuresRoomJunc(Resource):
     def post(self):
-        data = json.loads(request.data)['formInput']
-        n_id = data['n_id']
-        r_id = data['r_id']
-        assign_date = data['assigned_date']
-        db_manager.insert_nurse_room_junction(n_id, r_id, assign_date)
+        action = json.loads(request.data)['formInput']['queryType']
+        if action=='insert':
+            data = json.loads(request.data)['formInput']
+            n_id = data['n_id']
+            r_id = data['r_id']
+            assign_date = data['assigned_date']
+            db_manager.insert_nurse_room_junction(n_id, r_id, assign_date)
+        elif action == 'delete':
+            data = json.loads(request.data)['formInput']
+            n_id = data['n_id']
+            r_id = data['r_id']
+
+            db_manager.delete_specific_nurse_junc_room(n_id, r_id)
+
     
     def put(self):
         data = json.loads(request.data)['formInput']
