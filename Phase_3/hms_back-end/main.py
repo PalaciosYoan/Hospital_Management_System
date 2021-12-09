@@ -109,6 +109,7 @@ class MaintenceAPI(Resource):
                 phone_number = data['phone_number']
                 duty = data['duty']
                 db_manager.insert_maint(name, started_working, phone_number, duty)
+    
     def put(self):
         data = json.loads(request.data)['formInput']
         maint_id = data['maint_id']
