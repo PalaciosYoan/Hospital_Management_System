@@ -142,7 +142,7 @@ class Update_Queries(object):
                             phone_number):
         try:
             q = """
-                UPDATE Hospital
+                UPDATE Maintenance
                 SET
                     name = "{}",
                     started_working = "{}",
