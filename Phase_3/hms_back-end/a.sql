@@ -155,3 +155,14 @@ INSERT INTO Hospital_Maintenance_Junction_Table(
                         "b2bcc1e7-e3a6-495e-a494-8ea1e47473bf", 
                         "6f7b72ee-4149-4832-8c23-6f5fbc2a8772"
                     );
+
+
+select *
+from Room
+where
+    r_id NOT IN (
+            select r_id
+            from Nurse_Room_Junction_Table
+            where
+                n_id = "0d07ccab-a336-4ab2-a7cc-fbd811d9c865"
+        );

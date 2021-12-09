@@ -296,22 +296,22 @@ class Query_Queries(object):
     
     def get_rooms_not_filled_by_nurse(self, n_id, h_id):
         try:
-            q = """
-                select *
-                from Room
-                where
+            # q = """
+            #     select *
+            #     from Room
+            #     where
                     
-                    r_id NOT IN (
-                            select r_id
-                            from Nurse_Room_Junction_Table
-                            where
-                                n_id = "{}"
-                        );
-            """.format(h_id, n_id)
-            df = pd.read_sql_query(q, con=self.conn)
-            df = df.to_dict('records')
-            return df
-        
+            #         r_id NOT IN (
+            #                 select r_id
+            #                 from Nurse_Room_Junction_Table
+            #                 where
+            #                     n_id = "{}"
+            #             );
+            # """.format(h_id, n_id)
+            # df = pd.read_sql_query(q, con=self.conn)
+            # df = df.to_dict('records')
+            # return df
+            pass
         except Error as e:
             self.conn.rollback()
             print(e)
