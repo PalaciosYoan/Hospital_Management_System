@@ -108,7 +108,7 @@ function MaterialUIFormSubmit(props) {
               name="name"
               defaultValue={formInput.name}
               className={classes.textField}
-              helperText="Enter doctor name"
+              helperText="Enter nurse name"
               onChange={handleInput}
             />
             <TextField
