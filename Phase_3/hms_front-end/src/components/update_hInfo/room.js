@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 const cardStyles = makeStyles({
   gridContainer: {
     paddingLeft: "20px",
@@ -13,6 +14,7 @@ const cardStyles = makeStyles({
 });
 
 function MaterialUIFormSubmit(props) {
+  const navigate = useNavigate();
   const [room, setRoom] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => getRoom(), []);
@@ -70,6 +72,7 @@ function MaterialUIFormSubmit(props) {
     axios.put('http://127.0.0.1:5000/getRooms', data)
       .then(function (response) {
         console.log(response.data);
+        navigate('/room')
       })
       .catch(function (error) {
         console.log(error);
@@ -85,6 +88,7 @@ function MaterialUIFormSubmit(props) {
     axios.post('http://127.0.0.1:5000/getRooms', data)
       .then(function (response) {
         console.log(response.data);
+        navigate('/room')
       })
       .catch(function (error) {
         console.log(error);

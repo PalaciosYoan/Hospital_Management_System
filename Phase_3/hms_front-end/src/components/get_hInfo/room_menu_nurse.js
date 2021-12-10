@@ -117,6 +117,27 @@ function OutlinedCard() {
             <Typography variant="body2" component="p">
             {localStorage.getItem("hospital_address")}
             </Typography>
+            <Typography variant="body2" component="p">
+              <Button
+              onClick={() => {
+                navigate("/info");
+              }}
+              size="small"
+              variant="outlined"
+            >
+              Menu 
+            </Button>
+            <Button
+              onClick={() => {
+                navigate("/");
+              }}
+              size="small"
+              variant="outlined"
+            >
+              Hub 
+            </Button>
+
+            </Typography>
           </CardContent>
         </Card>
       </center>

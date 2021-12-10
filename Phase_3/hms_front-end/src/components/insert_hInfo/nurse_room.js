@@ -76,6 +76,7 @@ function MaterialUIFormSubmit(props) {
     axios.post('http://127.0.0.1:5000/nurse_room_junc', data)
     .then(function (response) {
       console.log(response.data);
+      navigate('/nurse_room')
     })
     .catch(function (error) {
       console.log(error);

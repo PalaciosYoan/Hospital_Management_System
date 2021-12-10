@@ -45,19 +45,19 @@ function OutlinedCard() {
       queryType: 'get',
       h_id: localStorage.getItem("h_id")
     })
-    .then(function (response) {
-      console.log(response.data);
-      setMaintenance(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        console.log(response.data);
+        setMaintenance(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   };
   const classes = useStyles();
   const cards = cardStyles();
 
-  function deleteInfo(){
+  function deleteInfo() {
     const formInput = {};
     formInput["h_id"] = localStorage.getItem("h_id");
     formInput["maint_id"] = localStorage.getItem("maint_id");
@@ -66,12 +66,13 @@ function OutlinedCard() {
     let data = { formInput };
 
     axios.post('http://127.0.0.1:5000/maintenceAPI_given_h_name', data)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        console.log(response.data);
+        navigate('/maintenance')
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     console.log(data);
   }
 
@@ -85,7 +86,7 @@ function OutlinedCard() {
               color="textSecondary"
               gutterBottom
             ></Typography>
-            <Typography variant="h5" component="h2" style={{textAlign: "center" }}>
+            <Typography variant="h5" component="h2" style={{ textAlign: "center" }}>
               {maintenance.name}
             </Typography>
             <Typography variant="body2" component="p">
@@ -113,16 +114,16 @@ function OutlinedCard() {
               Show other hospitals they are maintaining
             </Button>
             <Button
-                style={{ backgroundColor: "red", color: "#FFFFFF" }}
-                onClick={() => {
-                  localStorage.setItem("maint_id", maintenance.maint_id);
-                  deleteInfo();
-                }}
-                variant="contained"
-                className={classes.button}
-              >
-                Delete
-              </Button>
+              style={{ backgroundColor: "red", color: "#FFFFFF" }}
+              onClick={() => {
+                localStorage.setItem("maint_id", maintenance.maint_id);
+                deleteInfo();
+              }}
+              variant="contained"
+              className={classes.button}
+            >
+              Delete
+            </Button>
           </CardActions>
         </Card>
       </Grid>
@@ -130,45 +131,66 @@ function OutlinedCard() {
   }
   return (
     <div>
-        <div>
+      <div>
         <center>
-        <Card className={cards.root} variant="outlined">
-          <CardContent>
-            <Typography
-              className="Hospital"
-              color="textSecondary"
-              gutterBottom
-            ></Typography>
-            <Typography variant="h5" component="h2">
-              {localStorage.getItem("hospital_name")}
-            </Typography>
-            <Typography variant="body2" component="p">
-            {localStorage.getItem("hospital_address")}
-            </Typography>
-            <Typography variant="body2" component="p">
-              <Button
-              onClick={() => {
-                navigate("/insert_maintenance");
-              }}
-              size="small"
-              variant="outlined"
-            >
-              Add Maintenance
-            </Button>
+          <Card className={cards.root} variant="outlined">
+            <CardContent>
+              <Typography
+                className="Hospital"
+                color="textSecondary"
+                gutterBottom
+              ></Typography>
+              <Typography variant="h5" component="h2">
+                {localStorage.getItem("hospital_name")}
               </Typography>
-          </CardContent>
-        </Card>
-      </center>
-      &nbsp;
-        </div>
-    <Grid
-      container
-      spacing={4}
-      className={cards.gridContainer}
-      justifyContent="center"
-    >
-      {maintenance.map(mapCards)}
-    </Grid>
+              <Typography variant="body2" component="p">
+                {localStorage.getItem("hospital_address")}
+              </Typography>
+              <Typography variant="body2" component="p">
+                <Button
+                  onClick={() => {
+                    navigate("/insert_maintenance");
+                  }}
+                  size="small"
+                  variant="outlined"
+                >
+                  Add Maintenance
+                </Button>
+
+                <Button
+                  onClick={() => {
+                    navigate("/info");
+                  }}
+                  size="small"
+                  variant="outlined"
+                >
+                  Menu
+                </Button>
+                <Button
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                  size="small"
+                  variant="outlined"
+                >
+                  Hub
+                </Button>
+
+
+              </Typography>
+            </CardContent>
+          </Card>
+        </center>
+        &nbsp;
+      </div>
+      <Grid
+        container
+        spacing={4}
+        className={cards.gridContainer}
+        justifyContent="center"
+      >
+        {maintenance.map(mapCards)}
+      </Grid>
     </div>
   );
 }

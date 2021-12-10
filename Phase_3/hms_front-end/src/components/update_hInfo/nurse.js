@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
+import { useNavigate } from 'react-router-dom';
 const cardStyles = makeStyles({
   gridContainer: {
     paddingLeft: "20px",
@@ -14,6 +15,7 @@ const cardStyles = makeStyles({
 });
 
 function MaterialUIFormSubmit(props) {
+  const navigate = useNavigate();
   const [nurse, setNurse] = useState([]);
   const [loading, setLoading] = useState(false);
   const [values, setValues] = React.useState([]);
@@ -78,6 +80,7 @@ function MaterialUIFormSubmit(props) {
     axios.put('http://127.0.0.1:5000/getNurses', data)
       .then(function (response) {
         console.log(response.data);
+        navigate('/nurse')
       })
       .catch(function (error) {
         console.log(error);
@@ -94,6 +97,7 @@ function MaterialUIFormSubmit(props) {
     axios.post('http://127.0.0.1:5000/getNurses', data)
       .then(function (response) {
         console.log(response.data);
+        navigate('/nurse')
       })
       .catch(function (error) {
         console.log(error);

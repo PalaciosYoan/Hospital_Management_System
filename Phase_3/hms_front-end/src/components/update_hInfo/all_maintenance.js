@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 const cardStyles = makeStyles({
   gridContainer: {
@@ -14,6 +15,7 @@ const cardStyles = makeStyles({
 });
 
 function MaterialUIFormSubmit(props) {
+  const navigate = useNavigate();
   const [maintenance, setMaintenance] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => getMaintenance(), []);
@@ -72,6 +74,7 @@ function MaterialUIFormSubmit(props) {
     axios.put('http://127.0.0.1:5000/maintenceAPI_given_h_name', data)
     .then(function (response) {
       console.log(response.data);
+      navigate('/all_maintenance')
     })
     .catch(function (error) {
       console.log(error);
@@ -88,6 +91,7 @@ function MaterialUIFormSubmit(props) {
     axios.post('http://127.0.0.1:5000/maintenceAPI_given_h_name', data)
     .then(function (response) {
       console.log(response.data);
+      navigate('/all_maintenance')
     })
     .catch(function (error) {
       console.log(error);

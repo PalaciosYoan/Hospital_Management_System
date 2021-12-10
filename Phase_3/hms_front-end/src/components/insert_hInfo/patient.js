@@ -16,6 +16,7 @@ const cardStyles = makeStyles({
 });
 
 function MaterialUIFormSubmit(props) {
+  const navigate = useNavigate();
   const [values, setValues] = React.useState([]);
   const [selected, setSelected] = useState(" ");
 
@@ -42,7 +43,7 @@ function MaterialUIFormSubmit(props) {
   function handleChange_3(event) {
     setSelected_3(event.target.value);
   }
-  const navigate = useNavigate();
+
   const getDoctor = () => {
     axios
       .post("http://127.0.0.1:5000/getDoctors", {
@@ -131,6 +132,7 @@ function MaterialUIFormSubmit(props) {
     axios.post('http://127.0.0.1:5000/getPatients', data)
     .then(function (response) {
       console.log(response.data);
+      navigate('/patient')
     })
     .catch(function (error) {
       console.log(error);

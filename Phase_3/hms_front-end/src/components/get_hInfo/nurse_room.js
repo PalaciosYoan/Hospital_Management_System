@@ -56,7 +56,7 @@ function OutlinedCard() {
   const classes = useStyles();
   const cards = cardStyles();
 
-  function deleteInfo(){
+  function deleteInfo() {
     const formInput = {};
     formInput["n_id"] = localStorage.getItem("n_id");
     formInput["r_id"] = localStorage.getItem("r_id");
@@ -64,12 +64,12 @@ function OutlinedCard() {
 
     let data = { formInput };
     axios.post('http://127.0.0.1:5000/nurse_room_junc', data)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     console.log(data);
   }
 
@@ -77,7 +77,7 @@ function OutlinedCard() {
     return (
       <Grid item xs={12} sm={6} md={4} key={index}>
         <Card className={classes.root} variant="outlined">
-          <CardContent  style={{textAlign: "center" }}>
+          <CardContent style={{ textAlign: "center" }}>
             <Typography
               className={classes.title}
               color="textSecondary"
@@ -103,17 +103,17 @@ function OutlinedCard() {
               Select room
             </Button>
             <Button
-                style={{ backgroundColor: "red", color: "#FFFFFF" }}
-                onClick={() => {
+              style={{ backgroundColor: "red", color: "#FFFFFF" }}
+              onClick={() => {
                 localStorage.setItem("r_id", nurse.r_id);
                 deleteInfo();
-                }}
-                variant="contained"
-                className={classes.button}
-              >
-                Delete
-              </Button>
-            
+              }}
+              variant="contained"
+              className={classes.button}
+            >
+              Delete
+            </Button>
+
           </CardActions>
         </Card>
       </Grid>
@@ -137,14 +137,32 @@ function OutlinedCard() {
                 {localStorage.getItem("hospital_address")}
               </Typography>
               <Button
-              onClick={() => {
-                navigate("/insert_nurse_room");
-              }}
-              size="small"
-              variant="outlined"
-            >
-              Add Room
-            </Button>
+                onClick={() => {
+                  navigate("/insert_nurse_room");
+                }}
+                size="small"
+                variant="outlined"
+              >
+                Add Room
+              </Button>
+              <Button
+                onClick={() => {
+                  navigate("/info");
+                }}
+                size="small"
+                variant="outlined"
+              >
+                Menu
+              </Button>
+              <Button
+                onClick={() => {
+                  navigate("/");
+                }}
+                size="small"
+                variant="outlined"
+              >
+                Hub
+              </Button>
             </CardContent>
           </Card>
         </center>

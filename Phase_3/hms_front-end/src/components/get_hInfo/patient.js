@@ -122,6 +122,27 @@ function OutlinedCard() {
             >
               Add Patient
             </Button>
+
+              <Button
+              onClick={() => {
+                navigate("/info");
+              }}
+              size="small"
+              variant="outlined"
+            >
+              Menu 
+            </Button>
+            <Button
+              onClick={() => {
+                navigate("/");
+              }}
+              size="small"
+              variant="outlined"
+            >
+              Hub 
+            </Button>
+
+       
               </Typography>
             </CardContent>
           </Card>

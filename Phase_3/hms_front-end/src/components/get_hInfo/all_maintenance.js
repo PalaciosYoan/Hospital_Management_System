@@ -42,13 +42,13 @@ function OutlinedCard() {
   const getMaintenance = () => {
 
     axios.get('http://127.0.0.1:5000/getallMaintence')
-    .then(function (response) {
-      console.log(response.data);
-      setMaintenance(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        console.log(response.data);
+        setMaintenance(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   };
   const classes = useStyles();
@@ -64,7 +64,7 @@ function OutlinedCard() {
               color="textSecondary"
               gutterBottom
             ></Typography>
-            <Typography variant="h5" component="h2" style={{textAlign: "center" }}>
+            <Typography variant="h5" component="h2" style={{ textAlign: "center" }}>
               {maintenance.name}
             </Typography>
             <Typography variant="body2" component="p">
@@ -110,39 +110,59 @@ function OutlinedCard() {
   }
   return (
     <div>
-        <div>
+      <div>
         <center>
-        <Card className={cards.root} variant="outlined">
-          <CardContent>
-            <Typography
-              className="Hospital"
-              color="textSecondary"
-              gutterBottom
-            ></Typography>
-            <Typography variant="body2" component="p">
-              <Button
-              onClick={() => {
-                navigate("/insert_maintenance_menu");
-              }}
-              size="small"
-              variant="outlined"
-            >
-              Add Maintenance
-            </Button>
+          <Card className={cards.root} variant="outlined">
+            <CardContent>
+              <Typography
+                className="Hospital"
+                color="textSecondary"
+                gutterBottom
+              ></Typography>
+              <Typography variant="body2" component="p">
+                <Button
+                  onClick={() => {
+                    navigate("/insert_maintenance_menu");
+                  }}
+                  size="small"
+                  variant="outlined"
+                >
+                  Add Maintenance
+                </Button>
               </Typography>
-          </CardContent>
-        </Card>
-      </center>
-      &nbsp;
-        </div>
-    <Grid
-      container
-      spacing={4}
-      className={cards.gridContainer}
-      justifyContent="center"
-    >
-      {maintenance.map(mapCards)}
-    </Grid>
+              <Button
+                onClick={() => {
+                  navigate("/info");
+                }}
+                size="small"
+                variant="outlined"
+              >
+                Menu
+              </Button>
+              <Button
+                onClick={() => {
+                  navigate("/");
+                }}
+                size="small"
+                variant="outlined"
+              >
+                Hub
+              </Button>
+
+
+            </CardContent>
+          </Card>
+        </center>
+        &nbsp;
+      </div>
+      <Grid
+        container
+        spacing={4}
+        className={cards.gridContainer}
+        justifyContent="center"
+      >
+        {maintenance.map(mapCards)}
+      </Grid>
     </div>
   );
 }

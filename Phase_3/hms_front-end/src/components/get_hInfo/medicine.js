@@ -45,13 +45,13 @@ function OutlinedCard() {
       queryType: 'get',
       hospital_name: localStorage.getItem("hospital_name")
     })
-    .then(function (response) {
-      console.log(response.data);
-      setMedicine(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        console.log(response.data);
+        setMedicine(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   };
   const classes = useStyles();
@@ -67,7 +67,7 @@ function OutlinedCard() {
               color="textSecondary"
               gutterBottom
             ></Typography>
-            <Typography variant="h5" component="h2" style={{textAlign: "center" }}>
+            <Typography variant="h5" component="h2" style={{ textAlign: "center" }}>
               {medicine.name}
             </Typography>
             <Typography variant="body2">
@@ -102,7 +102,7 @@ function OutlinedCard() {
               }}
               size="small"
             >
-             Edit Medicine
+              Edit Medicine
             </Button>
           </CardActions>
         </Card>
@@ -111,46 +111,68 @@ function OutlinedCard() {
   }
   return (
     <div>
-        <div>
+      <div>
         <center>
-        <Card className={cards.root} variant="outlined">
-          <CardContent>
-            <Typography
-              className="Hospital"
-              color="textSecondary"
-              gutterBottom
-            ></Typography>
-            <Typography variant="h5" component="h2">
-              {localStorage.getItem("hospital_name")}
-            </Typography>
-            <Typography variant="body2" component="p">
-            {localStorage.getItem("hospital_address")}
-            </Typography>
-            <Typography variant="body2" component="p">
-              <Button
-              onClick={() => {
-            
-                navigate("/insert_medicine");
-              }}
-              size="small"
-              variant="outlined"
-            >
-              Add Medicine
-            </Button>
+          <Card className={cards.root} variant="outlined">
+            <CardContent>
+              <Typography
+                className="Hospital"
+                color="textSecondary"
+                gutterBottom
+              ></Typography>
+              <Typography variant="h5" component="h2">
+                {localStorage.getItem("hospital_name")}
               </Typography>
-          </CardContent>
-        </Card>
-      </center>
-      &nbsp;
-        </div>
-    <Grid
-      container
-      spacing={4}
-      className={cards.gridContainer}
-      justifyContent="center"
-    >
-      {medicine.map(mapCards)}
-    </Grid>
+              <Typography variant="body2" component="p">
+                {localStorage.getItem("hospital_address")}
+              </Typography>
+              <Typography variant="body2" component="p">
+                <Button
+                  onClick={() => {
+
+                    navigate("/insert_medicine");
+                  }}
+                  size="small"
+                  variant="outlined"
+                >
+                  Add Medicine
+                </Button>
+
+
+                <Button
+                  onClick={() => {
+                    navigate("/info");
+                  }}
+                  size="small"
+                  variant="outlined"
+                >
+                  Menu
+                </Button>
+                <Button
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                  size="small"
+                  variant="outlined"
+                >
+                  Hub
+                </Button>
+
+
+              </Typography>
+            </CardContent>
+          </Card>
+        </center>
+        &nbsp;
+      </div>
+      <Grid
+        container
+        spacing={4}
+        className={cards.gridContainer}
+        justifyContent="center"
+      >
+        {medicine.map(mapCards)}
+      </Grid>
     </div>
   );
 }

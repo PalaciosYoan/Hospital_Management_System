@@ -73,6 +73,7 @@ function MaterialUIFormSubmit(props) {
     axios.post('http://127.0.0.1:5000/maintenceAPI_given_h_name', data)
     .then(function (response) {
       console.log(response.data);
+      navigate('/maintenance')
     })
     .catch(function (error) {
       console.log(error);

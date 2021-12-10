@@ -45,13 +45,13 @@ function OutlinedCard() {
       queryType: 'hospital',
       hospital_name: localStorage.getItem("hospital_name")
     })
-    .then(function (response) {
-      console.log(response.data);
-      setDoctor(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        console.log(response.data);
+        setDoctor(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
   };
   const classes = useStyles();
@@ -106,45 +106,63 @@ function OutlinedCard() {
   }
   return (
     <div>
-        <div>
+      <div>
         <center>
-        <Card className={cards.root} variant="outlined">
-          <CardContent>
-            <Typography
-              className="Hospital"
-              color="textSecondary"
-              gutterBottom
-            ></Typography>
-            <Typography variant="h5" component="h2">
-              {localStorage.getItem("hospital_name")}
-            </Typography>
-            <Typography variant="body2" component="p">
-            {localStorage.getItem("hospital_address")}
-            </Typography>
-            <Typography variant="body2" component="p">
-              <Button
-              onClick={() => {
-                navigate("/insert_doctor");
-              }}
-              size="small"
-              variant="outlined"
-            >
-              Add Doctor
-            </Button>
+          <Card className={cards.root} variant="outlined">
+            <CardContent>
+              <Typography
+                className="Hospital"
+                color="textSecondary"
+                gutterBottom
+              ></Typography>
+              <Typography variant="h5" component="h2">
+                {localStorage.getItem("hospital_name")}
               </Typography>
-          </CardContent>
-        </Card>
-      </center>
-      &nbsp;
-        </div>
-    <Grid
-      container
-      spacing={4}
-      className={cards.gridContainer}
-      justifyContent="center"
-    >
-      {doctor.map(mapCards)}
-    </Grid>
+              <Typography variant="body2" component="p">
+                {localStorage.getItem("hospital_address")}
+              </Typography>
+              <Typography variant="body2" component="p">
+                <Button
+                  onClick={() => {
+                    navigate("/insert_doctor");
+                  }}
+                  size="small"
+                  variant="outlined"
+                >
+                  Add Doctor
+                </Button>
+                <Button
+                  onClick={() => {
+                    navigate("/info");
+                  }}
+                  size="small"
+                  variant="outlined"
+                >
+                  Menu
+                </Button>
+                <Button
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                  size="small"
+                  variant="outlined"
+                >
+                  Hub
+                </Button>
+              </Typography>
+            </CardContent>
+          </Card>
+        </center>
+        &nbsp;
+      </div>
+      <Grid
+        container
+        spacing={4}
+        className={cards.gridContainer}
+        justifyContent="center"
+      >
+        {doctor.map(mapCards)}
+      </Grid>
     </div>
   );
 }
